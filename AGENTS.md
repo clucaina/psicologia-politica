@@ -28,3 +28,11 @@
 - Publicar únicamente con aceptación explícita tras pruebas de restauración. GitHub CI de fuente completa falla actualmente porque aún no se ha subido todo V16: **no es permiso para saltarse pruebas**.
 
 Esta documentación permite retomar la importación directamente desde el repositorio conectado, sin repetir al usuario las instrucciones, contraseñas o descargas.
+
+## IMPORTANTE: separación entre copias privadas y raíz HTTP
+
+La rama de auditoría contiene `preservacion/` porque se preparó antes de cargar el código V16. **NO se debe copiar esa carpeta a `public_html`**, ni publicar manifiestos, HTML históricos, diagnósticos o copias de artículos como rutas adicionales. Su respaldo definitivo está en la rama privada independiente `respaldo/decreto-mari-carmen-2026-10-08`.
+
+Cuando se prepare la rama definitiva del código para despliegue, usar un árbol de aplicación limpio que incluya únicamente archivos necesarios de PHP, JS, CSS, recursos públicos y migraciones seguras. Mantener documentación y copias fuera del directorio desplegado mediante selección explícita de archivos/paths. No asumir que Hostinger hace esa separación por sí solo.
+
+**HTML real ya comprobado:** `<script async src="https://www.googletagmanager.com/gtag/js?id=G-D7KPSFPMM5">` y `<script src="/analytics.js">` aparecen en la respuesta HTML publicada del artículo. El canario ampliado de GitHub Actions pasó en `actions/runs/37761581083`. Esto verifica inserción del código, no eventos recibidos en GA4 ni consentimiento.

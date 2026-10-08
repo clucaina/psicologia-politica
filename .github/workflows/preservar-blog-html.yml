@@ -1,0 +1,67 @@
+name: Copia privada de artículos publicados
+
+on:
+  push:
+    branches:
+      - preproduccion/auditoria-2026-10-08
+    paths:
+      - .github/workflows/preservar-blog-html.yml
+
+permissions:
+  contents: write
+
+jobs:
+  preservar-blog:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - name: Guardar HTML público, metadatos y hashes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib, json, pathlib, urllib.request, datetime
+          base='https://psicologiapolitica.es'
+          routes=[
+           ('blog','/blog','Blog'),
+           ('decreto-mari-carmen-0071e38b','/blog/decreto-mari-carmen-0071e38b','Decreto Mari Carmen'),
+           ('defiende-lo-contrario-sin-renunciar-a-tu-criterio','/blog/defiende-lo-contrario-sin-renunciar-a-tu-criterio','Defiende lo contrario'),
+           ('analizar-un-discurso-sin-diagnosticar-a-su-autor','/blog/analizar-un-discurso-sin-diagnosticar-a-su-autor','Analizar un discurso'),
+           ('antes-de-compartir-un-mensaje-politico','/blog/antes-de-compartir-un-mensaje-politico','mensaje político'),
+           ('una-politica-no-se-evalua-por-lo-bien-que-suena','/blog/una-politica-no-se-evalua-por-lo-bien-que-suena','Una política no se evalúa'),
+           ('la-obediencia-no-siempre-parece-obediencia','/blog/la-obediencia-no-siempre-parece-obediencia','obediencia'),
+           ('los-silencios-tambien-se-heredan','/blog/los-silencios-tambien-se-heredan','silencios'),
+          ]
+          dest=pathlib.Path('preservacion/2026-10-08/html-publicado')
+          dest.mkdir(parents=True,exist_ok=True)
+          manifest=[]
+          for slug,path,needle in routes:
+              request=urllib.request.Request(base+path,headers={'User-Agent':'PsicologiaPolitica-PrivateBackup/1.0'})
+              with urllib.request.urlopen(request,timeout=22) as r:
+                  assert r.status==200,(path,r.status)
+                  body=r.read(2_000_001)
+              if not body or len(body)>2_000_000: raise RuntimeError('Respuesta vacía o demasiado grande: '+path)
+              text=body.decode('utf-8',errors='replace')
+              if needle.casefold() not in text.casefold(): raise RuntimeError('Falta el título esperado: '+path)
+              if 'decreto-mari-carmen' in slug and '971a8ade-e871-48ce-85cc-fe4df9048352.jpg' not in text:
+                  raise RuntimeError('La portada original no figura en HTML: '+path)
+              f=dest / (slug+'.html')
+              f.write_bytes(body)
+              manifest.append({'slug':slug,'url':base+path,'path':f.as_posix(),
+                 'bytes':len(body),'sha256':hashlib.sha256(body).hexdigest()})
+              print('ARCHIVADO',slug,len(body))
+          (dest/'manifest.json').write_text(json.dumps({'captured_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),
+             'purpose':'copia pública de consulta, no exportación de filas MySQL',
+             'pages':manifest},ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print('PASS',len(manifest),'páginas archivadas')
+          PY
+          git add -- preservacion/2026-10-08/html-publicado
+          if git diff --staged --quiet; then
+            echo 'Las páginas ya estaban archivadas'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'backup(blog): guardar HTML original público y metadatos de 7 artículos'
+          git push origin HEAD:preproduccion/auditoria-2026-10-08

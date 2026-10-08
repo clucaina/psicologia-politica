@@ -1,0 +1,67 @@
+name: Preproducción · seguridad y QA
+
+on:
+  pull_request:
+  push:
+    branches:
+      - 'preproduccion/**'
+
+permissions:
+  contents: read
+
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Bloquear publicaciones incompletas
+        shell: bash
+        run: |
+          test -s index.php
+          test -s _private/pages.php
+          test -s _private/editorial.php
+          test -s assets/analytics.js
+          test -s tests/qa_cli.php
+          test -s tests/qa_semantic_v16.php
+          test -s tests/qa_v16.py
+          grep -Fq 'G-D7KPSFPMM5' assets/analytics.js
+          grep -Fq 'https://www.googletagmanager.com/gtag/js?id=G-D7KPSFPMM5' _private/pages.php
+          grep -Fq '/assets/analytics.js' _private/pages.php
+          test ! -e _private/config.php
+          test ! -e .env
+
+      - name: PHP 8.3
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, xml, pdo_mysql
+          coverage: none
+
+      - name: Lint PHP
+        shell: bash
+        run: |
+          find . -name '*.php' -type f -print0 | xargs -0 -n1 php -l
+
+      - name: Lint JavaScript
+        shell: bash
+        run: |
+          find assets tests -name '*.js' -type f -print0 | xargs -0 -n1 node --check
+
+      - name: Tests de PHP y ciencia de datos
+        shell: bash
+        run: |
+          php tests/qa_cli.php
+          php tests/qa_semantic_v16.php
+          python3 tests/qa_v16.py
+
+      - name: Bloqueo de secretos y volcados de base de datos
+        shell: bash
+        run: |
+          if git ls-files | grep -E '(^|/)(config\.php|installed\.lock|\.env$)|\.sql(\.zip|\.gz)?$|^uploads/[^.]'; then
+            echo 'ERROR: archivos de entorno o SQL en Git'
+            exit 1
+          fi
+          echo 'Sin archivos de entorno prohibidos'
+
+# Este flujo NUNCA despliega ni toca Hostinger. Falta staging remoto MariaDB.

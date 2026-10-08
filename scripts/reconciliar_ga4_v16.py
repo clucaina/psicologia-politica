@@ -36,13 +36,16 @@ def main():
           "function gtag(){ dataLayer.push(arguments); }\n"
           "gtag('js', new Date());\n"
           f"gtag('config', '{GA4}');\n")
+    if NEW_CSP not in src or NEW_CONNECT not in src:
+        raise SystemExit("CSP incompleta para GA4; no escribir.")
     if ASSET.exists():
         current = ASSET.read_text(encoding="utf-8")
-        if current != js and GA4 not in current:
-            raise SystemExit("El analytics.js existente tiene otra configuración; no sobreescribir.")
+        if current.count(f"gtag('config', '{GA4}')") != 1:
+            raise SystemExit("Revisar analytics.js: código distinto o duplicado; no sobreescribir.")
     PAGES.write_text(src, encoding="utf-8")
-    ASSET.write_text(js, encoding="utf-8")
-    print("GA4 V16 reconciliada, idempotente. Sin conexión ni cambios en Hostinger.")
+    if not ASSET.exists():
+        ASSET.write_text(js, encoding="utf-8")
+    print("GA4 V16 reconciliada, sin modificar analytics.js preexistente. No se tocó Hostinger.")
 
 if __name__ == "__main__":
     main()

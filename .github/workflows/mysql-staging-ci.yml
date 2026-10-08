@@ -41,17 +41,23 @@ jobs:
           coverage: none
       - name: Preparar cliente MySQL efímero
         run: python3 -m pip install --quiet pymysql
-      - name: Construir 33 tablas e insertar artículo público recuperado
+      - name: Construir MySQL 8 con las 42 publicaciones públicas preservadas
         shell: bash
         run: |
           set -euo pipefail
+          git show origin/respaldo/decreto-mari-carmen-2026-10-08:preservacion/2026-10-08/todas-las-publicaciones-publicas-42.json >/tmp/pp_posts_public.json
           git show origin/respaldo/decreto-mari-carmen-2026-10-08:preservacion/2026-10-08/decreto-mari-carmen-registro-publicado.json >/tmp/pp_article_public.json
           python3 - <<'PY'
           import json, pymysql
           schema=json.load(open('_private/schema.json',encoding='utf-8'))
-          article=json.load(open('/tmp/pp_article_public.json',encoding='utf-8'))['post']
-          assert article['slug']=='decreto-mari-carmen-0071e38b'
-          assert article['cover_image_key']=='971a8ade-e871-48ce-85cc-fe4df9048352.jpg'
+          posts=json.load(open('/tmp/pp_posts_public.json',encoding='utf-8'))['posts']
+          mari=json.load(open('/tmp/pp_article_public.json',encoding='utf-8'))['post']
+          assert len(posts)==42 and len({p['slug'] for p in posts})==42
+          assert sum(p['kind']=='news' for p in posts)==34
+          assert sum(p['kind']=='blog' for p in posts)==7
+          assert sum(p['kind']=='analysis' for p in posts)==1
+          assert next(p for p in posts if p['slug']==mari['slug'])==mari
+          assert mari['slug']=='decreto-mari-carmen-0071e38b' and mari['cover_image_key']=='971a8ade-e871-48ce-85cc-fe4df9048352.jpg'
           con=pymysql.connect(host='127.0.0.1',port=3306,user='root',password='CI_TEST_ONLY',database='pp_ci',charset='utf8mb4',autocommit=False)
           with con.cursor() as cur:
               cur.execute('SET FOREIGN_KEY_CHECKS=0')
@@ -59,14 +65,18 @@ jobs:
                   assert ddl.lstrip().upper().startswith('CREATE TABLE ')
                   cur.execute(ddl)
               cur.execute('SET FOREIGN_KEY_CHECKS=1')
-              names=list(article)
+              names=list(mari)
               assert all(x.replace('_','').isalnum() for x in names)
+              assert all(set(x)==set(names) for x in (p.keys() for p in posts))
               sql='INSERT INTO editorial_posts ('+','.join(chr(96)+x+chr(96) for x in names)+') VALUES ('+','.join(['%s']*len(names))+')'
-              cur.execute(sql,[article[n] for n in names])
-              cur.execute('SELECT COUNT(*) FROM editorial_posts WHERE slug=%s',(article['slug'],))
+              for post in posts:
+                  cur.execute(sql,[post[n] for n in names])
+              cur.execute('SELECT COUNT(*) FROM editorial_posts')
+              assert cur.fetchone()[0]==42
+              cur.execute('SELECT COUNT(*) FROM editorial_posts WHERE slug=%s AND cover_image_key=%s',(mari['slug'],mari['cover_image_key']))
               assert cur.fetchone()[0]==1
           con.commit();con.close()
-          print('PASS: 33 tablas MySQL 8.0; fila pública original de Decreto Mari Carmen restaurada en base efímera')
+          print('PASS: 33 tablas MySQL 8.0, 42 entradas públicas y Decreto Mari Carmen con imagen original enlazada')
           PY
       - name: Configurar PHP únicamente dentro del runner
         shell: bash
@@ -91,7 +101,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          for route in '/' '/blog' '/blog/decreto-mari-carmen-0071e38b' '/herramientas' '/herramientas/analizar-texto' '/herramientas/datos-espana' '/conflictometro'; do
+          for route in '/' '/blog' '/noticias' '/blog/decreto-mari-carmen-0071e38b' '/herramientas' '/herramientas/analizar-texto' '/herramientas/datos-espana' '/conflictometro'; do
             status=$(curl -sS --max-time 15 -o /tmp/pp_last_response.html -w '%{http_code}' "http://127.0.0.1:8765$route")
             if [ "$status" != 200 ]; then
               echo "FAIL $route => $status"

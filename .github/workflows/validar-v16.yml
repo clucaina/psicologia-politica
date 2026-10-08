@@ -72,6 +72,11 @@ jobs:
           php tests/qa_cli.php
           php tests/qa_semantic_v16.php
 
+      - name: Instalar navegador Chromium para pruebas reales
+        run: |
+          python3 -m pip install --quiet playwright
+          python3 -m playwright install --with-deps chromium
+
       - name: Python / UX / cartografía
         run: |
           python3 tests/qa_v16.py

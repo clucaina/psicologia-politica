@@ -1,0 +1,20 @@
+{
+  "audit_date": "2026-10-08",
+  "scope": "public_read_only",
+  "method": "Public HTTPS content extraction with JavaScript-aware fetch; multiple routes compared. No authenticated access or production writes.",
+  "verification_note": "This is a snapshot of public SSR/extracted text, not a full interactive-browser acceptance test. Do not infer that JS controls work or fail from the SSR result alone.",
+  "observations": [
+    {"route": "/", "status": "content_returned", "finding": "Home has specific heading, intro and news excerpts; canonical and robots index/follow detected.", "severity": "info"},
+    {"route": "/conflictometro", "status": "content_returned", "finding": "SSR/extracted content repeats the general news excerpts rather than explaining map, controls, coverage, legend or methodology. V14 repo has a specific SSR fallback but it is not reflected in the live HTML.", "severity": "high", "verified_against": "/herramientas/analizar-texto and /contacto"},
+    {"route": "/herramientas/analizar-texto", "status": "content_returned", "finding": "SSR/extracted content repeats the same generic news excerpts; specific analyzer purpose and caveats absent in extracted text.", "severity": "high"},
+    {"route": "/contacto", "status": "content_returned", "finding": "SSR/extracted content repeats generic news excerpts; contact-specific fallback missing in extracted text.", "severity": "medium"},
+    {"route": "/herramientas", "status": "content_returned", "finding": "SSR/extracted content repeats generic news excerpts; V14 prepared repo includes a specific tool list fallback.", "severity": "medium"},
+    {"route": "/blog", "status": "content_returned", "finding": "Blog SSR includes article-specific headings and links, not the generic news feed.", "severity": "pass"},
+    {"route": "/quienes-somos", "status": "content_returned", "finding": "SSR includes five individual team members with correct names.", "severity": "pass"},
+    {"route": "/mapa-espana", "status": "404", "finding": "Standalone map route is not live. V14 repo includes route and noindex preproduction, so absence is expected until authorized staging/deploy; not counted as regression.", "severity": "expected_predeployment"},
+    {"route": "/blog/decreto-mari-carmen-0071e38b", "status": "content_returned", "finding": "Rendered text exposes literal Markdown emphasis markers. V14 repo contains pp_markdown_inline compatibility code; recheck after staging deployment.", "severity": "medium"},
+    {"route": "/blog/defiende-lo-contrario-sin-renunciar-a-tu-criterio", "status": "content_returned", "finding": "Headings and numbered steps render as structured Markdown in extracted content. Therefore the Mari Carmen issue is article-specific rather than proven site-wide.", "severity": "pass"}
+  ],
+  "release_gate": "NO-GO",
+  "not_tested": ["authenticated blog editing", "MySQL staging", "real user interactions", "live performance metrics", "WCAG audit in production", "automated deployment"]
+}

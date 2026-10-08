@@ -1,0 +1,93 @@
+name: V16 · Auditoría de rama de publicación
+
+on:
+  push:
+    branches:
+      - preproduccion/v16-integracion-sin-work
+    paths:
+      - .github/workflows/auditar-runtime.yml
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .github/workflows/auditar-runtime.yml
+
+permissions:
+  contents: read
+
+jobs:
+  verificar-candidato:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: PHP 8.3
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, pdo_mysql
+          coverage: none
+
+      - name: Descargar solo las referencias Git
+        shell: bash
+        run: |
+          git fetch --no-tags --depth=1 origin refs/heads/preproduccion/v16-runtime-limpio:refs/remotes/origin/preproduccion/v16-runtime-limpio
+
+      - name: Comparar blobs y bloquear archivos inseguros
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import os,re,subprocess,sys
+          target='origin/preproduccion/v16-runtime-limpio'
+          def blobs(ref):
+              out=subprocess.check_output(['git','ls-tree','-rz',ref])
+              result={}
+              for rec in out.split(b'\x00'):
+                  if not rec: continue
+                  meta,name=rec.split(b'\t',1)
+                  mode,kind,sha=meta.decode().split()
+                  if kind=='blob': result[name.decode()] = (mode,sha)
+              return result
+          src=blobs('HEAD')
+          dst=blobs(target)
+          errors=[]
+          must=['index.php','_private/core.php','_private/pages.php','_private/uploads.php','_private/editorial.php','analytics.js','.htaccess','assets/site.css',
+                'geo/spain-communities.geojson','geo/spain-provinces.geojson']
+          for p in must:
+              if p not in dst:errors.append('Falta recurso de producción: '+p)
+          for p,v in dst.items():
+              if p not in src or v!=src[p]:errors.append('Archivo de publicación difiere del código validado: '+p)
+              if p.startswith(('.github/','docs/','tests/','experiments/','uploads/')): errors.append('Carpeta prohibida: '+p)
+              if p in ('install.php','_private/config.php','.env','README.md'): errors.append('Archivo no publicable: '+p)
+              if p.endswith('.sql') and not p.endswith('.schema.sql'): errors.append('SQL no aprobado: '+p)
+              if p.endswith(('.zip','.sql.gz','.sql.zip','.log','.pem','.key','.sqlite')):errors.append('Archivo sensible: '+p)
+          mig=[p for p in dst if p.endswith('.schema.sql')]
+          if len(mig)!=2:errors.append('Esperadas dos migraciones aditivas, encontradas '+str(len(mig)))
+          if len(dst)<200:errors.append('Árbol de producción anormalmente pequeño: '+str(len(dst)))
+          print(f'Fuentes V16: {len(src)}; runtime: {len(dst)}; diferencias prohibidas: {len(errors)}')
+          for problem in errors[:40]:print('ERROR',problem)
+          if errors:sys.exit(1)
+          PY
+
+      - name: Comprobar sintaxis real del runtime
+        shell: bash
+        run: |
+          git worktree add --detach /tmp/pp_runtime origin/preproduccion/v16-runtime-limpio
+          cd /tmp/pp_runtime
+          find . -name '*.php' -type f -print0 | xargs -0 -r -n1 php -l
+          find assets -name '*.js' -type f -print0 | xargs -0 -r -n1 node --check
+          node --check analytics.js
+          grep -Fq 'G-D7KPSFPMM5' analytics.js
+          grep -Fq 'src="/analytics.js"' _private/pages.php
+          test -f _private/.htaccess
+          test -f database/.htaccess
+          test ! -e _private/config.php
+          test ! -e install.php
+          test ! -e tests
+          test ! -e docs
+          echo "RUNTIME AUDITADO. Este workflow NO despliega."
+
+# ATENCIÓN: ni el workflow ni la rama runtime respaldan MySQL, uploads ni configuración actual de Hostinger.

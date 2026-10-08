@@ -1,0 +1,103 @@
+name: V16 · Integridad y pruebas sin despliegue
+
+on:
+  push:
+    branches:
+      - preproduccion/v16-integracion-sin-work
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  qa-integridad:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Integridad binaria de 285 archivos V16
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json,hashlib,pathlib,sys
+          root=pathlib.Path('.')
+          manifest=json.loads((root/'tests/manifest_integridad_v16.json').read_text())
+          problems=[]
+          for rel,expected in manifest['files'].items():
+              path=root/rel
+              if not path.is_file():
+                  problems.append('FALTA '+rel)
+                  continue
+              content=path.read_bytes()
+              if len(content)!=expected['bytes'] or hashlib.sha256(content).hexdigest()!=expected['sha256']:
+                  problems.append('ALTERADO '+rel)
+          for item in problems[:40]:print(item)
+          print('Verificados:',len(manifest['files'])-len(problems),'/',len(manifest['files']))
+          if problems:sys.exit(1)
+          PY
+
+      - name: Archivo GA4 correcto y ninguna configuración privada
+        shell: bash
+        run: |
+          set -eu
+          test -s analytics.js
+          test ! -e _private/config.php
+          test ! -e .env
+          grep -Fq 'G-D7KPSFPMM5' analytics.js
+          grep -Fq 'https://www.googletagmanager.com/gtag/js?id=G-D7KPSFPMM5' _private/pages.php
+          grep -Fq '/analytics.js' _private/pages.php
+          ! grep -Fq '/assets/analytics.js' _private/pages.php
+          python3 tests/qa_integracion_ga4.py
+
+      - name: Instalar PHP 8.3
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, xml, pdo_mysql
+          coverage: none
+
+      - name: Sintaxis PHP
+        run: find . -name '*.php' -type f -print0 | xargs -0 -r -n1 php -l
+
+      - name: Sintaxis JavaScript
+        run: |
+          find assets tests -name '*.js' -type f -print0 | xargs -0 -r -n1 node --check
+          node --check analytics.js
+
+      - name: Regresión de PHP y semántica
+        run: |
+          php tests/qa_cli.php
+          php tests/qa_semantic_v16.php
+
+      - name: Python / UX / cartografía
+        run: |
+          python3 tests/qa_v16.py
+          python3 tests/qa_browser_v16.py
+
+      - name: Bloquear SQL destructivo y secretos
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import pathlib,subprocess,re,sys
+          paths=subprocess.check_output(['git','ls-files'],text=True).splitlines()
+          illegal=[]
+          for s in paths:
+              low=s.lower()
+              if low in ('.env','_private/config.php') or s.startswith('uploads/') or s.endswith(('.db','.sqlite','.sql.zip','.sql.gz','.pem','.key')):
+                  illegal.append(s)
+              if s.endswith('.sql') and not s.endswith('.schema.sql'):illegal.append(s)
+          if illegal:
+              print('Ficheros prohibidos:',illegal)
+              sys.exit(1)
+          for file in pathlib.Path('database/migrations').glob('*.schema.sql'):
+              data=file.read_text(encoding='utf-8')
+              if re.search(r'\b(?:DROP|DELETE|TRUNCATE|REPLACE)\s+',data,re.IGNORECASE):
+                  print('SQL potencialmente destructivo:',file)
+                  sys.exit(1)
+          print('Seguridad básica de repositorio: PASS')
+          PY
+
+# CI de solo lectura. Prohibido desplegar desde GitHub sin backup vivo de Hostinger.

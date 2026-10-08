@@ -21,13 +21,13 @@ jobs:
           test -s index.php
           test -s _private/pages.php
           test -s _private/editorial.php
-          test -s assets/analytics.js
+          test -s analytics.js
           test -s tests/qa_cli.php
           test -s tests/qa_semantic_v16.php
           test -s tests/qa_v16.py
-          grep -Fq 'G-D7KPSFPMM5' assets/analytics.js
+          grep -Fq 'G-D7KPSFPMM5' analytics.js
           grep -Fq 'https://www.googletagmanager.com/gtag/js?id=G-D7KPSFPMM5' _private/pages.php
-          grep -Fq '/assets/analytics.js' _private/pages.php
+          grep -Fq '/analytics.js' _private/pages.php
           test ! -e _private/config.php
           test ! -e .env
 
@@ -46,7 +46,7 @@ jobs:
       - name: Lint JavaScript
         shell: bash
         run: |
-          find assets tests -name '*.js' -type f -print0 | xargs -0 -n1 node --check
+          find assets tests -name '*.js' -type f -print0; test -s analytics.js && node --check analytics.js | xargs -0 -n1 node --check
 
       - name: Tests de PHP y ciencia de datos
         shell: bash

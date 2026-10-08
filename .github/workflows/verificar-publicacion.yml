@@ -1,0 +1,45 @@
+name: Canarios de producción (solo lectura)
+
+on:
+  push:
+    branches:
+      - 'preproduccion/**'
+    paths:
+      - .github/workflows/verificar-publicacion.yml
+      - 'preservacion/**'
+      - 'scripts/smoke_produccion.py'
+  pull_request:
+    paths:
+      - .github/workflows/verificar-publicacion.yml
+      - 'preservacion/**'
+      - 'scripts/smoke_produccion.py'
+
+permissions:
+  contents: read
+
+jobs:
+  comprobar-publicaciones:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Artículo, portada, blog y Analytics vivos
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE='https://psicologiapolitica.es'
+          mkdir -p /tmp/pp_smoke
+          curl -fsSL --retry 2 --max-time 45 "$BASE/blog/decreto-mari-carmen-0071e38b" -o /tmp/pp_smoke/articulo.html
+          grep -Fq 'Decreto Mari Carmen' /tmp/pp_smoke/articulo.html
+          grep -Fq '971a8ade-e871-48ce-85cc-fe4df9048352.jpg' /tmp/pp_smoke/articulo.html
+          curl -fsSL --retry 2 --max-time 45 "$BASE/blog" -o /tmp/pp_smoke/blog.html
+          grep -Fq 'Decreto Mari Carmen' /tmp/pp_smoke/blog.html
+          curl -fsSL --retry 2 --max-time 45 "$BASE/analytics.js" -o /tmp/pp_smoke/analytics.js
+          grep -Fq 'G-D7KPSFPMM5' /tmp/pp_smoke/analytics.js
+          curl -fsSL --retry 2 --max-time 45 "$BASE/api/media/971a8ade-e871-48ce-85cc-fe4df9048352.jpg" -o /tmp/pp_smoke/portada.jpg
+          test "$(file -b --mime-type /tmp/pp_smoke/portada.jpg)" = "image/jpeg"
+          ACTUAL=$(sha256sum /tmp/pp_smoke/portada.jpg | cut -d' ' -f1)
+          ESPERADO='12c45091feee01a11355310cef09ae83cd6262cf4271fad718f0814acfc289d3'
+          test "$ACTUAL" = "$ESPERADO" || { echo 'Portada original cambió: revisar antes de desplegar'; exit 1; }
+          test -s preservacion/2026-10-08/decreto-mari-carmen-portada-original.jpg
+          echo 'PASS: artículo, imagen original y Analytics siguen accesibles'

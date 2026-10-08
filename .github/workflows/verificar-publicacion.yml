@@ -32,6 +32,12 @@ jobs:
           curl -fsSL --retry 2 --max-time 45 "$BASE/blog/decreto-mari-carmen-0071e38b" -o /tmp/pp_smoke/articulo.html
           grep -Fq 'Decreto Mari Carmen' /tmp/pp_smoke/articulo.html
           grep -Fq '971a8ade-e871-48ce-85cc-fe4df9048352.jpg' /tmp/pp_smoke/articulo.html
+          grep -Fq 'src="/analytics.js"' /tmp/pp_smoke/articulo.html
+          grep -Fq 'https://www.googletagmanager.com/gtag/js?id=G-D7KPSFPMM5' /tmp/pp_smoke/articulo.html
+          if grep -Fq 'src="/assets/analytics.js"' /tmp/pp_smoke/articulo.html; then
+            echo 'ERROR: la página apunta a la ruta incorrecta de Analytics'
+            exit 1
+          fi
           curl -fsSL --retry 2 --max-time 45 "$BASE/blog" -o /tmp/pp_smoke/blog.html
           grep -Fq 'Decreto Mari Carmen' /tmp/pp_smoke/blog.html
           curl -fsSL --retry 2 --max-time 45 "$BASE/analytics.js" -o /tmp/pp_smoke/analytics.js

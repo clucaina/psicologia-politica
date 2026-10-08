@@ -28,3 +28,11 @@ Se ha generado copia de desarrollo local V16, incorporando el ID GA4 al CSP/head
 - Prohibido desplegar en Hostinger durante la preparación.
 - Código y migraciones aditivas sí; `_private/config.php`, contraseñas, sesiones, `.env`, volcados SQL, uploads y datos de usuarios NO.
 - Consolidar mejoras en una única versión; no pedir al usuario repetir descargas de paquetes anteriores.
+
+## Hallazgos de auditoría adicional (08-10-2026)
+- **URL pública `/assets/analytics.js` devuelve 404** (revisión HTTP de solo lectura). Puede existir seguimiento GA4 por otro fragmento; nunca afirmar medición rota sin comprobar eventos en Tag Assistant/GA4.
+- El SQL histórico de 190 MB contiene 50.031 filas de `npl_observations`, 318 de `npl_indicators`, 41 de `npl_sources`, 67 de `editorial_posts` y 1.045 de `editorial_revisions`. Contiene también perfiles y credenciales locales; NO debe versionarse, difundirse ni sustituir la MySQL actual.
+- El ZIP histórico `public_html` contiene `_private/config.php` pero no `assets/analytics.js`. **No publicar jamás el ZIP completo antiguo**.
+- El script antiguo `database/migrations/20261004_001_T19_REFERENCE.sql` incluía `DELETE FROM npl_observations` pese a indicar "append seguro". Se ha excluido de la copia consolidada V16 y se ha endurecido `.gitignore` para excluir todos los `*.sql` excepto `*.schema.sql`.
+- V16 consolidada localmente, excluidos secretos, script destructivo, datos personales y volcado SQL. Zip local auditado y verificado por SHA-256, **pendiente de transferir el árbol completo a GitHub**.
+- Regresión local: batería principal `qa_cli.php` PASS tras arreglar fixture de metadatos; 21 pruebas adicionales PHP/Python PASS; 8 baterías de navegador simuladas PASS; 16 controles estáticos de GA4 y exclusión de secretos PASS. No sustituye pruebas con MariaDB de Hostinger.

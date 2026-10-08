@@ -4,13 +4,13 @@ from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
 page = (root / '_private' / 'pages.php').read_text(encoding='utf-8')
-script = (root / 'assets' / 'analytics.js').read_text(encoding='utf-8')
+script = (root / 'analytics.js').read_text(encoding='utf-8')
 ignore = (root / '.gitignore').read_text(encoding='utf-8')
 checks = {
     'GA4 una vez en PHP': page.count('G-D7KPSFPMM5') == 1,
     'GA4 una vez en JS': script.count('G-D7KPSFPMM5') == 1,
     'Librería gtag en head': page.count('https://www.googletagmanager.com/gtag/js?id=G-D7KPSFPMM5') == 1,
-    'Ruta local del script': page.count('/assets/analytics.js') == 1,
+    'Ruta local del script': page.count('/analytics.js') == 1,
     'CSP gtag': "script-src 'self' https://www.googletagmanager.com;" in page,
     'CSP analytics': "connect-src 'self' https://www.google-analytics.com" in page,
     'Sin duplicado GTM': 'GTM-' not in page,

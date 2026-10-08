@@ -58,10 +58,16 @@ jobs:
       - name: Bloqueo de secretos y volcados de base de datos
         shell: bash
         run: |
-          if git ls-files | grep -E '(^|/)(config\.php|installed\.lock|\.env$)|\.sql(\.zip|\.gz)?$|^uploads/[^.]'; then
-            echo 'ERROR: archivos de entorno o SQL en Git'
+          forbidden="$(git ls-files | grep -E '(^|/)(config\\.php|installed\\.lock|\\.env$)|\\.sql(\\.zip|\\.gz)?$|^uploads/[^.]' | grep -Ev '^database/migrations/20[0-9]{6}_[0-9]{3}_[a-z0-9_]+\\.schema\\.sql$' || true)"
+          if [ -n "$forbidden" ]; then
+            echo 'ERROR: volcados SQL, secretos o uploads en Git'
+            printf '%s\\n' "$forbidden"
             exit 1
           fi
-          echo 'Sin archivos de entorno prohibidos'
+          if grep -Erni '(^|[[:space:]])(DROP|DELETE|TRUNCATE|REPLACE)[[:space:]]' database/migrations/*.schema.sql; then
+            echo 'ERROR: una migración contiene SQL destructivo'
+            exit 1
+          fi
+          echo 'Sin volcados ni secretos, migraciones declarativas'
 
 # Este flujo NUNCA despliega ni toca Hostinger. Falta staging remoto MariaDB.

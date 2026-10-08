@@ -18,6 +18,8 @@ uploads/*
 !uploads/.htaccess
 
 # Never commit complete production database exports
+*.sql
+!database/migrations/*.schema.sql
 *.sql.zip
 *.sql.gz
 *_DATABASE.sql

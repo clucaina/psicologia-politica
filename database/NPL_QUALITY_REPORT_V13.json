@@ -1,0 +1,100 @@
+{
+  "release": "V13",
+  "audit_date": "2026-10-08",
+  "scope": "offline_prepared_batches_only",
+  "unique_natural_keys": 521,
+  "observations": 521,
+  "missing_retrieval_dates": 237,
+  "missing_explicit_population": 327,
+  "missing_explicit_measurement_type": 237,
+  "derived_observations": 36,
+  "numeric_zeros": 1,
+  "batches": {
+    "T19": {
+      "observations": 152,
+      "sha256": "fbf1cc02067d8a6cacec494d6f034ca3402c9ad6dcf53b31db2f3d2844cbbcd6",
+      "geographies": 19,
+      "missing_retrieved_at": 152,
+      "missing_population": 152,
+      "missing_measurement_type": 152,
+      "derived": 0,
+      "status": "structurally_valid",
+      "issues": []
+    },
+    "T26_VULNERABILIDAD_SEGURIDAD_2025": {
+      "observations": 85,
+      "sha256": "316b0e7086f3c60b42186afb04fee91065a4944f551c73a780f32cd565b960ee",
+      "geographies": 20,
+      "missing_retrieved_at": 85,
+      "missing_population": 85,
+      "missing_measurement_type": 85,
+      "derived": 0,
+      "status": "structurally_valid",
+      "issues": []
+    },
+    "T27_SALARIOS_CCAA_2024": {
+      "observations": 54,
+      "sha256": "eac6b246d04becde7b5ecc8a8dcec87dea861c158868dafb589e7062b3e4a3db",
+      "geographies": 18,
+      "missing_retrieved_at": 0,
+      "missing_population": 54,
+      "missing_measurement_type": 0,
+      "derived": 0,
+      "status": "structurally_valid",
+      "issues": []
+    },
+    "T28_DERIVADOS_SALARIOS_2024": {
+      "observations": 36,
+      "sha256": "7e9ea8c8bd8aa726043bf076688976b39f3b9d5234e2f5fc92f7cfc01efbc5a5",
+      "geographies": 18,
+      "missing_retrieved_at": 0,
+      "missing_population": 36,
+      "missing_measurement_type": 0,
+      "derived": 36,
+      "status": "structurally_valid",
+      "issues": []
+    },
+    "T30_ABANDONO_EDUCATIVO_2022_2025": {
+      "observations": 80,
+      "sha256": "59d10b85b3527fea0d2caee0bc6b056d2971e7a7b73c5ccb9ed9de948b24f4d7",
+      "geographies": 20,
+      "missing_retrieved_at": 0,
+      "missing_population": 0,
+      "missing_measurement_type": 0,
+      "derived": 0,
+      "status": "structurally_valid",
+      "issues": []
+    },
+    "T31_EMPLEO_PARO_25_64_2015_2025": {
+      "observations": 108,
+      "sha256": "009fc029b4936dcd8d64e39323cea852282b06b835a793db02e3e64de24875ad",
+      "geographies": 18,
+      "missing_retrieved_at": 0,
+      "missing_population": 0,
+      "missing_measurement_type": 0,
+      "derived": 0,
+      "status": "structurally_valid",
+      "issues": []
+    },
+    "T32_PEW_PERCEPCION_DEMOCRACIA_2026": {
+      "observations": 6,
+      "sha256": "b0be817d8a0dc2a714fbc183d976365ec318177dc8cc0040a18f76aa287c8a98",
+      "geographies": 1,
+      "missing_retrieved_at": 0,
+      "missing_population": 0,
+      "missing_measurement_type": 0,
+      "derived": 0,
+      "status": "structurally_valid",
+      "issues": []
+    }
+  },
+  "issues": [],
+  "status": "structural_pass",
+  "publication_gate": "NO-GO until real source dates, reviewed population/methodology, independent MySQL staging tests, and editor approval.",
+  "notes": [
+    "Population may be added in npl_reviews.evidence during human review; never infer from subgroup automatically.",
+    "Missing retrieved_at must not be backfilled with invented dates.",
+    "A structurally valid batch is not independently verified scientific evidence.",
+    "No production data was accessed or modified."
+  ]
+}

@@ -1,0 +1,189 @@
+{
+  "version": 4,
+  "policy": "Never auto-merge conceptually similar series with different methodologies, sources, geographic levels or dates",
+  "related_but_not_equivalent": [
+    {
+      "indicator_ids": [
+        "POV_AROPE",
+        "ecv_arope_pct"
+      ],
+      "reason": "Eurostat regional AROPE and INE ECV AROPE may differ by period, territorial treatment and revision. Require human methodology harmonization before a combined timeline."
+    },
+    {
+      "indicator_ids": [
+        "DEM_POP",
+        "ECP_POP"
+      ],
+      "reason": "Population snapshots and reference dates can differ; only harmonize with matching period, geography and measurement definition."
+    },
+    {
+      "indicator_ids": [
+        "ESTAT_EMP_RATE_NUTS2",
+        "EPA_TASA_EMPLEO_25_64_PCT"
+      ],
+      "reason": "Eurostat T19 empleo 15-64 y Ministerio/EPA T31 empleo 25-64 tienen denominadores distintos; no unir series ni comparar cifras como equivalentes."
+    },
+    {
+      "indicator_ids": [
+        "EPA_ABANDONO_TEMPRANO_18_24_PCT",
+        "absentismo_escolar",
+        "fracaso_escolar"
+      ],
+      "reason": "Abandono temprano EPA 18-24 mide nivel educativo alcanzado y formación reciente, no asistencia a clase ni titulación ESO."
+    },
+    {
+      "indicator_ids": [
+        "EPA_TASA_PARO_25_64_PCT",
+        "tasa_paro_general",
+        "paro_juvenil"
+      ],
+      "reason": "La tasa de desempleo 25-64 no es la tasa general ni la juvenil; población de referencia distinta."
+    },
+    {
+      "indicator_ids": [
+        "PEW_SOCIAL_DIVISION_MORE_PCT",
+        "polarizacion_afectiva_objetiva"
+      ],
+      "reason": "La percepción de mayor división atribuida a redes no mide polarización afectiva con termómetros de sentimientos ni prueba causalidad."
+    },
+    {
+      "indicator_ids": [
+        "PEW_SOCIAL_DEMOCRACY_BAD_PCT",
+        "PEW_SOCIAL_DEMOCRACY_GOOD_PCT"
+      ],
+      "reason": "Dos opciones de una pregunta de percepción; no son complementos perfectos al 100% por no respuesta y otras opciones. No restar automáticamente para crear un índice de daño real."
+    },
+    {
+      "indicator_ids": [
+        "PEW_SOCIAL_DEMOCRACY_BAD_PCT",
+        "incidentes_desinformacion_verificados"
+      ],
+      "reason": "Opinión sobre el impacto de redes en democracia no es un recuento de desinformación ni prueba de incidencia objetiva."
+    }
+  ],
+  "no_automatic_inference": [
+    "national_to_region",
+    "correlation_to_causality",
+    "police_records_to_prevalence",
+    "convictions_to_reported_crime",
+    "screening_to_diagnosis",
+    "missing_to_zero",
+    "survey_to_census",
+    "small_sample_to_precise_ranking",
+    "combined_ceuta_melilla_to_separate_geographies",
+    "sparse_time_cuts_to_annual_series",
+    "education_dropout_to_absenteeism",
+    "perceived_harm_to_observed_harm",
+    "survey_response_to_platform_causal_effect",
+    "national_pew_survey_to_ccaa",
+    "pew_two_category_sum_to_100"
+  ],
+  "v8_derived": {
+    "EAES2024_GAP_MEDIA_ANUAL_PCT": {
+      "source": "EAES_SALARIO_ANUAL_BRUTO",
+      "formula": "(male-female)/male*100",
+      "interpretation": "Diferencia no ajustada de medias salariales ANUALES",
+      "not_equivalent_to": [
+        "Brecha salarial horaria Eurostat",
+        "Discriminación causal",
+        "Diferencia de salario por mismo puesto"
+      ]
+    },
+    "EAES2024_DIFF_MEDIA_NACIONAL_PCT": {
+      "source": "EAES_SALARIO_ANUAL_BRUTO",
+      "formula": "(regional_total/national_total-1)*100",
+      "interpretation": "Desviación descriptiva de la media anual respecto a España",
+      "not_equivalent_to": [
+        "Poder adquisitivo",
+        "Salario real ajustado por precios",
+        "Brecha salarial"
+      ]
+    }
+  },
+  "v9_indicators": {
+    "EPA_ABANDONO_TEMPRANO_18_24_PCT": {
+      "source_batch": "T30_ABANDONO_EDUCATIVO_2022_2025",
+      "population": "18–24, ambos sexos",
+      "years": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "geographies": "ES + 19 NUTS2",
+      "measure": "EPA annual survey proportion",
+      "sample_caution_geos": [
+        "ES13",
+        "ES22",
+        "ES23",
+        "ES63",
+        "ES64"
+      ],
+      "source_visual_verification": "required_before_publish",
+      "not_equivalent_to": [
+        "absentismo escolar",
+        "fracaso escolar",
+        "calidad educativa causal"
+      ]
+    },
+    "EPA_TASA_EMPLEO_25_64_PCT": {
+      "source_batch": "T31_EMPLEO_PARO_25_64_2015_2025",
+      "population": "25–64, ambos sexos",
+      "years": [
+        2015,
+        2020,
+        2025
+      ],
+      "geographies": "ES + 17 CCAA (not Ceuta/Melilla separate)",
+      "measure": "EPA survey employment rate",
+      "source_visual_verification": "required_before_publish",
+      "not_equivalent_to": [
+        "empleo 15–64",
+        "empleo juvenil",
+        "tasa de actividad"
+      ]
+    },
+    "EPA_TASA_PARO_25_64_PCT": {
+      "source_batch": "T31_EMPLEO_PARO_25_64_2015_2025",
+      "population": "25–64, ambos sexos",
+      "years": [
+        2015,
+        2020,
+        2025
+      ],
+      "geographies": "ES + 17 CCAA (not Ceuta/Melilla separate)",
+      "measure": "EPA survey unemployment rate",
+      "source_visual_verification": "required_before_publish",
+      "not_equivalent_to": [
+        "tasa de paro general",
+        "paro registrado SEPE",
+        "desempleo juvenil"
+      ]
+    }
+  },
+  "v10_perception": {
+    "dataset": "PEW_SOCIAL_DEMOCRACY_2026",
+    "territorial_level": "ES only",
+    "measurement_type": "survey",
+    "years": [
+      2022,
+      2026
+    ],
+    "flags": [
+      "No extrapolar a CCAA",
+      "Sin inferencia causal",
+      "Comprobar ficha metodológica antes de publicación",
+      "Conservar porcentaje de no respuesta sin imputarlo"
+    ]
+  },
+  "v11_cross_source_observation": {
+    "pair": [
+      "POV_AROPE",
+      "ecv_arope_pct"
+    ],
+    "period": "2025",
+    "same_numeric_values_for_19_ccaa": true,
+    "semantic_equivalence": "not_established",
+    "action": "review source methods before choosing canonical display series; do not double count as independent evidence"
+  }
+}

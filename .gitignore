@@ -1,0 +1,44 @@
+# Runtime secrets / hosting-only configuration
+_private/config.php
+_private/installed.lock
+_private/sessions/
+_private/_import_pp/
+_private/backups/
+_private/cache/
+_private/logs/
+_private/*.log
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Mutable user-generated data - keep on Hostinger and backup separately
+uploads/*
+!uploads/.htaccess
+
+# Never commit complete production database exports
+*.sql
+!database/migrations/*.schema.sql
+*.sql.zip
+*.sql.gz
+*_DATABASE.sql
+*_DATABASE.sql.zip
+*.dump
+*.sqlite
+*.sqlite3
+
+# Temporary / dangerous diagnostic scripts
+diagnostico-pp.php
+ARREGLAR_AHORA.php
+IMPORTAR_DATOS.php
+reparar-pp.php
+*.log
+*.bak
+*.tmp
+
+# OS and editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

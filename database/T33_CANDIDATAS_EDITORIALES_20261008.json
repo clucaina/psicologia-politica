@@ -1,0 +1,62 @@
+{
+  "batch_id": "T33_EDITORIAL_20261008",
+  "status": "review_only",
+  "publication_policy": "human_approval_required",
+  "created_at": "2026-10-08",
+  "items": [
+    {
+      "id": "t33-pew-redes-democracia-espana",
+      "title": "En España aumenta la percepción de que las redes perjudican a la democracia",
+      "slug_proposal": "espana-percepcion-redes-democracia-pew-2026",
+      "published_study": "2026-10-01",
+      "source_type": "primary_survey_report",
+      "source_title": "Across the Globe, People Increasingly Say Social Media Is Harming Democracy",
+      "source_url": "https://www.pewresearch.org/global/2026/10/01/across-the-globe-people-increasingly-say-social-media-is-harming-democracy/",
+      "doi": null,
+      "what_happened": "En la encuesta Pew 2026, un 47 % de participantes en España declara que las redes sociales han sido perjudiciales para la democracia, frente al 35 % en 2022. El 80 % percibe más división política frente al 66 % en 2022.",
+      "evidence": "Encuesta multinacional de 45.658 personas en 37 países, con trabajo de campo en 2026; datos de España en tablas originales. Se distinguen percepciones sobre impacto y efectos observados.",
+      "methodology": "Encuesta de opinión, cortes temporales; las cifras de España son porcentajes declarados y no medidas experimentales de efectos.",
+      "limits": "No permite concluir que las redes causaron la división política ni equiparar preocupación con desinformación real. Confirmar muestra española, margen de error y posibles diferencias de modo de entrevista.",
+      "importance": "Noticia de alto interés para Psicología Política: diferencia entre percepción ciudadana, polarización observada y causalidad.",
+      "original_image_brief": "Diseño editorial original con dos columnas abstractas 2022 y 2026, símbolos de conversación, sin logotipos ni fotografías de personas; los porcentajes se añadirán como texto accesible por editor, no incrustados en imagen.",
+      "image_alt": "Comparación conceptual de percepciones sobre redes sociales y democracia entre 2022 y 2026.",
+      "status": "review_only"
+    },
+    {
+      "id": "t33-privacidad-polarizacion-cambridge",
+      "title": "Los controles de privacidad pueden intensificar posiciones políticas visibles",
+      "slug_proposal": "privacidad-redes-polarizacion-visible-experimento-2026",
+      "published_study": "2026-09-29",
+      "source_type": "peer_reviewed_primary_research",
+      "source_title": "The Disappearance of Political Moderates Online: How the Privacy Function of Social Media Amplifies Observed Political Polarization",
+      "source_url": "https://www.cambridge.org/core/journals/perspectives-on-politics/article/abs/disappearance-of-political-moderates-online-how-the-privacy-function-of-social-media-amplifies-observed-political-polarization/CB89A6A65EA3AC9F71A7B90AF4916A26",
+      "doi": null,
+      "what_happened": "Un experimento en un entorno semejante a una red social, realizado en Hong Kong, observó mayor difusión hacia el propio grupo y posiciones expresadas más marcadas cuando los participantes podían restringir audiencias.",
+      "evidence": "Estudio experimental sobre selección de audiencia y expresión política en contexto de polarización entre bloques.",
+      "methodology": "Manipulación de la función de privacidad en entorno simulado, con medición de revelación selectiva y posiciones expresadas.",
+      "limits": "No demuestra que la privacidad sea perjudicial en general ni que la opinión privada cambie; el efecto se refiere a expresión visible en un contexto y población concretos. Revisar tamaño muestral en texto completo.",
+      "importance": "Ayuda a diferenciar polarización expresada, polarización real y sesgo de selección de audiencia, relevante para interpretar datos de redes.",
+      "original_image_brief": "Ilustración conceptual original de una conversación digital con capas de privacidad y audiencias, sin interfaces copiadas ni marcas.",
+      "image_alt": "Audiencias digitales separadas mediante capas de privacidad que filtran mensajes políticos.",
+      "status": "review_only"
+    },
+    {
+      "id": "t33-marcos-polarizacion-cooperacion",
+      "title": "Hablar de una sociedad dividida puede aumentar la polarización declarada sin eliminar la cooperación",
+      "slug_proposal": "marcos-polarizacion-cooperacion-experimentos-alemania-2026",
+      "published_study": "2026-09-11",
+      "source_type": "peer_reviewed_primary_research",
+      "source_title": "From Antagonistic Talk to Cooperative Acts: The Effect of Polarization Cues on Newspaper Audiences",
+      "source_url": "https://link.springer.com/article/10.1007/s11109-026-10197-w",
+      "doi": "10.1007/s11109-026-10197-w",
+      "what_happened": "Dos experimentos aleatorizados en Alemania observaron más polarización afectiva e ideológica declarada tras incluir breves marcos de división en noticias. En juegos incentivados, las respuestas de cooperación variaron según la situación.",
+      "evidence": "Dos experimentos de laboratorio, N=302 y N=295; artículos auténticos con señales de polarización añadidas o retiradas y juegos de Dictador, Ultimátum y Confianza.",
+      "methodology": "Asignación experimental a versiones de noticias; mediciones de actitud y comportamiento económico incentivado.",
+      "limits": "Muestra joven, de laboratorio y sesgada hacia centroizquierda; juegos diferentes entre experimentos y posible confusión temporal; no generalizar a efectos electorales reales.",
+      "importance": "Ofrece una prueba concreta para revisar cómo redactar titulares sobre división sin suponer que actitudes y conducta cooperativa evolucionan igual.",
+      "original_image_brief": "Ilustración original de un periódico abstracto dividido en dos marcos narrativos que convergen en una mesa de negociación, sin titulares reales ni marcas.",
+      "image_alt": "Dos encuadres de noticias sobre polarización y una mesa de cooperación entre grupos.",
+      "status": "review_only"
+    }
+  ]
+}

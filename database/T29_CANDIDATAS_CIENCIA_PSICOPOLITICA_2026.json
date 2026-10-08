@@ -1,0 +1,62 @@
+{
+  "batch_id": "T29_EDITORIAL_20261007",
+  "status": "review_only",
+  "publication_policy": "human_approval_required",
+  "created_at": "2026-10-07",
+  "items": [
+    {
+      "id": "t29-deepfakes-emocion-politica",
+      "title": "Las imágenes negativas de IA impulsan más el deseo de compartir noticias políticas",
+      "slug_proposal": "deepfakes-emociones-negativas-noticias-politicas-2026",
+      "published_study": "2026-09-30",
+      "source_type": "peer_reviewed_primary_research",
+      "source_title": "Domain-specific emotional effects of deepfakes on news-sharing behaviour",
+      "source_url": "https://link.springer.com/article/10.1007/s42001-026-00492-1",
+      "doi": "10.1007/s42001-026-00492-1",
+      "what_happened": "Dos experimentos online observaron que las imágenes sintéticas de tono más negativo aumentaban la intención de compartir noticias políticas; sustituirlas por imágenes menos negativas reducía esa intención.",
+      "evidence": "Dos experimentos independientes, N=494 y N=489, con titulares ficticios e imágenes generadas por IA; se compararon noticias políticas y de entretenimiento.",
+      "methodology": "Asignación experimental a estímulos con valencia emocional manipulada y medición de preferencias o intención declarada de compartir; muestras de adultos residentes en Estados Unidos reclutadas online.",
+      "limits": "Mide intención/preferencia declarada, no difusión real en plataformas. Los experimentos se realizaron en 2023 con estímulos sintéticos específicos; no demuestra que todas las imágenes negativas provoquen desinformación ni generaliza automáticamente a España.",
+      "importance": "Aporta una hipótesis comprobable para estudiar cómo el diseño emocional de imágenes de actualidad puede modular la difusión política, diferenciando ámbitos temáticos.",
+      "original_image_brief": "Ilustración editorial abstracta: dos tarjetas de noticia política ficticia con idéntico texto y fotografía sintética simbólica, una con paleta fría/amenazante y otra neutra; una flecha de interacción sin porcentajes inventados. Sin rostros reales ni marcas.",
+      "topics": ["desinformacion_visual", "psicologia_emocional", "comunicacion_politica", "intencion_de_compartir"],
+      "verification_status": "primary_source_reviewed; pending_editorial_dedup_and_approval"
+    },
+    {
+      "id": "t29-razonamiento-motivado-incertidumbre",
+      "title": "La presión del grupo polariza: un experimento distingue dos motores del razonamiento político",
+      "slug_proposal": "presion-grupal-incertidumbre-razonamiento-politico-2026",
+      "published_study": "2026-09-04",
+      "source_type": "peer_reviewed_primary_research",
+      "source_title": "Inducing Motivated Reasoning: Confirmation Bias and Attitude Polarization Among Liberals and Conservatives",
+      "source_url": "https://journals.sagepub.com/doi/10.1177/1532673X261481513",
+      "doi": "10.1177/1532673X261481513",
+      "what_happened": "En dos experimentos, las señales de homogeneidad del grupo incrementaron la polarización actitudinal en participantes liberales y conservadores; la manipulación de incertidumbre produjo respuestas distintas entre grupos ideológicos.",
+      "evidence": "Dos experimentos con N total=5.403 y cuatro asuntos políticos controvertidos, según el resumen del artículo.",
+      "methodology": "Manipulación experimental de motivos epistémicos de reducción de incertidumbre y motivos relacionales de homogeneidad grupal; evaluación de razonamiento y actitudes.",
+      "limits": "El resumen no permite evaluar por sí solo todos los efectos, preregistros ni tamaños de efecto. Las categorías ideológicas son contextuales y no justifican atribuir capacidades psicológicas fijas a colectivos políticos.",
+      "importance": "Permite separar dos mecanismos que suelen mezclarse en debates sobre sesgo de confirmación: incertidumbre sobre la evidencia y presión normativa del grupo.",
+      "original_image_brief": "Infografía editorial conceptual de dos rutas de decisión: incertidumbre informativa y señales de conformidad grupal convergiendo en opiniones; iconografía neutra, sin colores partidistas ni rostros.",
+      "topics": ["razonamiento_motivado", "sesgo_confirmacion", "polarizacion", "psicologia_social"],
+      "verification_status": "abstract_reviewed; full_text_methods_pending_editorial_review"
+    },
+    {
+      "id": "t29-algoritmos-normas-elecciones",
+      "title": "Cambiar el algoritmo puede reducir la hostilidad percibida sin empeorar la experiencia",
+      "slug_proposal": "algoritmos-normas-sociales-hostilidad-elecciones-2026",
+      "published_study": "2026-05-27",
+      "source_type": "peer_reviewed_primary_research",
+      "source_title": "Redesigning algorithms to intervene on social norm misperceptions during a national election",
+      "source_url": "https://www.nature.com/articles/s41586-026-10536-1",
+      "doi": "10.1038/s41586-026-10536-1",
+      "what_happened": "Un experimento de ocho semanas comparó feeds de distinto diseño durante las elecciones estadounidenses de 2024. Un algoritmo que diversificaba la exposición a usuarios extremos redujo contenido tóxico y mejoró la precisión sobre normas sociales percibidas.",
+      "evidence": "Ensayo aleatorizado con 2.000 participantes, tres estrategias de ordenación del feed y medidas de exposición, normas percibidas, animadversión y disfrute.",
+      "methodology": "Asignación aleatoria a feeds controlados; comparación entre ranking por engagement, cronología inversa y diversificación de extremidad.",
+      "limits": "El experimento no halló cambios significativos en la conducta propia de engagement. Resultados específicos de la plataforma experimental, muestra y periodo electoral; no prueban que cualquier red social obtenga el mismo efecto.",
+      "importance": "Muestra que la arquitectura informativa puede cambiar percepciones intergrupales sin necesidad de censurar opiniones ni asumir que la polarización se debe a un único factor.",
+      "original_image_brief": "Diagrama periodístico de tres columnas de feeds abstractos (engagement, cronología, diversidad) con tarjetas sin textos legibles ni marcas; flechas que indican exposición a discursos diferentes.",
+      "topics": ["algoritmos", "polarizacion_afectiva", "normas_sociales", "comportamiento_electoral"],
+      "verification_status": "primary_source_reviewed; pending_editorial_dedup_and_approval"
+    }
+  ]
+}

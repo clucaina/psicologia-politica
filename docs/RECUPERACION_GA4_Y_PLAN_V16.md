@@ -3,16 +3,16 @@
 ## Configuración existente, recuperada de la instalación original (04/10/2026)
 
 - **Google Analytics 4 / gtag.js: `G-D7KPSFPMM5`.**
-- En **`public_html/_private/pages.php`**, método `pp_render_page()`: inserción de la librería externa en `<head>`, referencia a `/assets/analytics.js` y CSP que autoriza `www.googletagmanager.com` para scripts y dominios `google-analytics.com` para conexión.
-- En **`public_html/assets/analytics.js`**: `dataLayer` y `gtag('config', 'G-D7KPSFPMM5')`.
-- Se diagnosticó anteriormente un `404` de `/assets/analytics.js`; la ruta correcta era `assets/` dentro de `public_html` (NO `_private/assets.json`). La usuaria confirma en conversación actual que después quedó funcionando.
+- En **`public_html/_private/pages.php`**, método `pp_render_page()`: inserción de la librería externa en `<head>`, referencia a `/analytics.js` y CSP que autoriza `www.googletagmanager.com` para scripts y dominios `google-analytics.com` para conexión.
+- En **`public_html/analytics.js`**: `dataLayer` y `gtag('config', 'G-D7KPSFPMM5')`.
+- Se diagnosticó anteriormente un `404` de `/assets/analytics.js`; esa URL no es la utilizada por la web real: **`/analytics.js` existe y devuelve HTTP 200 desde `public_html/analytics.js`**. También existe `assets/analytics.json`, cuyo contenido distinto no debe confundirse con la ruta cargada. Ver auditoría corregida.
 - **GTM-... no confirmado**. No duplicar Google Analytics con otra instalación de GTM; no añadir una etiqueta distinta sin identificarla.
 
 ## V16 encontrada y validada localmente
 
 La Library contiene `PAQUETE_SABADO_MASTER_V16_PREPRODUCCION.zip`, de fecha 2026-10-08; **V16 sustituye V15**. V16 incluye controles de concurrencia del blog, autosave v3 por cuenta/entrada, metadatos de comparabilidad para Conflictómetro, controles de años, valores negativos, revisión editorial y conjuntos de datos de preparación.
 
-Se ha generado copia de desarrollo local V16, incorporando el ID GA4 al CSP/head y `assets/analytics.js`. Lint local tras integración: **27 PHP, 53 JS, 45 JSON correctos**; `tests/qa_semantic_v16.php`, `tests/qa_v16.py`, `tests/qa_browser_v16.py` correctos en el entorno local. Se corrigió un fixture antiguo de `tests/qa_cli.php` para proporcionar los metadatos que V16 exige; ya pasa sin desactivar la validación. **Estos cambios a `pages.php` aún no se han subido al GitHub, ni se han aplicado a Hostinger.**
+La copia inicial V16 utilizó incorrectamente `assets/analytics.js`, pero la ruta real comprobada es `analytics.js` en raíz. El script y controles de GitHub se han corregido; la copia V16 local necesita regenerarse antes de integrar. Lint local tras integración: **27 PHP, 53 JS, 45 JSON correctos**; `tests/qa_semantic_v16.php`, `tests/qa_v16.py`, `tests/qa_browser_v16.py` correctos en el entorno local. Se corrigió un fixture antiguo de `tests/qa_cli.php` para proporcionar los metadatos que V16 exige; ya pasa sin desactivar la validación. **Estos cambios a `pages.php` aún no se han subido al GitHub, ni se han aplicado a Hostinger.**
 
 ## No GO producción
 
@@ -30,9 +30,13 @@ Se ha generado copia de desarrollo local V16, incorporando el ID GA4 al CSP/head
 - Consolidar mejoras en una única versión; no pedir al usuario repetir descargas de paquetes anteriores.
 
 ## Hallazgos de auditoría adicional (08-10-2026)
-- **URL pública `/assets/analytics.js` devuelve 404** (revisión HTTP de solo lectura). Puede existir seguimiento GA4 por otro fragmento; nunca afirmar medición rota sin comprobar eventos en Tag Assistant/GA4.
+- **URL pública `/analytics.js` devuelve HTTP 200**; `/assets/analytics.js` es la que devuelve 404 (revisión HTTP de solo lectura). Puede existir seguimiento GA4 por otro fragmento; nunca afirmar medición rota sin comprobar eventos en Tag Assistant/GA4.
 - El SQL histórico de 190 MB contiene 50.031 filas de `npl_observations`, 318 de `npl_indicators`, 41 de `npl_sources`, 67 de `editorial_posts` y 1.045 de `editorial_revisions`. Contiene también perfiles y credenciales locales; NO debe versionarse, difundirse ni sustituir la MySQL actual.
-- El ZIP histórico `public_html` contiene `_private/config.php` pero no `assets/analytics.js`. **No publicar jamás el ZIP completo antiguo**.
+- El ZIP histórico `public_html` contiene `_private/config.php` pero no `analytics.js`. **No publicar jamás el ZIP completo antiguo**.
 - El script antiguo `database/migrations/20261004_001_T19_REFERENCE.sql` incluía `DELETE FROM npl_observations` pese a indicar "append seguro". Se ha excluido de la copia consolidada V16 y se ha endurecido `.gitignore` para excluir todos los `*.sql` excepto `*.schema.sql`.
 - V16 consolidada localmente, excluidos secretos, script destructivo, datos personales y volcado SQL. Zip local auditado y verificado por SHA-256, **pendiente de transferir el árbol completo a GitHub**.
 - Regresión local: batería principal `qa_cli.php` PASS tras arreglar fixture de metadatos; 21 pruebas adicionales PHP/Python PASS; 8 baterías de navegador simuladas PASS; 16 controles estáticos de GA4 y exclusión de secretos PASS. No sustituye pruebas con MariaDB de Hostinger.
+
+## Rectificación final de rutas (08/10/2026)
+
+El archivo **actual** servido en producción se encuentra en `public_html/analytics.js` y responde **200** en `/analytics.js`. El anterior diagnóstico de que faltaba `analytics.js` se refería únicamente a `/assets/analytics.js` (404). No renombrar `assets/analytics.json` ni cambiar Hostinger. Staging y CI deben apuntar a `/analytics.js`. El funcionamiento de las solicitudes de medición GA4 está todavía por comprobar.

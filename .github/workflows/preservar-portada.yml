@@ -1,0 +1,49 @@
+name: Preservación privada de portada Mari Carmen
+
+on:
+  push:
+    branches:
+      - preproduccion/auditoria-2026-10-08
+    paths:
+      - .github/workflows/preservar-portada.yml
+
+permissions:
+  contents: write
+
+jobs:
+  copia-original:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Descargar, comprobar y guardar portada original
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT="preservacion/2026-10-08/decreto-mari-carmen-portada-original.jpg"
+          URL="https://psicologiapolitica.es/api/media/971a8ade-e871-48ce-85cc-fe4df9048352.jpg"
+          mkdir -p "$(dirname "$OUT")"
+          if [ -s "$OUT" ]; then
+            echo "Imagen ya archivada. No se sobrescribe."
+            exit 0
+          fi
+          curl --fail --show-error --silent --location --retry 2 --max-time 60 --max-filesize 8000000 "$URL" -o "$OUT"
+          BYTES=$(wc -c < "$OUT")
+          TYPE=$(file -b --mime-type "$OUT")
+          printf 'Bytes: %s | MIME: %s\n' "$BYTES" "$TYPE"
+          test "$BYTES" -gt 4096
+          test "$BYTES" -le 8000000
+          test "$TYPE" = image/jpeg
+          git add -- "$OUT"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "backup(media): conservar imagen original de Decreto Mari Carmen"
+          git push origin HEAD:preproduccion/auditoria-2026-10-08
+
+      - name: Confirmar copia
+        run: |
+          test -s preservacion/2026-10-08/decreto-mari-carmen-portada-original.jpg
+          sha256sum preservacion/2026-10-08/decreto-mari-carmen-portada-original.jpg

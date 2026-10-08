@@ -4,10 +4,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGES = ROOT / "_private" / "pages.php"
-SCRIPT = ROOT / "assets" / "analytics.js"
+SCRIPT = ROOT / "analytics.js"
 ID = "G-D7KPSFPMM5"
 URL = f"https://www.googletagmanager.com/gtag/js?id={ID}"
-TAG = f'<script async src="{URL}"></script><script defer src="/assets/analytics.js"></script>'
+TAG = f'<script async src="{URL}"></script><script defer src="/analytics.js"></script>'
 CSP_SCRIPT_OLD = "script-src 'self'; style-src 'self'"
 CSP_SCRIPT_NEW = "script-src 'self' https://www.googletagmanager.com; style-src 'self'"
 CSP_CONNECT_OLD = "connect-src 'self'; frame-src 'self'"
@@ -30,7 +30,7 @@ def main():
         content = content.replace(CSP_CONNECT_OLD, CSP_CONNECT_NEW, 1)
         content = content.replace("</head><body", TAG + "</head><body", 1)
 
-    if content.count(ID) != 1 or content.count("/assets/analytics.js") != 1:
+    if content.count(ID) != 1 or content.count("/analytics.js") != 1:
         raise SystemExit("STOP: GA4 ausente o duplicada.")
     if CSP_SCRIPT_NEW not in content or CSP_CONNECT_NEW not in content:
         raise SystemExit("STOP: CSP insuficiente.")

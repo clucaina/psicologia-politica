@@ -61,7 +61,7 @@ jobs:
               cur.execute('SET FOREIGN_KEY_CHECKS=1')
               names=list(article)
               assert all(x.replace('_','').isalnum() for x in names)
-              sql='INSERT INTO editorial_posts ('+','.join('\\x60'+x+'\\x60' for x in names)+') VALUES ('+','.join(['%s']*len(names))+')'
+              sql='INSERT INTO editorial_posts ('+','.join(chr(96)+x+chr(96) for x in names)+') VALUES ('+','.join(['%s']*len(names))+')'
               cur.execute(sql,[article[n] for n in names])
               cur.execute('SELECT COUNT(*) FROM editorial_posts WHERE slug=%s',(article['slug'],))
               assert cur.fetchone()[0]==1

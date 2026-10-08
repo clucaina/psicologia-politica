@@ -1,0 +1,53 @@
+{
+  "version": "V12",
+  "as_of": "2026-10-08",
+  "status": "source_discovery_and_offline_decoder_only_no_live_ingestion",
+  "publication_policy": "Never publish or promote observations without human source verification, provenance and comparability QA",
+  "official_sources": [
+    {
+      "source_id": "ESTAT",
+      "publisher": "Eurostat",
+      "documentation": "https://ec.europa.eu/eurostat/web/user-guides/data-browser/api-data-access/api-getting-started",
+      "api_template": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/{dataset_code}?lang=EN&geoLevel=nuts2&sinceTimePeriod={from_year}&untilTimePeriod={to_year}",
+      "domains": ["demography", "housing", "income", "employment", "education", "poverty"],
+      "decoder": "scripts/eurostat_jsonstat2_to_npl.py",
+      "state": "offline_decoder_unit_tested; real_source_snapshot_not_yet_tested",
+      "requirements": ["confirm dataset and dimension codes", "filter every dimension except geo/time", "capture raw JSON snapshot SHA-256", "preserve status flags", "record true retrieval date", "never merge revisions silently", "map NUTS2 codes explicitly"]
+    },
+    {
+      "source_id": "INE",
+      "publisher": "Instituto Nacional de Estadística",
+      "documentation": "https://www.ine.es/OpenAPI/index.html",
+      "reference": "https://www.ine.es/dyngs/DAB/es/index.htm?cid=1100",
+      "api_template": "https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/{verified_table_id}?tip=AM",
+      "domains": ["housing", "wages", "demography", "poverty", "mental_health", "education", "employment"],
+      "state": "documented_endpoint_only; table and variable IDs must be individually verified",
+      "requirements": ["resolve table ID and variable IDs from official INEbase", "never interpret unknown period labels as annual", "record unit and population", "preserve missing values and revisions", "distinguish household income reference year from survey year"]
+    },
+    {
+      "source_id": "MIR",
+      "publisher": "Ministerio del Interior",
+      "documentation": "https://estadisticasdecriminalidad.ses.mir.es/publico/portalestadistico.html",
+      "balance_page": "https://estadisticasdecriminalidad.ses.mir.es/publico/portalestadistico/balances.html",
+      "balance_2025_pdf": "https://www.interior.gob.es/opencms/export/sites/default/.galleries/galeria-de-prensa/documentos-y-multimedia/balances-e-informes/2025/Balance-de-Criminalidad_Cuarto_Trimestre_2025.pdf",
+      "domains": ["registered_crime", "cybercrime", "hate_incidents"],
+      "state": "primary_publication_identified; geographic table ingestion pending",
+      "requirements": ["annual cumulative 4th quarter != fourth quarter only", "police-recorded events != actual prevalence", "provisional != final", "counts != rates per 1000", "do not add police and judicial counts", "territory and force coverage must match"]
+    },
+    {
+      "source_id": "CIS",
+      "publisher": "Centro de Investigaciones Sociológicas",
+      "study": "3490 Participación política",
+      "documentation": "https://www.cis.es/es/w/disponible-el-estudio-3490-participacion-politica",
+      "domains": ["political_participation", "public_perception", "political_trust"],
+      "state": "study_documentation_identified; no microdata parsed",
+      "requirements": ["use exact questionnaire wording", "record sample universe and survey field dates", "weighting and design effects", "avoid diagnosis and causality claims", "do not fabricate CCAA estimates from national sample"]
+    }
+  ],
+  "quality_gates": {
+    "download": ["HTTPS official domain", "bounded size", "raw snapshot SHA-256", "capture request and retrieval timestamp"],
+    "normalization": ["explicit geography mapping", "unit code", "population/subgroup", "period type", "raw versus derived", "source status", "methodological breaks"],
+    "review": ["independent source table check", "nonmissing source locator", "provisional flags", "no natural-key conflicts", "reviewed-only publication"],
+    "analytics": ["null != zero", "no country-to-region substitution", "no causal inference", "compatible denominators", "minimum sample coverage", "no unreviewed values"]
+  }
+}

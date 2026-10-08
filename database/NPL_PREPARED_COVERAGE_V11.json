@@ -1,0 +1,1041 @@
+{
+  "version": "V11",
+  "date": "2026-10-08",
+  "status": "prepared_only_not_published",
+  "total_rows": 521,
+  "unique_indicators": 25,
+  "indicator_subgroups": 27,
+  "batches": [
+    {
+      "batch_id": "T19",
+      "sha256": "fbf1cc02067d8a6cacec494d6f034ca3402c9ad6dcf53b31db2f3d2844cbbcd6",
+      "observations": 152
+    },
+    {
+      "batch_id": "T26_VULNERABILIDAD_SEGURIDAD_2025",
+      "sha256": "316b0e7086f3c60b42186afb04fee91065a4944f551c73a780f32cd565b960ee",
+      "observations": 85
+    },
+    {
+      "batch_id": "T27_SALARIOS_CCAA_2024",
+      "sha256": "eac6b246d04becde7b5ecc8a8dcec87dea861c158868dafb589e7062b3e4a3db",
+      "observations": 54
+    },
+    {
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "sha256": "7e9ea8c8bd8aa726043bf076688976b39f3b9d5234e2f5fc92f7cfc01efbc5a5",
+      "observations": 36
+    },
+    {
+      "batch_id": "T30_ABANDONO_EDUCATIVO_2022_2025",
+      "sha256": "59d10b85b3527fea0d2caee0bc6b056d2971e7a7b73c5ccb9ed9de948b24f4d7",
+      "observations": 80
+    },
+    {
+      "batch_id": "T31_EMPLEO_PARO_25_64_2015_2025",
+      "sha256": "009fc029b4936dcd8d64e39323cea852282b06b835a793db02e3e64de24875ad",
+      "observations": 108
+    },
+    {
+      "batch_id": "T32_PEW_PERCEPCION_DEMOCRACIA_2026",
+      "sha256": "b0be817d8a0dc2a714fbc183d976365ec318177dc8cc0040a18f76aa287c8a98",
+      "observations": 6
+    }
+  ],
+  "inventory": [
+    {
+      "indicator_id": "DEM_MEDIAN_AGE",
+      "subgroup": "Total",
+      "prepared_rows": 19,
+      "years": [
+        "2025"
+      ],
+      "territories": [
+        "ES11",
+        "ES12",
+        "ES13",
+        "ES21",
+        "ES22",
+        "ES23",
+        "ES24",
+        "ES30",
+        "ES41",
+        "ES42",
+        "ES43",
+        "ES51",
+        "ES52",
+        "ES53",
+        "ES61",
+        "ES62",
+        "ES63",
+        "ES64",
+        "ES70"
+      ],
+      "sources": [
+        "EUROSTAT_DEMO"
+      ],
+      "units": [
+        "años"
+      ],
+      "methodologies": [
+        "EUROSTAT_JSONSTAT_OFFICIAL"
+      ],
+      "flags": [
+        "retrieval_date_requires_human_verification"
+      ]
+    },
+    {
+      "indicator_id": "DEM_POP",
+      "subgroup": "Total; fecha de referencia=1 de enero",
+      "prepared_rows": 19,
+      "years": [
+        "2025"
+      ],
+      "territories": [
+        "ES11",
+        "ES12",
+        "ES13",
+        "ES21",
+        "ES22",
+        "ES23",
+        "ES24",
+        "ES30",
+        "ES41",
+        "ES42",
+        "ES43",
+        "ES51",
+        "ES52",
+        "ES53",
+        "ES61",
+        "ES62",
+        "ES63",
+        "ES64",
+        "ES70"
+      ],
+      "sources": [
+        "EUROSTAT_REG"
+      ],
+      "units": [
+        "n"
+      ],
+      "methodologies": [
+        "EUROSTAT_JSONSTAT_OFFICIAL"
+      ],
+      "flags": [
+        "retrieval_date_requires_human_verification"
+      ]
+    },
+    {
+      "indicator_id": "EAES2024_DIFF_MEDIA_NACIONAL_PCT",
+      "subgroup": "Ambos sexos",
+      "prepared_rows": 18,
+      "years": [
+        "2024"
+      ],
+      "territories": [
+        "ES",
+        "ES11",
+        "ES12",
+        "ES13",
+        "ES21",
+        "ES22",
+        "ES23",
+        "ES24",
+        "ES30",
+        "ES41",
+        "ES42",
+        "ES43",
+        "ES51",
+        "ES52",
+        "ES53",
+        "ES61",
+        "ES62",
+        "ES70"
+      ],
+      "sources": [
+        "NPL_DERIVED_INE"
+      ],
+      "units": [
+        "%"
+      ],
+      "methodologies": [
+        "NPL_DERIVED_EAES2024_DESCRIPTIVE"
+      ],
+      "flags": [
+        "derived_not_official"
+      ]
+    },
+    {
+      "indicator_id": "EAES2024_GAP_MEDIA_ANUAL_PCT",
+      "subgroup": "Hombres vs Mujeres",
+      "prepared_rows": 18,
+      "years": [
+        "2024"
+      ],
+      "territories": [
+        "ES",
+        "ES11",
+        "ES12",
+        "ES13",
+        "ES21",
+        "ES22",
+        "ES23",
+        "ES24",
+        "ES30",
+        "ES41",
+        "ES42",
+        "ES43",
+        "ES51",
+        "ES52",
+        "ES53",
+        "ES61",
+        "ES62",
+        "ES70"
+      ],
+      "sources": [
+        "NPL_DERIVED_INE"
+      ],
+      "units": [
+        "%"
+      ],
+      "methodologies": [
+        "NPL_DERIVED_EAES2024_DESCRIPTIVE"
+      ],
+      "flags": [
+        "derived_not_official"
+      ]
+    },
+    {
+      "indicator_id": "EAES_SALARIO_ANUAL_BRUTO",
+      "subgroup": "Ambos sexos",
+      "prepared_rows": 18,
+      "years": [
+        "2024"
+      ],
+      "territories": [
+        "ES",
+        "ES11",
+        "ES12",
+        "ES13",
+        "ES21",
+        "ES22",
+        "ES23",
+        "ES24",
+        "ES30",
+        "ES41",
+        "ES42",
+        "ES43",
+        "ES51",
+        "ES52",
+        "ES53",
+        "ES61",
+        "ES62",
+        "ES70"
+      ],
+      "sources": [
+        "INE"
+      ],
+      "units": [
+        "EUR/año"
+      ],
+      "methodologies": [
+        "EAES2024_FINAL_DESCRIPTIVE"
+      ],
+      "flags": []
+    },
+    {
+      "indicator_id": "EAES_SALARIO_ANUAL_BRUTO",
+      "subgroup": "Hombres",
+      "prepared_rows": 18,
+      "years": [
+        "2024"
+      ],
+      "territories": [
+        "ES",
+        "ES11",
+        "ES12",
+        "ES13",
+        "ES21",
+        "ES22",
+        "ES23",
+        "ES24",
+        "ES30",
+        "ES41",
+        "ES42",
+        "ES43",
+        "ES51",
+        "ES52",
+        "ES53",
+        "ES61",
+        "ES62",
+        "ES70"
+      ],
+      "sources": [
+        "INE"
+      ],
+      "units": [
+        "EUR/año"
+      ],
+      "methodologies": [
+        "EAES2024_FINAL_DESCRIPTIVE"
+      ],
+      "flags": []
+    },
+    {
+      "indicator_id": "EAES_SALARIO_ANUAL_BRUTO",
+      "subgroup": "Mujeres",
+      "prepared_rows": 18,
+      "years": [
+        "2024"
+      ],
+      "territories": [
+        "ES",
+        "ES11",
+        "ES12",
+        "ES13",
+        "ES21",
+        "ES22",
+        "ES23",
+        "ES24",
+        "ES30",
+        "ES41",
+        "ES42",
+        "ES43",
+        "ES51",
+        "ES52",
+        "ES53",
+        "ES61",
+        "ES62",
+        "ES70"
+      ],
+      "sources": [
+        "INE"
+      ],
+      "units": [
+        "EUR/año"
+      ],
+      "methodologies": [
+        "EAES2024_FINAL_DESCRIPTIVE"
+      ],
+      "flags": []
+    },
+    {
+      "indicator_id": "EPA_ABANDONO_TEMPRANO_18_24_PCT",
+      "subgroup": "total",
+      "prepared_rows": 80,
+      "years": [
+        "2022",
+        "2023",
+        "2024",
+        "2025"
+      ],
+      "territories": [
+        "ES",
+        "ES11",
+        "ES12",
+        "ES13",
+        "ES21",
+        "ES22",
+        "ES23",
+        "ES24",
+        "ES30",
+        "ES41",
+        "ES42",
+        "ES43",
+        "ES51",
+        "ES52",
+        "ES53",
+        "ES61",
+        "ES62",
+        "ES63",
+        "ES64",
+        "ES70"
+      ],
+      "sources": [
+        "MEFPD_EPA_EDU"
+      ],
+      "units": [
+        "%"
+      ],
+      "methodologies": [
+        "MEFPD_EPA_EARLY_LEAVING_18_24_ANNUAL"
+      ],
+      "flags": []
+    },
+    {
+      "indicator_id": "EPA_TASA_EMPLEO_25_64_PCT",
+      "subgroup": "total",
+      "prepared_rows": 54,
+      "years": [
+        "2015",
+        "2020",
+        "2025"
+      ],
+      "territories": [
+        "ES",
+        "ES11",
+        "ES12",
+        "ES13",
+        "ES21",
+        "ES22",
+        "ES23",
+        "ES24",
+        "ES30",
+        "ES41",
+        "ES42",
+        "ES43",
+        "ES51",
+        "ES52",
+        "ES53",
+        "ES61",
+        "ES62",
+        "ES70"
+      ],
+      "sources": [
+        "MEFPD_EPA_LABOR"
+      ],
+      "units": [
+        "%"
+      ],
+      "methodologies": [
+        "MEFPD_EPA_25_64_EDUCATIONAL_EXPLOITATION"
+      ],
+      "flags": [
+        "age_25_64_not_general_population"
+      ]
+    },
+    {
+      "indicator_id": "EPA_TASA_PARO_25_64_PCT",
+      "subgroup": "total",
+      "prepared_rows": 54,
+      "years": [
+        "2015",
+        "2020",
+        "2025"
+      ],
+      "territories": [
+        "ES",
+        "ES11",
+        "ES12",
+        "ES13",
+        "ES21",
+        "ES22",
+        "ES23",
+        "ES24",
+        "ES30",
+        "ES41",
+        "ES42",
+        "ES43",
+        "ES51",
+        "ES52",
+        "ES53",
+        "ES61",
+        "ES62",
+        "ES70"
+      ],
+      "sources": [
+        "MEFPD_EPA_LABOR"
+      ],
+      "units": [
+        "%"
+      ],
+      "methodologies": [
+        "MEFPD_EPA_25_64_EDUCATIONAL_EXPLOITATION"
+      ],
+      "flags": [
+        "age_25_64_not_general_population"
+      ]
+    },
+    {
+      "indicator_id": "ESTAT_DISP_INC_PC_NUTS2",
+      "subgroup": "Hogares; direct=BAL; na_item=B6N",
+      "prepared_rows": 19,
+      "years": [
+        "2023"
+      ],
+      "territories": [
+        "ES11",
+        "ES12",
+        "ES13",
+        "ES21",
+        "ES22",
+        "ES23",
+        "ES24",
+        "ES30",
+        "ES41",
+        "ES42",
+        "ES43",
+        "ES51",
+        "ES52",
+        "ES53",
+        "ES61",
+        "ES62",
+        "ES63",
+        "ES64",
+        "ES70"
+      ],
+      "sources": [
+        "EUROSTAT_REG"
+      ],
+      "units": [
+        "EUR/hab"
+      ],
+      "methodologies": [
+        "EUROSTAT_JSONSTAT_OFFICIAL_STATUS_p_PROVISIONAL"
+      ],
+      "flags": [
+        "retrieval_date_requires_human_verification"
+      ]
+    },
+    {
+      "indicator_id": "ESTAT_EMP_RATE_NUTS2",
+      "subgroup": "Edad=15-64; Sexo=Total",
+      "prepared_rows": 19,
+      "years": [
+        "2025"
+      ],
+      "territories": [
+        "ES11",
+        "ES12",
+        "ES13",
+        "ES21",
+        "ES22",
+        "ES23",
+        "ES24",
+        "ES30",
+        "ES41",
+        "ES42",
+        "ES43",
+        "ES51",
+        "ES52",
+        "ES53",
+        "ES61",
+        "ES62",
+        "ES63",
+        "ES64",
+        "ES70"
+      ],
+      "sources": [
+        "EUROSTAT_REG"
+      ],
+      "units": [
+        "%"
+      ],
+      "methodologies": [
+        "EUROSTAT_JSONSTAT_OFFICIAL_STATUS_d_DEFINITION_DIFFERS"
+      ],
+      "flags": [
+        "retrieval_date_requires_human_verification"
+      ]
+    },
+    {
+      "indicator_id": "ESTAT_GDP_PC_NUTS2",
+      "subgroup": "Total",
+      "prepared_rows": 19,
+      "years": [
+        "2024"
+      ],
+      "territories": [
+        "ES11",
+        "ES12",
+        "ES13",
+        "ES21",
+        "ES22",
+        "ES23",
+        "ES24",
+        "ES30",
+        "ES41",
+        "ES42",
+        "ES43",
+        "ES51",
+        "ES52",
+        "ES53",
+        "ES61",
+        "ES62",
+        "ES63",
+        "ES64",
+        "ES70"
+      ],
+      "sources": [
+        "EUROSTAT_REG"
+      ],
+      "units": [
+        "EUR/hab"
+      ],
+      "methodologies": [
+        "EUROSTAT_JSONSTAT_OFFICIAL_STATUS_p_PROVISIONAL"
+      ],
+      "flags": [
+        "retrieval_date_requires_human_verification"
+      ]
+    },
+    {
+      "indicator_id": "ESTAT_LIFEEXP_BIRTH_NUTS2",
+      "subgroup": "Sexo=Total; Edad=al nacer",
+      "prepared_rows": 19,
+      "years": [
+        "2024"
+      ],
+      "territories": [
+        "ES11",
+        "ES12",
+        "ES13",
+        "ES21",
+        "ES22",
+        "ES23",
+        "ES24",
+        "ES30",
+        "ES41",
+        "ES42",
+        "ES43",
+        "ES51",
+        "ES52",
+        "ES53",
+        "ES61",
+        "ES62",
+        "ES63",
+        "ES64",
+        "ES70"
+      ],
+      "sources": [
+        "EUROSTAT_REG"
+      ],
+      "units": [
+        "años"
+      ],
+      "methodologies": [
+        "EUROSTAT_JSONSTAT_OFFICIAL"
+      ],
+      "flags": [
+        "retrieval_date_requires_human_verification"
+      ]
+    },
+    {
+      "indicator_id": "ESTAT_UNEMP_RATE",
+      "subgroup": "Edad=15-74; Sexo=Total; Educación=Total",
+      "prepared_rows": 19,
+      "years": [
+        "2025"
+      ],
+      "territories": [
+        "ES11",
+        "ES12",
+        "ES13",
+        "ES21",
+        "ES22",
+        "ES23",
+        "ES24",
+        "ES30",
+        "ES41",
+        "ES42",
+        "ES43",
+        "ES51",
+        "ES52",
+        "ES53",
+        "ES61",
+        "ES62",
+        "ES63",
+        "ES64",
+        "ES70"
+      ],
+      "sources": [
+        "EUROSTAT_REG"
+      ],
+      "units": [
+        "% población activa"
+      ],
+      "methodologies": [
+        "EUROSTAT_JSONSTAT_OFFICIAL_STATUS_d_DEFINITION_DIFFERS"
+      ],
+      "flags": [
+        "retrieval_date_requires_human_verification"
+      ]
+    },
+    {
+      "indicator_id": "PEW_SOCIAL_DEMOCRACY_BAD_PCT",
+      "subgroup": "Adultos encuestados",
+      "prepared_rows": 2,
+      "years": [
+        "2022",
+        "2026"
+      ],
+      "territories": [
+        "ES"
+      ],
+      "sources": [
+        "PEW_GAS"
+      ],
+      "units": [
+        "%"
+      ],
+      "methodologies": [
+        "PEW_GLOBAL_ATTITUDES_SURVEY_SELF_REPORT"
+      ],
+      "flags": [
+        "national_only_do_not_copy_to_ccaa",
+        "survey_perception_not_observed_impact"
+      ]
+    },
+    {
+      "indicator_id": "PEW_SOCIAL_DEMOCRACY_GOOD_PCT",
+      "subgroup": "Adultos encuestados",
+      "prepared_rows": 2,
+      "years": [
+        "2022",
+        "2026"
+      ],
+      "territories": [
+        "ES"
+      ],
+      "sources": [
+        "PEW_GAS"
+      ],
+      "units": [
+        "%"
+      ],
+      "methodologies": [
+        "PEW_GLOBAL_ATTITUDES_SURVEY_SELF_REPORT"
+      ],
+      "flags": [
+        "national_only_do_not_copy_to_ccaa",
+        "survey_perception_not_observed_impact"
+      ]
+    },
+    {
+      "indicator_id": "PEW_SOCIAL_DIVISION_MORE_PCT",
+      "subgroup": "Adultos encuestados",
+      "prepared_rows": 2,
+      "years": [
+        "2022",
+        "2026"
+      ],
+      "territories": [
+        "ES"
+      ],
+      "sources": [
+        "PEW_GAS"
+      ],
+      "units": [
+        "%"
+      ],
+      "methodologies": [
+        "PEW_GLOBAL_ATTITUDES_SURVEY_SELF_REPORT"
+      ],
+      "flags": [
+        "national_only_do_not_copy_to_ccaa",
+        "survey_perception_not_observed_impact"
+      ]
+    },
+    {
+      "indicator_id": "POV_AROPE",
+      "subgroup": "Total",
+      "prepared_rows": 19,
+      "years": [
+        "2025"
+      ],
+      "territories": [
+        "ES11",
+        "ES12",
+        "ES13",
+        "ES21",
+        "ES22",
+        "ES23",
+        "ES24",
+        "ES30",
+        "ES41",
+        "ES42",
+        "ES43",
+        "ES51",
+        "ES52",
+        "ES53",
+        "ES61",
+        "ES62",
+        "ES63",
+        "ES64",
+        "ES70"
+      ],
+      "sources": [
+        "EUROSTAT_REG"
+      ],
+      "units": [
+        "%"
+      ],
+      "methodologies": [
+        "EUROSTAT_JSONSTAT_OFFICIAL"
+      ],
+      "flags": [
+        "retrieval_date_requires_human_verification"
+      ]
+    },
+    {
+      "indicator_id": "ecv_arope_pct",
+      "subgroup": "total",
+      "prepared_rows": 20,
+      "years": [
+        "2025"
+      ],
+      "territories": [
+        "ES",
+        "ES11",
+        "ES12",
+        "ES13",
+        "ES21",
+        "ES22",
+        "ES23",
+        "ES24",
+        "ES30",
+        "ES41",
+        "ES42",
+        "ES43",
+        "ES51",
+        "ES52",
+        "ES53",
+        "ES61",
+        "ES62",
+        "ES63",
+        "ES64",
+        "ES70"
+      ],
+      "sources": [
+        "INE"
+      ],
+      "units": [
+        "%"
+      ],
+      "methodologies": [
+        "official_final"
+      ],
+      "flags": [
+        "retrieval_date_requires_human_verification"
+      ]
+    },
+    {
+      "indicator_id": "ecv_baja_intensidad_empleo_pct",
+      "subgroup": "total",
+      "prepared_rows": 20,
+      "years": [
+        "2025"
+      ],
+      "territories": [
+        "ES",
+        "ES11",
+        "ES12",
+        "ES13",
+        "ES21",
+        "ES22",
+        "ES23",
+        "ES24",
+        "ES30",
+        "ES41",
+        "ES42",
+        "ES43",
+        "ES51",
+        "ES52",
+        "ES53",
+        "ES61",
+        "ES62",
+        "ES63",
+        "ES64",
+        "ES70"
+      ],
+      "sources": [
+        "INE"
+      ],
+      "units": [
+        "%"
+      ],
+      "methodologies": [
+        "official_final"
+      ],
+      "flags": [
+        "retrieval_date_requires_human_verification"
+      ]
+    },
+    {
+      "indicator_id": "ecv_carencia_material_social_severa_pct",
+      "subgroup": "total",
+      "prepared_rows": 20,
+      "years": [
+        "2025"
+      ],
+      "territories": [
+        "ES",
+        "ES11",
+        "ES12",
+        "ES13",
+        "ES21",
+        "ES22",
+        "ES23",
+        "ES24",
+        "ES30",
+        "ES41",
+        "ES42",
+        "ES43",
+        "ES51",
+        "ES52",
+        "ES53",
+        "ES61",
+        "ES62",
+        "ES63",
+        "ES64",
+        "ES70"
+      ],
+      "sources": [
+        "INE"
+      ],
+      "units": [
+        "%"
+      ],
+      "methodologies": [
+        "official_final"
+      ],
+      "flags": [
+        "retrieval_date_requires_human_verification"
+      ]
+    },
+    {
+      "indicator_id": "ecv_riesgo_pobreza_pct",
+      "subgroup": "total",
+      "prepared_rows": 20,
+      "years": [
+        "2025"
+      ],
+      "territories": [
+        "ES",
+        "ES11",
+        "ES12",
+        "ES13",
+        "ES21",
+        "ES22",
+        "ES23",
+        "ES24",
+        "ES30",
+        "ES41",
+        "ES42",
+        "ES43",
+        "ES51",
+        "ES52",
+        "ES53",
+        "ES61",
+        "ES62",
+        "ES63",
+        "ES64",
+        "ES70"
+      ],
+      "sources": [
+        "INE"
+      ],
+      "units": [
+        "%"
+      ],
+      "methodologies": [
+        "official_final"
+      ],
+      "flags": [
+        "retrieval_date_requires_human_verification"
+      ]
+    },
+    {
+      "indicator_id": "interior_ciberdelitos_pct_criminalidad",
+      "subgroup": "total",
+      "prepared_rows": 1,
+      "years": [
+        "2025"
+      ],
+      "territories": [
+        "ES"
+      ],
+      "sources": [
+        "MIR"
+      ],
+      "units": [
+        "%"
+      ],
+      "methodologies": [
+        "administrative_registered_not_prevalence"
+      ],
+      "flags": [
+        "national_only_do_not_copy_to_ccaa",
+        "administrative_counts_not_population_prevalence",
+        "retrieval_date_requires_human_verification"
+      ]
+    },
+    {
+      "indicator_id": "interior_ciberdelitos_registrados",
+      "subgroup": "total",
+      "prepared_rows": 2,
+      "years": [
+        "2024",
+        "2025"
+      ],
+      "territories": [
+        "ES"
+      ],
+      "sources": [
+        "MIR"
+      ],
+      "units": [
+        "hechos registrados"
+      ],
+      "methodologies": [
+        "administrative_registered_not_prevalence"
+      ],
+      "flags": [
+        "national_only_do_not_copy_to_ccaa",
+        "administrative_counts_not_population_prevalence",
+        "retrieval_date_requires_human_verification"
+      ]
+    },
+    {
+      "indicator_id": "interior_odio_hechos_registrados",
+      "subgroup": "total",
+      "prepared_rows": 1,
+      "years": [
+        "2025"
+      ],
+      "territories": [
+        "ES"
+      ],
+      "sources": [
+        "MIR"
+      ],
+      "units": [
+        "hechos registrados"
+      ],
+      "methodologies": [
+        "administrative_registered_not_prevalence"
+      ],
+      "flags": [
+        "national_only_do_not_copy_to_ccaa",
+        "administrative_counts_not_population_prevalence",
+        "retrieval_date_requires_human_verification"
+      ]
+    },
+    {
+      "indicator_id": "interior_trata_explotacion_victimas_liberadas",
+      "subgroup": "total",
+      "prepared_rows": 1,
+      "years": [
+        "2025"
+      ],
+      "territories": [
+        "ES"
+      ],
+      "sources": [
+        "MIR"
+      ],
+      "units": [
+        "personas"
+      ],
+      "methodologies": [
+        "administrative_registered_not_prevalence"
+      ],
+      "flags": [
+        "national_only_do_not_copy_to_ccaa",
+        "administrative_counts_not_population_prevalence",
+        "retrieval_date_requires_human_verification"
+      ]
+    }
+  ],
+  "methodology": "This report describes prepared JSON only, not the published MySQL database. No missing territorial observation is treated as zero."
+}

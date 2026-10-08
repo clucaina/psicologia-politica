@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img">
+  <title>Experimento sobre retirada de anuncios políticos</title>
+  <desc>Durante seis semanas se retiraron anuncios políticos a subconjuntos aleatorios de 36906 usuarios de Facebook y 25925 de Instagram. No hubo efectos detectables en nueve resultados políticos principales.</desc>
+  <rect width="1200" height="675" fill="#f3ecdf"/>
+  <text x="60" y="75" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="2" fill="#7d2432">PUBLICIDAD POLÍTICA · EXPERIMENTO DE CAMPO</text>
+  <text x="60" y="124" font-family="Georgia, serif" font-size="39" font-weight="700" fill="#101b2d">Seis semanas sin anuncios en el feed</text>
+  <line x1="60" y1="153" x2="1140" y2="153" stroke="#101b2d" stroke-width="2"/>
+  <rect x="60" y="190" width="510" height="165" rx="8" fill="#101b2d"/>
+  <text x="92" y="237" font-family="Arial, sans-serif" font-size="22" fill="#e8dbc3">FACEBOOK</text>
+  <text x="92" y="303" font-family="Georgia, serif" font-size="61" font-weight="700" fill="#fff9ee">36.906</text>
+  <text x="92" y="335" font-family="Arial, sans-serif" font-size="20" fill="#fff9ee">personas participantes</text>
+  <rect x="630" y="190" width="510" height="165" rx="8" fill="#fff9ee" stroke="#101b2d" stroke-width="2"/>
+  <text x="662" y="237" font-family="Arial, sans-serif" font-size="22" fill="#7d2432">INSTAGRAM</text>
+  <text x="662" y="303" font-family="Georgia, serif" font-size="61" font-weight="700" fill="#101b2d">25.925</text>
+  <text x="662" y="335" font-family="Arial, sans-serif" font-size="20" fill="#101b2d">personas participantes</text>
+  <rect x="60" y="397" width="1080" height="145" rx="8" fill="#eadadd"/>
+  <text x="90" y="438" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#7d2432">RESULTADO PRINCIPAL</text>
+  <text x="90" y="486" font-family="Georgia, serif" font-size="34" font-weight="700" fill="#101b2d">Sin diferencias detectables en 9 resultados</text>
+  <text x="90" y="520" font-family="Arial, sans-serif" font-size="20" fill="#101b2d">Conocimiento · polarización · legitimidad · participación · valoración · voto</text>
+  <line x1="60" y1="585" x2="1140" y2="585" stroke="#101b2d" stroke-width="2"/>
+  <text x="60" y="627" font-family="Arial, sans-serif" font-size="21" fill="#101b2d">Elecciones de EE. UU. 2020 · “no detectable” no significa “efecto imposible”</text>
+</svg>

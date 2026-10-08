@@ -1,0 +1,1532 @@
+{
+  "version": "2.0",
+  "created_at": "2026-10-06",
+  "count": 95,
+  "policy": {
+    "truth_requires_evidence": true,
+    "signals_are_not_diagnoses": true,
+    "no_intent_inference": true
+  },
+  "entries": [
+    {
+      "id": "FALACIA_AD_HOMINEM",
+      "category": "falacia",
+      "label_es": "Ad hominem",
+      "definition": "Atacar a la persona en lugar del argumento.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "FALACIA_STRAW_MAN",
+      "category": "falacia",
+      "label_es": "Hombre de paja",
+      "definition": "Reformular la posición contraria de forma más extrema o débil.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "FALACIA_FALSE_DILEMMA",
+      "category": "falacia",
+      "label_es": "Falso dilema",
+      "definition": "Presentar como únicas dos opciones cuando existen alternativas.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "FALACIA_SLIPPERY_SLOPE",
+      "category": "falacia",
+      "label_es": "Pendiente resbaladiza",
+      "definition": "Presentar una cadena de consecuencias como inevitable sin justificar sus enlaces.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "FALACIA_APPEAL_AUTHORITY",
+      "category": "falacia",
+      "label_es": "Apelación indebida a autoridad",
+      "definition": "Usar prestigio o cargo como sustituto de evidencia pertinente.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "FALACIA_BANDWAGON",
+      "category": "falacia",
+      "label_es": "Apelación a la mayoría",
+      "definition": "Usar popularidad como prueba suficiente de verdad.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "FALACIA_HASTY_GENERALIZATION",
+      "category": "falacia",
+      "label_es": "Generalización apresurada",
+      "definition": "Generalizar desde pocos casos o una muestra sesgada.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "FALACIA_BEGGING_QUESTION",
+      "category": "falacia",
+      "label_es": "Petición de principio",
+      "definition": "Usar como premisa una versión de lo que se quiere demostrar.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "FALACIA_FALSE_CAUSE",
+      "category": "falacia",
+      "label_es": "Falsa causa",
+      "definition": "Atribuir causalidad sin descartar explicaciones alternativas.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "FALACIA_POST_HOC",
+      "category": "falacia",
+      "label_es": "Post hoc",
+      "definition": "Inferir causa solo porque un evento precede a otro.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "FALACIA_CORRELATION_CAUSATION",
+      "category": "falacia",
+      "label_es": "Correlación implica causalidad",
+      "definition": "Interpretar asociación estadística como efecto causal.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "FALACIA_CHERRY_PICKING",
+      "category": "falacia",
+      "label_es": "Cherry-picking",
+      "definition": "Seleccionar datos o periodos favorables e ignorar evidencia relevante.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "FALACIA_FALSE_EQUIVALENCE",
+      "category": "falacia",
+      "label_es": "Falsa equivalencia",
+      "definition": "Equiparar casos con diferencias relevantes.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "FALACIA_TU_QUOQUE",
+      "category": "falacia",
+      "label_es": "Tu quoque",
+      "definition": "Responder a una crítica señalando conducta similar del crítico.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "FALACIA_WHATABOUTISM",
+      "category": "falacia",
+      "label_es": "Whataboutism",
+      "definition": "Desviar la cuestión hacia otro problema para evitar responder.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "FALACIA_MOVING_GOALPOSTS",
+      "category": "falacia",
+      "label_es": "Mover la portería",
+      "definition": "Cambiar el estándar de prueba después de satisfacer el anterior.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "FALACIA_MOTTE_BAILEY",
+      "category": "falacia",
+      "label_es": "Motte-and-bailey",
+      "definition": "Alternar entre una tesis fuerte y otra débil más defendible.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "FALACIA_ANECDOTAL",
+      "category": "falacia",
+      "label_es": "Argumento anecdótico",
+      "definition": "Usar una experiencia individual como sustituto de evidencia poblacional.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "FALACIA_BURDEN_PROOF",
+      "category": "falacia",
+      "label_es": "Carga de la prueba desplazada",
+      "definition": "Exigir refutación de una afirmación que no se ha sustentado.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "FALACIA_NO_TRUE_SCOTSMAN",
+      "category": "falacia",
+      "label_es": "Ningún verdadero escocés",
+      "definition": "Redefinir una categoría para excluir contraejemplos.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "FALACIA_EQUIVOCATION",
+      "category": "falacia",
+      "label_es": "Equívoco",
+      "definition": "Cambiar el significado de un término durante el argumento.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "FALACIA_COMPOSITION",
+      "category": "falacia",
+      "label_es": "Composición",
+      "definition": "Atribuir al conjunto una propiedad observada en partes.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "FALACIA_DIVISION",
+      "category": "falacia",
+      "label_es": "División",
+      "definition": "Atribuir a cada miembro una propiedad del conjunto.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "FALACIA_APPEAL_FEAR",
+      "category": "falacia",
+      "label_es": "Apelación al miedo",
+      "definition": "Usar temor como sustituto de evidencia.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "FALACIA_APPEAL_PITY",
+      "category": "falacia",
+      "label_es": "Apelación a la compasión",
+      "definition": "Usar compasión como sustituto de inferencia factual.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "SESGO_COGNITIVO_CONFIRMATION",
+      "category": "sesgo_cognitivo",
+      "label_es": "Sesgo de confirmación",
+      "definition": "Favorecer evidencia compatible con creencias previas.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "SESGO_COGNITIVO_AVAILABILITY",
+      "category": "sesgo_cognitivo",
+      "label_es": "Disponibilidad",
+      "definition": "Estimar frecuencia o riesgo por ejemplos fáciles de recordar.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "SESGO_COGNITIVO_NEGATIVITY",
+      "category": "sesgo_cognitivo",
+      "label_es": "Negatividad",
+      "definition": "Dar más peso a información negativa.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "SESGO_COGNITIVO_ANCHORING",
+      "category": "sesgo_cognitivo",
+      "label_es": "Anclaje",
+      "definition": "Dejar que una cifra o marco inicial condicione la evaluación.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "SESGO_COGNITIVO_FRAMING",
+      "category": "sesgo_cognitivo",
+      "label_es": "Encuadre",
+      "definition": "Cambiar evaluación por la forma de presentar información equivalente.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "SESGO_COGNITIVO_HALO",
+      "category": "sesgo_cognitivo",
+      "label_es": "Efecto halo",
+      "definition": "Generalizar una impresión de un atributo a otros.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "SESGO_COGNITIVO_OUTGROUP_HOMOGENEITY",
+      "category": "sesgo_cognitivo",
+      "label_es": "Homogeneidad del exogrupo",
+      "definition": "Percibir al grupo externo como más uniforme.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "SESGO_COGNITIVO_INGROUP",
+      "category": "sesgo_cognitivo",
+      "label_es": "Favoritismo endogrupal",
+      "definition": "Evaluar más favorablemente al propio grupo.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "SESGO_COGNITIVO_HOSTILE_ATTRIBUTION",
+      "category": "sesgo_cognitivo",
+      "label_es": "Atribución hostil",
+      "definition": "Interpretar acciones ambiguas como deliberadamente hostiles.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "SESGO_COGNITIVO_FUND_ATTRIB",
+      "category": "sesgo_cognitivo",
+      "label_es": "Error fundamental de atribución",
+      "definition": "Sobreestimar rasgos e infravalorar contexto.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "SESGO_COGNITIVO_STATUS_QUO",
+      "category": "sesgo_cognitivo",
+      "label_es": "Statu quo",
+      "definition": "Preferir el estado actual por ser el actual.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "SESGO_COGNITIVO_LOSS_AVERSION",
+      "category": "sesgo_cognitivo",
+      "label_es": "Aversión a la pérdida",
+      "definition": "Dar más peso a pérdidas que a ganancias equivalentes.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "SESGO_COGNITIVO_AUTHORITY",
+      "category": "sesgo_cognitivo",
+      "label_es": "Sesgo de autoridad",
+      "definition": "Aumentar aceptación por estatus del emisor.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "SESGO_COGNITIVO_SOCIAL_PROOF",
+      "category": "sesgo_cognitivo",
+      "label_es": "Efecto arrastre",
+      "definition": "Ajustar opinión al apoyo percibido de la mayoría.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "SESGO_COGNITIVO_SURVIVORSHIP",
+      "category": "sesgo_cognitivo",
+      "label_es": "Supervivencia",
+      "definition": "Analizar solo casos visibles o supervivientes.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "SESGO_COGNITIVO_SELECTION",
+      "category": "sesgo_cognitivo",
+      "label_es": "Selección",
+      "definition": "Inferir desde una muestra cuya inclusión no es neutral.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "SESGO_COGNITIVO_RECENCY",
+      "category": "sesgo_cognitivo",
+      "label_es": "Recencia",
+      "definition": "Sobreponderar eventos recientes.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "SESGO_COGNITIVO_BASE_RATE",
+      "category": "sesgo_cognitivo",
+      "label_es": "Negligencia de tasa base",
+      "definition": "Ignorar prevalencia basal al interpretar una señal.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "SESGO_COGNITIVO_ZERO_SUM",
+      "category": "sesgo_cognitivo",
+      "label_es": "Suma cero",
+      "definition": "Suponer que toda ganancia de un grupo exige pérdida equivalente.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "SESGO_COGNITIVO_ILLUSORY_TRUTH",
+      "category": "sesgo_cognitivo",
+      "label_es": "Verdad ilusoria",
+      "definition": "Aumentar credibilidad por repetición/familiaridad.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TECNICA_PERSUASIVA_US_VS_THEM",
+      "category": "tecnica_persuasiva",
+      "label_es": "Nosotros frente a ellos",
+      "definition": "Construir una frontera moral fuerte entre endogrupo y exogrupo.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TECNICA_PERSUASIVA_MORAL_OUTRAGE",
+      "category": "tecnica_persuasiva",
+      "label_es": "Indignación moral",
+      "definition": "Usar transgresión moral para intensificar atención y condena.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TECNICA_PERSUASIVA_URGENCY",
+      "category": "tecnica_persuasiva",
+      "label_es": "Urgencia",
+      "definition": "Reducir deliberación mediante presión temporal.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TECNICA_PERSUASIVA_THREAT",
+      "category": "tecnica_persuasiva",
+      "label_es": "Amenaza",
+      "definition": "Enmarcar un actor o cambio como peligro para activar protección.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TECNICA_PERSUASIVA_SCAPEGOAT",
+      "category": "tecnica_persuasiva",
+      "label_es": "Chivo expiatorio",
+      "definition": "Concentrar un problema complejo en un actor o grupo único.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TECNICA_PERSUASIVA_DEHUMANIZATION",
+      "category": "tecnica_persuasiva",
+      "label_es": "Deshumanización",
+      "definition": "Describir personas como plaga, enfermedad, animales u objetos.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TECNICA_PERSUASIVA_LABELING",
+      "category": "tecnica_persuasiva",
+      "label_es": "Etiquetado identitario",
+      "definition": "Sustituir conducta concreta por una etiqueta global.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TECNICA_PERSUASIVA_LOADED_LANGUAGE",
+      "category": "tecnica_persuasiva",
+      "label_es": "Lenguaje cargado",
+      "definition": "Elegir palabras con fuerte valencia para orientar la evaluación.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TECNICA_PERSUASIVA_PRESUPPOSITION",
+      "category": "tecnica_persuasiva",
+      "label_es": "Presuposición incrustada",
+      "definition": "Introducir como dado algo que no se ha demostrado.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TECNICA_PERSUASIVA_VAGUE_QUANTIFIER",
+      "category": "tecnica_persuasiva",
+      "label_es": "Cuantificador vago",
+      "definition": "Usar 'muchos', 'cada vez más' o 'la mayoría' sin cifra.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TECNICA_PERSUASIVA_ABSOLUTISM",
+      "category": "tecnica_persuasiva",
+      "label_es": "Absolutización",
+      "definition": "Usar 'siempre', 'nunca', 'todos' o 'nadie' de forma injustificada.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TECNICA_PERSUASIVA_CERTAINTY",
+      "category": "tecnica_persuasiva",
+      "label_es": "Certeza injustificada",
+      "definition": "Elevar una inferencia probable a certeza.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TECNICA_PERSUASIVA_EUPHEMISM",
+      "category": "tecnica_persuasiva",
+      "label_es": "Eufemismo",
+      "definition": "Suavizar una acción con terminología menos cargada.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TECNICA_PERSUASIVA_DYSPHEMISM",
+      "category": "tecnica_persuasiva",
+      "label_es": "Disfemismo",
+      "definition": "Intensificar rechazo con una denominación peyorativa.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TECNICA_PERSUASIVA_RHETORICAL_QUESTION",
+      "category": "tecnica_persuasiva",
+      "label_es": "Pregunta retórica dirigida",
+      "definition": "Introducir una afirmación implícita como pregunta.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TECNICA_PERSUASIVA_REPETITION",
+      "category": "tecnica_persuasiva",
+      "label_es": "Repetición persuasiva",
+      "definition": "Repetir una afirmación sin aportar nueva evidencia.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TECNICA_PERSUASIVA_SLOGAN",
+      "category": "tecnica_persuasiva",
+      "label_es": "Eslogan/simplificación",
+      "definition": "Comprimir un problema complejo en una fórmula memorable.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TECNICA_PERSUASIVA_COMMON_ENEMY",
+      "category": "tecnica_persuasiva",
+      "label_es": "Enemigo común",
+      "definition": "Crear cohesión interna alrededor de un adversario.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TECNICA_PERSUASIVA_VICTIMHOOD",
+      "category": "tecnica_persuasiva",
+      "label_es": "Victimización estratégica",
+      "definition": "Centrar identidad y legitimidad en un agravio.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TECNICA_PERSUASIVA_VAGUE_AUTHORITY",
+      "category": "tecnica_persuasiva",
+      "label_es": "Autoridad vaga",
+      "definition": "Invocar expertos o estudios sin identificarlos.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TRAMPA_ESTADISTICA_NO_DENOMINATOR",
+      "category": "trampa_estadistica",
+      "label_es": "Porcentaje sin denominador",
+      "definition": "Presentar porcentaje sin cantidad inicial o universo.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TRAMPA_ESTADISTICA_ABS_REL",
+      "category": "trampa_estadistica",
+      "label_es": "Absoluto vs relativo",
+      "definition": "Mostrar cambio relativo sin magnitud absoluta.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TRAMPA_ESTADISTICA_RATE_COUNT",
+      "category": "trampa_estadistica",
+      "label_es": "Tasa vs recuento",
+      "definition": "Comparar recuentos entre poblaciones de distinto tamaño.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TRAMPA_ESTADISTICA_MEAN_MEDIAN",
+      "category": "trampa_estadistica",
+      "label_es": "Media vs mediana",
+      "definition": "Usar media en distribución sesgada sin contexto.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TRAMPA_ESTADISTICA_BASE_CHANGE",
+      "category": "trampa_estadistica",
+      "label_es": "Cambio de base",
+      "definition": "Comparar porcentajes calculados sobre universos distintos.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TRAMPA_ESTADISTICA_TIME_WINDOW",
+      "category": "trampa_estadistica",
+      "label_es": "Ventana temporal selectiva",
+      "definition": "Elegir inicio o fin que cambia la narrativa.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TRAMPA_ESTADISTICA_SMALL_N",
+      "category": "trampa_estadistica",
+      "label_es": "Muestra pequeña",
+      "definition": "Presentar estimación inestable sin incertidumbre.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TRAMPA_ESTADISTICA_MARGIN_ERROR",
+      "category": "trampa_estadistica",
+      "label_es": "Margen de error omitido",
+      "definition": "Tratar diferencias inciertas como reales.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TRAMPA_ESTADISTICA_MULTIPLE_TESTS",
+      "category": "trampa_estadistica",
+      "label_es": "Pruebas múltiples",
+      "definition": "Destacar significaciones entre muchas comparaciones.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TRAMPA_ESTADISTICA_P_VALUE",
+      "category": "trampa_estadistica",
+      "label_es": "p-valor malinterpretado",
+      "definition": "Tratar p como probabilidad de que una hipótesis sea falsa.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TRAMPA_ESTADISTICA_EFFECT_SIZE",
+      "category": "trampa_estadistica",
+      "label_es": "Tamaño de efecto omitido",
+      "definition": "Confundir significación estadística con importancia.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TRAMPA_ESTADISTICA_REGRESSION_MEAN",
+      "category": "trampa_estadistica",
+      "label_es": "Regresión a la media",
+      "definition": "Atribuir a intervención una reversión tras un valor extremo.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TRAMPA_ESTADISTICA_ECOLOGICAL",
+      "category": "trampa_estadistica",
+      "label_es": "Falacia ecológica",
+      "definition": "Inferir conducta individual desde datos agregados.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TRAMPA_ESTADISTICA_SIMPSON",
+      "category": "trampa_estadistica",
+      "label_es": "Paradoja de Simpson potencial",
+      "definition": "Ocultar cambios de tendencia entre agregado y subgrupos.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TRAMPA_ESTADISTICA_PROXY",
+      "category": "trampa_estadistica",
+      "label_es": "Proxy tratado como constructo",
+      "definition": "Tratar un indicador indirecto como medida exacta.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TRAMPA_ESTADISTICA_MISSING",
+      "category": "trampa_estadistica",
+      "label_es": "Datos faltantes ignorados",
+      "definition": "Interpretar una serie sin mostrar cobertura o ausencia.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TRAMPA_ESTADISTICA_PROVISIONAL",
+      "category": "trampa_estadistica",
+      "label_es": "Dato provisional tratado como definitivo",
+      "definition": "Ocultar flags de estimación o provisionalidad.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TRAMPA_ESTADISTICA_UNITS",
+      "category": "trampa_estadistica",
+      "label_es": "Unidades incompatibles",
+      "definition": "Comparar cifras con escalas o unidades distintas.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TRAMPA_ESTADISTICA_CAUSAL_MODEL",
+      "category": "trampa_estadistica",
+      "label_es": "Confusores insuficientes",
+      "definition": "Presentar una regresión observacional como causal.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "TRAMPA_ESTADISTICA_RISK_ABS_REL",
+      "category": "trampa_estadistica",
+      "label_es": "Riesgo relativo sin absoluto",
+      "definition": "Comunicar multiplicadores de riesgo sin riesgo basal.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "ANALISIS_DISCURSO_INTENT_ATTRIBUTION",
+      "category": "analisis_discurso",
+      "label_es": "Atribución de intención",
+      "definition": "Afirmar intención o motivación no observada.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "ANALISIS_DISCURSO_PASSIVE_AGENT",
+      "category": "analisis_discurso",
+      "label_es": "Agente omitido",
+      "definition": "Usar impersonal/pasiva ocultando quién actuó.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "ANALISIS_DISCURSO_NOMINALIZATION",
+      "category": "analisis_discurso",
+      "label_es": "Nominalización opaca",
+      "definition": "Convertir acciones en sustantivos que esconden actores.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "ANALISIS_DISCURSO_SCOPE",
+      "category": "analisis_discurso",
+      "label_es": "Alcance ambiguo",
+      "definition": "No especificar población, territorio o periodo.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "ANALISIS_DISCURSO_MODALITY",
+      "category": "analisis_discurso",
+      "label_es": "Modalidad epistémica",
+      "definition": "Confundir 'puede', 'probable' y 'seguro'.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "ANALISIS_DISCURSO_QUOTE_CONTEXT",
+      "category": "analisis_discurso",
+      "label_es": "Cita fuera de contexto",
+      "definition": "Usar fragmento sin contexto suficiente.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "ANALISIS_DISCURSO_HEADLINE_BODY",
+      "category": "analisis_discurso",
+      "label_es": "Titular-cuerpo desalineados",
+      "definition": "El titular afirma más que la evidencia del cuerpo.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "ANALISIS_DISCURSO_CATEGORY_SHIFT",
+      "category": "analisis_discurso",
+      "label_es": "Cambio de categoría",
+      "definition": "Alternar categorías poblacionales como si fueran idénticas.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "ANALISIS_DISCURSO_TEMPORAL_VAGUE",
+      "category": "analisis_discurso",
+      "label_es": "Temporalidad vaga",
+      "definition": "Usar 'ahora', 'últimamente' o 'cada vez más' sin periodo.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    },
+    {
+      "id": "ANALISIS_DISCURSO_SOURCE_LAUNDER",
+      "category": "analisis_discurso",
+      "label_es": "Lavado de fuente",
+      "definition": "Ocultar el origen primario a través de cadenas secundarias.",
+      "minimum_evidence": "No marcar por una sola palabra; exigir patrón contextual o estructura argumental.",
+      "false_positive_control": "Presentar como señal compatible, permitir descartar y mostrar por qué se activó.",
+      "recommended_output": [
+        "fragmento",
+        "explicacion",
+        "confianza",
+        "contraejemplo",
+        "reformulacion"
+      ],
+      "intent_policy": "No atribuir intención manipuladora salvo evidencia externa explícita."
+    }
+  ]
+}

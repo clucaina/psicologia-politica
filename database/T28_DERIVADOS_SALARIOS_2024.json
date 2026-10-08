@@ -1,0 +1,1101 @@
+{
+  "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+  "depends_on_batch": "T27_SALARIOS_CCAA_2024",
+  "dedupe_note": "36 observaciones DERIVADAS, no nuevas estadísticas oficiales; no publicar sin T27 revisada y validación de fórmula. No confundir brecha anual no ajustada con brecha horaria ni discriminación.",
+  "new_indicators": [
+    {
+      "indicator_id": "EAES2024_GAP_MEDIA_ANUAL_PCT",
+      "domain": "Economía",
+      "subdomain": "Salarios",
+      "label_es": "Diferencia no ajustada entre salarios medios anuales de hombres y mujeres (% sobre hombres)",
+      "unit_default": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "period_start": "2024",
+      "period_end": "2024",
+      "geography_scope": "España + 17 CCAA (sin Ceuta/Melilla)",
+      "subgroup_dimensions": "Hombres vs Mujeres",
+      "frequency": "anual",
+      "quality_grade": "DERIVED_PENDING_REVIEW",
+      "status": "candidate_review",
+      "methodology_note": "Derivado de medias brutas anuales EAES 2024; no equivale a brecha salarial horaria ajustada ni implica causalidad.",
+      "signed_percent": true
+    },
+    {
+      "indicator_id": "EAES2024_DIFF_MEDIA_NACIONAL_PCT",
+      "domain": "Economía",
+      "subdomain": "Salarios",
+      "label_es": "Diferencia de salario medio anual respecto a España (%)",
+      "unit_default": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "period_start": "2024",
+      "period_end": "2024",
+      "geography_scope": "España + 17 CCAA (sin Ceuta/Melilla)",
+      "subgroup_dimensions": "Ambos sexos",
+      "frequency": "anual",
+      "quality_grade": "DERIVED_PENDING_REVIEW",
+      "status": "candidate_review",
+      "methodology_note": "Media bruta anual de CCAA comparada con media bruta anual España. No ajustada por coste de vida ni composición.",
+      "signed_percent": true
+    }
+  ],
+  "source_endpoints": [
+    {
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "upstream_source_id": "INE",
+      "upstream_dataset_code": "EAES2024",
+      "retrieved": "2026-10-07",
+      "status": "derived_from_official",
+      "methodology": "Fórmulas y valores originales por observación; sin imputación de Ceuta/Melilla."
+    }
+  ],
+  "observations": [
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_GAP_MEDIA_ANUAL_PCT",
+      "geo_code": "ES",
+      "geography": "España",
+      "subgroup": "Hombres vs Mujeres",
+      "value": 16.0731,
+      "source_locator": "EAES 2024, tabla por sexo y CCAA; cálculo NPL: (media hombres - media mujeres) / media hombres × 100",
+      "derivation": {
+        "formula": "(male_annual_mean-female_annual_mean)/male_annual_mean*100",
+        "inputs": {
+          "male_annual_mean_eur": 32057.55,
+          "female_annual_mean_eur": 26904.9
+        },
+        "round_decimals": 4
+      },
+      "limits": "Brecha descriptiva no ajustada en salario bruto medio ANUAL. No equivale a brecha horaria Eurostat ni demuestra discriminación; influyen horas, jornada, ocupación, antigüedad y composición.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_DIFF_MEDIA_NACIONAL_PCT",
+      "geo_code": "ES",
+      "geography": "España",
+      "subgroup": "Ambos sexos",
+      "value": 0.0,
+      "source_locator": "EAES 2024, media total CCAA frente a media España; cálculo NPL: (media CCAA/media España - 1) × 100",
+      "derivation": {
+        "formula": "(territory_annual_mean/national_annual_mean-1)*100",
+        "inputs": {
+          "territory_annual_mean_eur": 29540.26,
+          "national_annual_mean_eur": 29540.26
+        },
+        "round_decimals": 4
+      },
+      "limits": "Diferencia relativa descriptiva frente a la media salarial anual de España. No corrige por jornada, composición, precios, alquiler ni coste de vida.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_GAP_MEDIA_ANUAL_PCT",
+      "geo_code": "ES11",
+      "geography": "Galicia",
+      "subgroup": "Hombres vs Mujeres",
+      "value": 14.2693,
+      "source_locator": "EAES 2024, tabla por sexo y CCAA; cálculo NPL: (media hombres - media mujeres) / media hombres × 100",
+      "derivation": {
+        "formula": "(male_annual_mean-female_annual_mean)/male_annual_mean*100",
+        "inputs": {
+          "male_annual_mean_eur": 28637.65,
+          "female_annual_mean_eur": 24551.26
+        },
+        "round_decimals": 4
+      },
+      "limits": "Brecha descriptiva no ajustada en salario bruto medio ANUAL. No equivale a brecha horaria Eurostat ni demuestra discriminación; influyen horas, jornada, ocupación, antigüedad y composición.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_DIFF_MEDIA_NACIONAL_PCT",
+      "geo_code": "ES11",
+      "geography": "Galicia",
+      "subgroup": "Ambos sexos",
+      "value": -10.1319,
+      "source_locator": "EAES 2024, media total CCAA frente a media España; cálculo NPL: (media CCAA/media España - 1) × 100",
+      "derivation": {
+        "formula": "(territory_annual_mean/national_annual_mean-1)*100",
+        "inputs": {
+          "territory_annual_mean_eur": 26547.27,
+          "national_annual_mean_eur": 29540.26
+        },
+        "round_decimals": 4
+      },
+      "limits": "Diferencia relativa descriptiva frente a la media salarial anual de España. No corrige por jornada, composición, precios, alquiler ni coste de vida.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_GAP_MEDIA_ANUAL_PCT",
+      "geo_code": "ES12",
+      "geography": "Asturias",
+      "subgroup": "Hombres vs Mujeres",
+      "value": 20.2114,
+      "source_locator": "EAES 2024, tabla por sexo y CCAA; cálculo NPL: (media hombres - media mujeres) / media hombres × 100",
+      "derivation": {
+        "formula": "(male_annual_mean-female_annual_mean)/male_annual_mean*100",
+        "inputs": {
+          "male_annual_mean_eur": 31852.13,
+          "female_annual_mean_eur": 25414.38
+        },
+        "round_decimals": 4
+      },
+      "limits": "Brecha descriptiva no ajustada en salario bruto medio ANUAL. No equivale a brecha horaria Eurostat ni demuestra discriminación; influyen horas, jornada, ocupación, antigüedad y composición.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_DIFF_MEDIA_NACIONAL_PCT",
+      "geo_code": "ES12",
+      "geography": "Asturias",
+      "subgroup": "Ambos sexos",
+      "value": -3.3106,
+      "source_locator": "EAES 2024, media total CCAA frente a media España; cálculo NPL: (media CCAA/media España - 1) × 100",
+      "derivation": {
+        "formula": "(territory_annual_mean/national_annual_mean-1)*100",
+        "inputs": {
+          "territory_annual_mean_eur": 28562.31,
+          "national_annual_mean_eur": 29540.26
+        },
+        "round_decimals": 4
+      },
+      "limits": "Diferencia relativa descriptiva frente a la media salarial anual de España. No corrige por jornada, composición, precios, alquiler ni coste de vida.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_GAP_MEDIA_ANUAL_PCT",
+      "geo_code": "ES13",
+      "geography": "Cantabria",
+      "subgroup": "Hombres vs Mujeres",
+      "value": 20.5957,
+      "source_locator": "EAES 2024, tabla por sexo y CCAA; cálculo NPL: (media hombres - media mujeres) / media hombres × 100",
+      "derivation": {
+        "formula": "(male_annual_mean-female_annual_mean)/male_annual_mean*100",
+        "inputs": {
+          "male_annual_mean_eur": 30052.78,
+          "female_annual_mean_eur": 23863.21
+        },
+        "round_decimals": 4
+      },
+      "limits": "Brecha descriptiva no ajustada en salario bruto medio ANUAL. No equivale a brecha horaria Eurostat ni demuestra discriminación; influyen horas, jornada, ocupación, antigüedad y composición.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_DIFF_MEDIA_NACIONAL_PCT",
+      "geo_code": "ES13",
+      "geography": "Cantabria",
+      "subgroup": "Ambos sexos",
+      "value": -8.2704,
+      "source_locator": "EAES 2024, media total CCAA frente a media España; cálculo NPL: (media CCAA/media España - 1) × 100",
+      "derivation": {
+        "formula": "(territory_annual_mean/national_annual_mean-1)*100",
+        "inputs": {
+          "territory_annual_mean_eur": 27097.17,
+          "national_annual_mean_eur": 29540.26
+        },
+        "round_decimals": 4
+      },
+      "limits": "Diferencia relativa descriptiva frente a la media salarial anual de España. No corrige por jornada, composición, precios, alquiler ni coste de vida.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_GAP_MEDIA_ANUAL_PCT",
+      "geo_code": "ES21",
+      "geography": "País Vasco",
+      "subgroup": "Hombres vs Mujeres",
+      "value": 13.9811,
+      "source_locator": "EAES 2024, tabla por sexo y CCAA; cálculo NPL: (media hombres - media mujeres) / media hombres × 100",
+      "derivation": {
+        "formula": "(male_annual_mean-female_annual_mean)/male_annual_mean*100",
+        "inputs": {
+          "male_annual_mean_eur": 37550.07,
+          "female_annual_mean_eur": 32300.14
+        },
+        "round_decimals": 4
+      },
+      "limits": "Brecha descriptiva no ajustada en salario bruto medio ANUAL. No equivale a brecha horaria Eurostat ni demuestra discriminación; influyen horas, jornada, ocupación, antigüedad y composición.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_DIFF_MEDIA_NACIONAL_PCT",
+      "geo_code": "ES21",
+      "geography": "País Vasco",
+      "subgroup": "Ambos sexos",
+      "value": 19.0588,
+      "source_locator": "EAES 2024, media total CCAA frente a media España; cálculo NPL: (media CCAA/media España - 1) × 100",
+      "derivation": {
+        "formula": "(territory_annual_mean/national_annual_mean-1)*100",
+        "inputs": {
+          "territory_annual_mean_eur": 35170.28,
+          "national_annual_mean_eur": 29540.26
+        },
+        "round_decimals": 4
+      },
+      "limits": "Diferencia relativa descriptiva frente a la media salarial anual de España. No corrige por jornada, composición, precios, alquiler ni coste de vida.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_GAP_MEDIA_ANUAL_PCT",
+      "geo_code": "ES22",
+      "geography": "Comunidad Foral de Navarra",
+      "subgroup": "Hombres vs Mujeres",
+      "value": 20.3803,
+      "source_locator": "EAES 2024, tabla por sexo y CCAA; cálculo NPL: (media hombres - media mujeres) / media hombres × 100",
+      "derivation": {
+        "formula": "(male_annual_mean-female_annual_mean)/male_annual_mean*100",
+        "inputs": {
+          "male_annual_mean_eur": 36143.04,
+          "female_annual_mean_eur": 28776.99
+        },
+        "round_decimals": 4
+      },
+      "limits": "Brecha descriptiva no ajustada en salario bruto medio ANUAL. No equivale a brecha horaria Eurostat ni demuestra discriminación; influyen horas, jornada, ocupación, antigüedad y composición.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_DIFF_MEDIA_NACIONAL_PCT",
+      "geo_code": "ES22",
+      "geography": "Comunidad Foral de Navarra",
+      "subgroup": "Ambos sexos",
+      "value": 10.3757,
+      "source_locator": "EAES 2024, media total CCAA frente a media España; cálculo NPL: (media CCAA/media España - 1) × 100",
+      "derivation": {
+        "formula": "(territory_annual_mean/national_annual_mean-1)*100",
+        "inputs": {
+          "territory_annual_mean_eur": 32605.28,
+          "national_annual_mean_eur": 29540.26
+        },
+        "round_decimals": 4
+      },
+      "limits": "Diferencia relativa descriptiva frente a la media salarial anual de España. No corrige por jornada, composición, precios, alquiler ni coste de vida.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_GAP_MEDIA_ANUAL_PCT",
+      "geo_code": "ES23",
+      "geography": "La Rioja",
+      "subgroup": "Hombres vs Mujeres",
+      "value": 13.9454,
+      "source_locator": "EAES 2024, tabla por sexo y CCAA; cálculo NPL: (media hombres - media mujeres) / media hombres × 100",
+      "derivation": {
+        "formula": "(male_annual_mean-female_annual_mean)/male_annual_mean*100",
+        "inputs": {
+          "male_annual_mean_eur": 30027.67,
+          "female_annual_mean_eur": 25840.18
+        },
+        "round_decimals": 4
+      },
+      "limits": "Brecha descriptiva no ajustada en salario bruto medio ANUAL. No equivale a brecha horaria Eurostat ni demuestra discriminación; influyen horas, jornada, ocupación, antigüedad y composición.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_DIFF_MEDIA_NACIONAL_PCT",
+      "geo_code": "ES23",
+      "geography": "La Rioja",
+      "subgroup": "Ambos sexos",
+      "value": -5.7036,
+      "source_locator": "EAES 2024, media total CCAA frente a media España; cálculo NPL: (media CCAA/media España - 1) × 100",
+      "derivation": {
+        "formula": "(territory_annual_mean/national_annual_mean-1)*100",
+        "inputs": {
+          "territory_annual_mean_eur": 27855.4,
+          "national_annual_mean_eur": 29540.26
+        },
+        "round_decimals": 4
+      },
+      "limits": "Diferencia relativa descriptiva frente a la media salarial anual de España. No corrige por jornada, composición, precios, alquiler ni coste de vida.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_GAP_MEDIA_ANUAL_PCT",
+      "geo_code": "ES24",
+      "geography": "Aragón",
+      "subgroup": "Hombres vs Mujeres",
+      "value": 20.3265,
+      "source_locator": "EAES 2024, tabla por sexo y CCAA; cálculo NPL: (media hombres - media mujeres) / media hombres × 100",
+      "derivation": {
+        "formula": "(male_annual_mean-female_annual_mean)/male_annual_mean*100",
+        "inputs": {
+          "male_annual_mean_eur": 31123.18,
+          "female_annual_mean_eur": 24796.94
+        },
+        "round_decimals": 4
+      },
+      "limits": "Brecha descriptiva no ajustada en salario bruto medio ANUAL. No equivale a brecha horaria Eurostat ni demuestra discriminación; influyen horas, jornada, ocupación, antigüedad y composición.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_DIFF_MEDIA_NACIONAL_PCT",
+      "geo_code": "ES24",
+      "geography": "Aragón",
+      "subgroup": "Ambos sexos",
+      "value": -5.0044,
+      "source_locator": "EAES 2024, media total CCAA frente a media España; cálculo NPL: (media CCAA/media España - 1) × 100",
+      "derivation": {
+        "formula": "(territory_annual_mean/national_annual_mean-1)*100",
+        "inputs": {
+          "territory_annual_mean_eur": 28061.94,
+          "national_annual_mean_eur": 29540.26
+        },
+        "round_decimals": 4
+      },
+      "limits": "Diferencia relativa descriptiva frente a la media salarial anual de España. No corrige por jornada, composición, precios, alquiler ni coste de vida.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_GAP_MEDIA_ANUAL_PCT",
+      "geo_code": "ES30",
+      "geography": "Comunidad de Madrid",
+      "subgroup": "Hombres vs Mujeres",
+      "value": 17.5001,
+      "source_locator": "EAES 2024, tabla por sexo y CCAA; cálculo NPL: (media hombres - media mujeres) / media hombres × 100",
+      "derivation": {
+        "formula": "(male_annual_mean-female_annual_mean)/male_annual_mean*100",
+        "inputs": {
+          "male_annual_mean_eur": 37634.49,
+          "female_annual_mean_eur": 31048.41
+        },
+        "round_decimals": 4
+      },
+      "limits": "Brecha descriptiva no ajustada en salario bruto medio ANUAL. No equivale a brecha horaria Eurostat ni demuestra discriminación; influyen horas, jornada, ocupación, antigüedad y composición.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_DIFF_MEDIA_NACIONAL_PCT",
+      "geo_code": "ES30",
+      "geography": "Comunidad de Madrid",
+      "subgroup": "Ambos sexos",
+      "value": 16.4851,
+      "source_locator": "EAES 2024, media total CCAA frente a media España; cálculo NPL: (media CCAA/media España - 1) × 100",
+      "derivation": {
+        "formula": "(territory_annual_mean/national_annual_mean-1)*100",
+        "inputs": {
+          "territory_annual_mean_eur": 34410.01,
+          "national_annual_mean_eur": 29540.26
+        },
+        "round_decimals": 4
+      },
+      "limits": "Diferencia relativa descriptiva frente a la media salarial anual de España. No corrige por jornada, composición, precios, alquiler ni coste de vida.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_GAP_MEDIA_ANUAL_PCT",
+      "geo_code": "ES41",
+      "geography": "Castilla y León",
+      "subgroup": "Hombres vs Mujeres",
+      "value": 17.3468,
+      "source_locator": "EAES 2024, tabla por sexo y CCAA; cálculo NPL: (media hombres - media mujeres) / media hombres × 100",
+      "derivation": {
+        "formula": "(male_annual_mean-female_annual_mean)/male_annual_mean*100",
+        "inputs": {
+          "male_annual_mean_eur": 28609.55,
+          "female_annual_mean_eur": 23646.7
+        },
+        "round_decimals": 4
+      },
+      "limits": "Brecha descriptiva no ajustada en salario bruto medio ANUAL. No equivale a brecha horaria Eurostat ni demuestra discriminación; influyen horas, jornada, ocupación, antigüedad y composición.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_DIFF_MEDIA_NACIONAL_PCT",
+      "geo_code": "ES41",
+      "geography": "Castilla y León",
+      "subgroup": "Ambos sexos",
+      "value": -11.3844,
+      "source_locator": "EAES 2024, media total CCAA frente a media España; cálculo NPL: (media CCAA/media España - 1) × 100",
+      "derivation": {
+        "formula": "(territory_annual_mean/national_annual_mean-1)*100",
+        "inputs": {
+          "territory_annual_mean_eur": 26177.28,
+          "national_annual_mean_eur": 29540.26
+        },
+        "round_decimals": 4
+      },
+      "limits": "Diferencia relativa descriptiva frente a la media salarial anual de España. No corrige por jornada, composición, precios, alquiler ni coste de vida.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_GAP_MEDIA_ANUAL_PCT",
+      "geo_code": "ES42",
+      "geography": "Castilla-La Mancha",
+      "subgroup": "Hombres vs Mujeres",
+      "value": 15.1882,
+      "source_locator": "EAES 2024, tabla por sexo y CCAA; cálculo NPL: (media hombres - media mujeres) / media hombres × 100",
+      "derivation": {
+        "formula": "(male_annual_mean-female_annual_mean)/male_annual_mean*100",
+        "inputs": {
+          "male_annual_mean_eur": 28023.12,
+          "female_annual_mean_eur": 23766.91
+        },
+        "round_decimals": 4
+      },
+      "limits": "Brecha descriptiva no ajustada en salario bruto medio ANUAL. No equivale a brecha horaria Eurostat ni demuestra discriminación; influyen horas, jornada, ocupación, antigüedad y composición.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_DIFF_MEDIA_NACIONAL_PCT",
+      "geo_code": "ES42",
+      "geography": "Castilla-La Mancha",
+      "subgroup": "Ambos sexos",
+      "value": -11.7745,
+      "source_locator": "EAES 2024, media total CCAA frente a media España; cálculo NPL: (media CCAA/media España - 1) × 100",
+      "derivation": {
+        "formula": "(territory_annual_mean/national_annual_mean-1)*100",
+        "inputs": {
+          "territory_annual_mean_eur": 26062.05,
+          "national_annual_mean_eur": 29540.26
+        },
+        "round_decimals": 4
+      },
+      "limits": "Diferencia relativa descriptiva frente a la media salarial anual de España. No corrige por jornada, composición, precios, alquiler ni coste de vida.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_GAP_MEDIA_ANUAL_PCT",
+      "geo_code": "ES43",
+      "geography": "Extremadura",
+      "subgroup": "Hombres vs Mujeres",
+      "value": 12.6174,
+      "source_locator": "EAES 2024, tabla por sexo y CCAA; cálculo NPL: (media hombres - media mujeres) / media hombres × 100",
+      "derivation": {
+        "formula": "(male_annual_mean-female_annual_mean)/male_annual_mean*100",
+        "inputs": {
+          "male_annual_mean_eur": 26660.75,
+          "female_annual_mean_eur": 23296.85
+        },
+        "round_decimals": 4
+      },
+      "limits": "Brecha descriptiva no ajustada en salario bruto medio ANUAL. No equivale a brecha horaria Eurostat ni demuestra discriminación; influyen horas, jornada, ocupación, antigüedad y composición.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_DIFF_MEDIA_NACIONAL_PCT",
+      "geo_code": "ES43",
+      "geography": "Extremadura",
+      "subgroup": "Ambos sexos",
+      "value": -15.4393,
+      "source_locator": "EAES 2024, media total CCAA frente a media España; cálculo NPL: (media CCAA/media España - 1) × 100",
+      "derivation": {
+        "formula": "(territory_annual_mean/national_annual_mean-1)*100",
+        "inputs": {
+          "territory_annual_mean_eur": 24979.44,
+          "national_annual_mean_eur": 29540.26
+        },
+        "round_decimals": 4
+      },
+      "limits": "Diferencia relativa descriptiva frente a la media salarial anual de España. No corrige por jornada, composición, precios, alquiler ni coste de vida.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_GAP_MEDIA_ANUAL_PCT",
+      "geo_code": "ES51",
+      "geography": "Cataluña",
+      "subgroup": "Hombres vs Mujeres",
+      "value": 15.7027,
+      "source_locator": "EAES 2024, tabla por sexo y CCAA; cálculo NPL: (media hombres - media mujeres) / media hombres × 100",
+      "derivation": {
+        "formula": "(male_annual_mean-female_annual_mean)/male_annual_mean*100",
+        "inputs": {
+          "male_annual_mean_eur": 34437.73,
+          "female_annual_mean_eur": 29030.09
+        },
+        "round_decimals": 4
+      },
+      "limits": "Brecha descriptiva no ajustada en salario bruto medio ANUAL. No equivale a brecha horaria Eurostat ni demuestra discriminación; influyen horas, jornada, ocupación, antigüedad y composición.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_DIFF_MEDIA_NACIONAL_PCT",
+      "geo_code": "ES51",
+      "geography": "Cataluña",
+      "subgroup": "Ambos sexos",
+      "value": 7.4129,
+      "source_locator": "EAES 2024, media total CCAA frente a media España; cálculo NPL: (media CCAA/media España - 1) × 100",
+      "derivation": {
+        "formula": "(territory_annual_mean/national_annual_mean-1)*100",
+        "inputs": {
+          "territory_annual_mean_eur": 31730.05,
+          "national_annual_mean_eur": 29540.26
+        },
+        "round_decimals": 4
+      },
+      "limits": "Diferencia relativa descriptiva frente a la media salarial anual de España. No corrige por jornada, composición, precios, alquiler ni coste de vida.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_GAP_MEDIA_ANUAL_PCT",
+      "geo_code": "ES52",
+      "geography": "Comunitat Valenciana",
+      "subgroup": "Hombres vs Mujeres",
+      "value": 17.537,
+      "source_locator": "EAES 2024, tabla por sexo y CCAA; cálculo NPL: (media hombres - media mujeres) / media hombres × 100",
+      "derivation": {
+        "formula": "(male_annual_mean-female_annual_mean)/male_annual_mean*100",
+        "inputs": {
+          "male_annual_mean_eur": 29356.69,
+          "female_annual_mean_eur": 24208.4
+        },
+        "round_decimals": 4
+      },
+      "limits": "Brecha descriptiva no ajustada en salario bruto medio ANUAL. No equivale a brecha horaria Eurostat ni demuestra discriminación; influyen horas, jornada, ocupación, antigüedad y composición.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_DIFF_MEDIA_NACIONAL_PCT",
+      "geo_code": "ES52",
+      "geography": "Comunitat Valenciana",
+      "subgroup": "Ambos sexos",
+      "value": -9.2189,
+      "source_locator": "EAES 2024, media total CCAA frente a media España; cálculo NPL: (media CCAA/media España - 1) × 100",
+      "derivation": {
+        "formula": "(territory_annual_mean/national_annual_mean-1)*100",
+        "inputs": {
+          "territory_annual_mean_eur": 26816.98,
+          "national_annual_mean_eur": 29540.26
+        },
+        "round_decimals": 4
+      },
+      "limits": "Diferencia relativa descriptiva frente a la media salarial anual de España. No corrige por jornada, composición, precios, alquiler ni coste de vida.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_GAP_MEDIA_ANUAL_PCT",
+      "geo_code": "ES53",
+      "geography": "Illes Balears",
+      "subgroup": "Hombres vs Mujeres",
+      "value": 7.5791,
+      "source_locator": "EAES 2024, tabla por sexo y CCAA; cálculo NPL: (media hombres - media mujeres) / media hombres × 100",
+      "derivation": {
+        "formula": "(male_annual_mean-female_annual_mean)/male_annual_mean*100",
+        "inputs": {
+          "male_annual_mean_eur": 30172.85,
+          "female_annual_mean_eur": 27886.01
+        },
+        "round_decimals": 4
+      },
+      "limits": "Brecha descriptiva no ajustada en salario bruto medio ANUAL. No equivale a brecha horaria Eurostat ni demuestra discriminación; influyen horas, jornada, ocupación, antigüedad y composición.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_DIFF_MEDIA_NACIONAL_PCT",
+      "geo_code": "ES53",
+      "geography": "Illes Balears",
+      "subgroup": "Ambos sexos",
+      "value": -1.5748,
+      "source_locator": "EAES 2024, media total CCAA frente a media España; cálculo NPL: (media CCAA/media España - 1) × 100",
+      "derivation": {
+        "formula": "(territory_annual_mean/national_annual_mean-1)*100",
+        "inputs": {
+          "territory_annual_mean_eur": 29075.06,
+          "national_annual_mean_eur": 29540.26
+        },
+        "round_decimals": 4
+      },
+      "limits": "Diferencia relativa descriptiva frente a la media salarial anual de España. No corrige por jornada, composición, precios, alquiler ni coste de vida.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_GAP_MEDIA_ANUAL_PCT",
+      "geo_code": "ES61",
+      "geography": "Andalucía",
+      "subgroup": "Hombres vs Mujeres",
+      "value": 16.3147,
+      "source_locator": "EAES 2024, tabla por sexo y CCAA; cálculo NPL: (media hombres - media mujeres) / media hombres × 100",
+      "derivation": {
+        "formula": "(male_annual_mean-female_annual_mean)/male_annual_mean*100",
+        "inputs": {
+          "male_annual_mean_eur": 28295.53,
+          "female_annual_mean_eur": 23679.2
+        },
+        "round_decimals": 4
+      },
+      "limits": "Brecha descriptiva no ajustada en salario bruto medio ANUAL. No equivale a brecha horaria Eurostat ni demuestra discriminación; influyen horas, jornada, ocupación, antigüedad y composición.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_DIFF_MEDIA_NACIONAL_PCT",
+      "geo_code": "ES61",
+      "geography": "Andalucía",
+      "subgroup": "Ambos sexos",
+      "value": -11.6809,
+      "source_locator": "EAES 2024, media total CCAA frente a media España; cálculo NPL: (media CCAA/media España - 1) × 100",
+      "derivation": {
+        "formula": "(territory_annual_mean/national_annual_mean-1)*100",
+        "inputs": {
+          "territory_annual_mean_eur": 26089.7,
+          "national_annual_mean_eur": 29540.26
+        },
+        "round_decimals": 4
+      },
+      "limits": "Diferencia relativa descriptiva frente a la media salarial anual de España. No corrige por jornada, composición, precios, alquiler ni coste de vida.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_GAP_MEDIA_ANUAL_PCT",
+      "geo_code": "ES62",
+      "geography": "Región de Murcia",
+      "subgroup": "Hombres vs Mujeres",
+      "value": 19.3467,
+      "source_locator": "EAES 2024, tabla por sexo y CCAA; cálculo NPL: (media hombres - media mujeres) / media hombres × 100",
+      "derivation": {
+        "formula": "(male_annual_mean-female_annual_mean)/male_annual_mean*100",
+        "inputs": {
+          "male_annual_mean_eur": 29006.96,
+          "female_annual_mean_eur": 23395.07
+        },
+        "round_decimals": 4
+      },
+      "limits": "Brecha descriptiva no ajustada en salario bruto medio ANUAL. No equivale a brecha horaria Eurostat ni demuestra discriminación; influyen horas, jornada, ocupación, antigüedad y composición.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_DIFF_MEDIA_NACIONAL_PCT",
+      "geo_code": "ES62",
+      "geography": "Región de Murcia",
+      "subgroup": "Ambos sexos",
+      "value": -10.8019,
+      "source_locator": "EAES 2024, media total CCAA frente a media España; cálculo NPL: (media CCAA/media España - 1) × 100",
+      "derivation": {
+        "formula": "(territory_annual_mean/national_annual_mean-1)*100",
+        "inputs": {
+          "territory_annual_mean_eur": 26349.36,
+          "national_annual_mean_eur": 29540.26
+        },
+        "round_decimals": 4
+      },
+      "limits": "Diferencia relativa descriptiva frente a la media salarial anual de España. No corrige por jornada, composición, precios, alquiler ni coste de vida.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_GAP_MEDIA_ANUAL_PCT",
+      "geo_code": "ES70",
+      "geography": "Canarias",
+      "subgroup": "Hombres vs Mujeres",
+      "value": 6.2685,
+      "source_locator": "EAES 2024, tabla por sexo y CCAA; cálculo NPL: (media hombres - media mujeres) / media hombres × 100",
+      "derivation": {
+        "formula": "(male_annual_mean-female_annual_mean)/male_annual_mean*100",
+        "inputs": {
+          "male_annual_mean_eur": 25924.13,
+          "female_annual_mean_eur": 24299.07
+        },
+        "round_decimals": 4
+      },
+      "limits": "Brecha descriptiva no ajustada en salario bruto medio ANUAL. No equivale a brecha horaria Eurostat ni demuestra discriminación; influyen horas, jornada, ocupación, antigüedad y composición.",
+      "signed_percent": true
+    },
+    {
+      "period": "2024",
+      "unit": "%",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "source_updated": "2026-05-28",
+      "retrieved_at": "2026-10-07",
+      "quality_flag": "DERIVED_PENDING_REVIEW",
+      "measurement_type": "derived",
+      "methodology_flag": "NPL_DERIVED_EAES2024_DESCRIPTIVE",
+      "batch_id": "T28_DERIVADOS_SALARIOS_2024",
+      "indicator_id": "EAES2024_DIFF_MEDIA_NACIONAL_PCT",
+      "geo_code": "ES70",
+      "geography": "Canarias",
+      "subgroup": "Ambos sexos",
+      "value": -14.9622,
+      "source_locator": "EAES 2024, media total CCAA frente a media España; cálculo NPL: (media CCAA/media España - 1) × 100",
+      "derivation": {
+        "formula": "(territory_annual_mean/national_annual_mean-1)*100",
+        "inputs": {
+          "territory_annual_mean_eur": 25120.38,
+          "national_annual_mean_eur": 29540.26
+        },
+        "round_decimals": 4
+      },
+      "limits": "Diferencia relativa descriptiva frente a la media salarial anual de España. No corrige por jornada, composición, precios, alquiler ni coste de vida.",
+      "signed_percent": true
+    }
+  ]
+}

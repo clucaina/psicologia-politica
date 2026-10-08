@@ -1,0 +1,49 @@
+name: Integridad de copias editoriales públicas
+
+on:
+  push:
+    branches:
+      - respaldo/decreto-mari-carmen-2026-10-08
+    paths:
+      - 'preservacion/2026-10-08/**'
+      - '.github/workflows/comprobar-respaldo-editorial.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verificar-respaldo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validar portada y registros editoriales sin acceder a MySQL
+        run: |
+          python3 - <<'PY'
+          import hashlib,json,pathlib,sys
+          p=pathlib.Path("preservacion/2026-10-08")
+          img=p/"decreto-mari-carmen-portada-original.jpg"
+          assert img.is_file(),"Falta portada"
+          assert img.stat().st_size==20461, "Longitud portada distinta"
+          assert hashlib.sha256(img.read_bytes()).hexdigest()=="12c45091feee01a11355310cef09ae83cd6262cf4271fad718f0814acfc289d3","Portada alterada"
+          one=json.loads((p/"decreto-mari-carmen-registro-publicado.json").read_text(encoding="utf-8"))
+          assert one['post']['slug']=="decreto-mari-carmen-0071e38b"
+          assert one['post']['cover_image_key']=="971a8ade-e871-48ce-85cc-fe4df9048352.jpg"
+          assert len(one['post']['content'])>10000
+          posts=json.loads((p/"todas-las-publicaciones-publicas-42.json").read_text(encoding="utf-8"))['posts']
+          assert len(posts)==42 and len({x['slug'] for x in posts})==42
+          assert sum(x['kind']=='news' for x in posts)==34
+          assert sum(x['kind']=='blog' for x in posts)==7
+          assert sum(x['kind']=='analysis' for x in posts)==1
+          assert all(x['status']=='published' and x['deleted_at'] is None for x in posts)
+          record=next(x for x in posts if x['slug']==one['post']['slug'])
+          assert record == one['post'], "Registro de Mari Carmen no coincide con respaldo general"
+          h=json.loads((p/"html-publicado/manifest.json").read_text(encoding="utf-8"))
+          for item in h['pages']:
+              file=pathlib.Path(item['path'])
+              assert file.is_file()
+              data=file.read_bytes()
+              assert len(data)==item['bytes'] and hashlib.sha256(data).hexdigest()==item['sha256'],item['path']
+          print("PASS: portada JPG original, artículo 32 campos, 42 publicaciones y 8 HTML con hashes.")
+          print("NOTA: esto NO equivale a la base MySQL privada.")
+          PY

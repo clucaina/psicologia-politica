@@ -1,0 +1,42 @@
+name: Reconstruir portada OG original V16
+
+on:
+  push:
+    branches:
+      - preproduccion/v16-integracion-sin-work
+    paths:
+      - .github/workflows/recomponer-og-v16.yml
+
+permissions:
+  contents: write
+
+jobs:
+  reconstruir:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reconstruir imagen de origen y eliminar fragmentos
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import base64,glob,hashlib,pathlib
+          parts=sorted(glob.glob('.transfer/og/part_*.b64'))
+          assert len(parts)==8, ('fragmentos ausentes',parts)
+          payload=base64.b64decode(''.join(pathlib.Path(p).read_text(encoding='ascii') for p in parts),validate=True)
+          digest=hashlib.sha256(payload).hexdigest()
+          expected='d9927683a550492366900a0f39acf44f1fbfe1ef050e8054f4e60c59f48eb25a'
+          assert len(payload)==3573399, (len(payload),'tamaño inesperado')
+          assert digest==expected, (digest,'el archivo NO coincide con el original V16')
+          assert payload.startswith(b'\x89PNG\r\n\x1a\n'), 'firma PNG incorrecta'
+          pathlib.Path('og.png').write_bytes(payload)
+          print('VERIFICADO',len(payload),'bytes SHA256',digest)
+          PY
+          test "$(file -b --mime-type og.png)" = 'image/png'
+          git add -- og.png
+          git rm -r -- .transfer/og
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'assets(v16): reconstruir og.png idéntico, SHA256 verificado, limpiar transferencia'
+          git push origin HEAD:preproduccion/v16-integracion-sin-work

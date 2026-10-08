@@ -69,14 +69,28 @@ jobs:
               assert all(x.replace('_','').isalnum() for x in names)
               assert all(set(x)==set(names) for x in (p.keys() for p in posts))
               sql='INSERT INTO editorial_posts ('+','.join(chr(96)+x+chr(96) for x in names)+') VALUES ('+','.join(['%s']*len(names))+')'
+              # Modelo fiel al flujo descrito: base de partida y UNA entrada nueva posterior.
               for post in posts:
-                  cur.execute(sql,[post[n] for n in names])
+                  if post['slug'] != mari['slug']:
+                      cur.execute(sql,[post[n] for n in names])
+              cur.execute('SELECT COUNT(*) FROM editorial_posts')
+              assert cur.fetchone()[0]==41
+              def reconcile_only_missing():
+                  cur.execute('SELECT id,content,cover_image_key FROM editorial_posts WHERE slug=%s FOR UPDATE',(mari['slug'],))
+                  existing=cur.fetchone()
+                  if existing:
+                      # No tocar una publicación que ya exista, aunque se haya editado después.
+                      return False
+                  cur.execute(sql,[mari[n] for n in names])
+                  return True
+              assert reconcile_only_missing() is True
+              assert reconcile_only_missing() is False
               cur.execute('SELECT COUNT(*) FROM editorial_posts')
               assert cur.fetchone()[0]==42
-              cur.execute('SELECT COUNT(*) FROM editorial_posts WHERE slug=%s AND cover_image_key=%s',(mari['slug'],mari['cover_image_key']))
-              assert cur.fetchone()[0]==1
+              cur.execute('SELECT content,cover_image_key FROM editorial_posts WHERE slug=%s',(mari['slug'],))
+              assert cur.fetchone()==(mari['content'],mari['cover_image_key'])
           con.commit();con.close()
-          print('PASS: 33 tablas MySQL 8.0, 42 entradas públicas y Decreto Mari Carmen con imagen original enlazada')
+          print('PASS: 33 tablas MySQL 8.0, 41 entradas base + Mari Carmen, sin duplicados ni sobrescritura de entradas existentes')
           PY
       - name: Configurar PHP únicamente dentro del runner
         shell: bash

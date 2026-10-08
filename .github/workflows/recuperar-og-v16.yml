@@ -1,0 +1,39 @@
+name: Recuperar portada OG original V16
+
+on:
+  push:
+    branches:
+      - preproduccion/v16-integracion-sin-work
+    paths:
+      - .github/workflows/recuperar-og-v16.yml
+
+permissions:
+  contents: write
+
+jobs:
+  verificar-y-archivar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Recuperar og.png solo si coincide EXACTAMENTE con V16
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT='og.png'
+          EXPECTED='d9927683a550492366900a0f39acf44f1fbfe1ef050e8054f4e60c59f48eb25a'
+          SOURCE='https://psicologiapolitica.es/og.png'
+          curl --fail --silent --show-error --location --retry 2 --max-time 60 --max-filesize 6500000 "$SOURCE" --output "$OUT"
+          test "$(file -b --mime-type "$OUT")" = "image/png"
+          HASH="$(sha256sum "$OUT" | cut -d' ' -f1)"
+          test "$HASH" = "$EXPECTED" || { echo "El original publicado no coincide con V16; no guardar."; exit 1; }
+          git add -- og.png
+          if git diff --staged --quiet; then
+            echo 'Ya conservada'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'assets(v16): guardar portada OG original verificada SHA256'
+          git push origin HEAD:preproduccion/v16-integracion-sin-work
+          echo 'PASS og.png original archivado sin modificación'

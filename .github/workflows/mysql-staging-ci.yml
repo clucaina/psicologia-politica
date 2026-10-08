@@ -1,0 +1,113 @@
+name: V16 · PHP y MySQL aislados con artículo real
+
+on:
+  push:
+    branches:
+      - preproduccion/v16-integracion-sin-work
+    paths:
+      - .github/workflows/mysql-staging-ci.yml
+      - _private/**
+      - index.php
+      - analytics.js
+
+permissions:
+  contents: read
+
+jobs:
+  staging-mysql:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: CI_TEST_ONLY
+          MYSQL_DATABASE: pp_ci
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost -pCI_TEST_ONLY"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: pdo_mysql, mbstring, gd, zip, fileinfo
+          coverage: none
+      - name: Preparar cliente MySQL efímero
+        run: python3 -m pip install --quiet pymysql
+      - name: Construir 33 tablas e insertar artículo público recuperado
+        shell: bash
+        run: |
+          set -euo pipefail
+          git show origin/respaldo/decreto-mari-carmen-2026-10-08:preservacion/2026-10-08/decreto-mari-carmen-registro-publicado.json >/tmp/pp_article_public.json
+          python3 - <<'PY'
+          import json, pymysql
+          schema=json.load(open('_private/schema.json',encoding='utf-8'))
+          article=json.load(open('/tmp/pp_article_public.json',encoding='utf-8'))['post']
+          assert article['slug']=='decreto-mari-carmen-0071e38b'
+          assert article['cover_image_key']=='971a8ade-e871-48ce-85cc-fe4df9048352.jpg'
+          con=pymysql.connect(host='127.0.0.1',port=3306,user='root',password='CI_TEST_ONLY',database='pp_ci',charset='utf8mb4',autocommit=False)
+          with con.cursor() as cur:
+              cur.execute('SET FOREIGN_KEY_CHECKS=0')
+              for table,ddl in schema.items():
+                  assert ddl.lstrip().upper().startswith('CREATE TABLE ')
+                  cur.execute(ddl)
+              cur.execute('SET FOREIGN_KEY_CHECKS=1')
+              names=list(article)
+              assert all(x.replace('_','').isalnum() for x in names)
+              sql='INSERT INTO editorial_posts ('+','.join('\\x60'+x+'\\x60' for x in names)+') VALUES ('+','.join(['%s']*len(names))+')'
+              cur.execute(sql,[article[n] for n in names])
+              cur.execute('SELECT COUNT(*) FROM editorial_posts WHERE slug=%s',(article['slug'],))
+              assert cur.fetchone()[0]==1
+          con.commit();con.close()
+          print('PASS: 33 tablas MySQL 8.0; fila pública original de Decreto Mari Carmen restaurada en base efímera')
+          PY
+      - name: Configurar PHP únicamente dentro del runner
+        shell: bash
+        run: |
+          cat >_private/config.php <<'PHP'
+          <?php
+          return [
+            'site_url' => 'http://127.0.0.1:8765',
+            'database' => ['host'=>'127.0.0.1','port'=>3306,'name'=>'pp_ci','user'=>'root','password'=>'CI_TEST_ONLY','socket'=>''],
+            'setup_key' => 'PRUEBA_LOCAL_NO_PRODUCCION_1234567890',
+            'mail' => ['transport'=>'smtp','host'=>'localhost','port'=>2525,'username'=>'','password'=>'','from'=>'no-reply@example.invalid'],
+            'contact_email' => 'no-reply@example.invalid',
+            'registration_enabled'=>false,
+            'debug'=>false
+          ];
+          PHP
+          test -s _private/config.php
+          php -S 127.0.0.1:8765 index.php >/tmp/pp_runtime_test.log 2>&1 &
+          echo $! > /tmp/pp_runtime_test.pid
+          sleep 2
+      - name: Probar rutas reales y conservar el artículo
+        shell: bash
+        run: |
+          set -euo pipefail
+          for route in '/' '/blog' '/blog/decreto-mari-carmen-0071e38b' '/herramientas' '/herramientas/analizar-texto' '/herramientas/datos-espana' '/conflictometro'; do
+            status=$(curl -sS --max-time 15 -o /tmp/pp_last_response.html -w '%{http_code}' "http://127.0.0.1:8765$route")
+            if [ "$status" != 200 ]; then
+              echo "FAIL $route => $status"
+              tail -n 40 /tmp/pp_runtime_test.log | sed -E 's/CI_TEST_ONLY/[REDACTED]/g'
+              exit 1
+            fi
+            echo "PASS $route => 200"
+          done
+          curl -fsS --max-time 15 'http://127.0.0.1:8765/blog/decreto-mari-carmen-0071e38b' > /tmp/pp_mari.html
+          grep -Fq 'Decreto Mari Carmen' /tmp/pp_mari.html
+          grep -Fq '971a8ade-e871-48ce-85cc-fe4df9048352.jpg' /tmp/pp_mari.html
+          grep -Fq 'src="/analytics.js"' /tmp/pp_mari.html
+          echo 'PASS: artículo, imagen referenciada y GA4 presentes con MySQL real efímera'
+      - name: Bloquear datos temporales de los cambios del repositorio
+        shell: bash
+        run: |
+          test -f _private/config.php
+          ! git ls-files | grep -Eq '^_private/config\\.php$|^uploads/'
+          echo 'PASS: contraseñas de prueba y contenido vivo no versionados'

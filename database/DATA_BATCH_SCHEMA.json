@@ -1,0 +1,219 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PsicologiaPolitica NPL Data Batch",
+  "type": "object",
+  "required": [
+    "batch_id",
+    "observations"
+  ],
+  "properties": {
+    "batch_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "checkpoint_before": {
+      "type": "object"
+    },
+    "checkpoint_after_if_appended": {
+      "type": "object"
+    },
+    "dedupe_note": {
+      "type": "string"
+    },
+    "new_indicators": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "indicator_id",
+          "domain",
+          "label_es"
+        ],
+        "properties": {
+          "indicator_id": {
+            "type": "string"
+          },
+          "domain": {
+            "type": "string"
+          },
+          "subdomain": {
+            "type": "string"
+          },
+          "label_es": {
+            "type": "string"
+          },
+          "unit_default": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "source_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "dataset_code": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "period_start": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "period_end": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "geography_scope": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "subgroup_dimensions": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "frequency": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "quality_grade": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "status": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "methodology_note": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "observations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "indicator_id",
+          "period",
+          "value"
+        ],
+        "properties": {
+          "observation_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "indicator_id": {
+            "type": "string"
+          },
+          "period": {
+            "type": "string"
+          },
+          "geo_code": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "geography": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "subgroup": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "value": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "unit": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "source_locator": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "methodology_flag": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "batch_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "source_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "dataset_code": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "source_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "source_updated": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "source_endpoints": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  }
+}

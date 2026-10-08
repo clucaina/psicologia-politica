@@ -1,0 +1,106 @@
+{
+  "rules": [
+    {
+      "code": "threat",
+      "label": "Lenguaje de amenaza",
+      "pattern": "\\b(amenaz\\w*|destruir\\w*|aniquilar\\w*|castig\\w*|invasi[oó]n|supervivencia|te voy a matar)\\b",
+      "explanation": "Aparece vocabulario de peligro, daño o castigo.",
+      "alternative": "Puede describir un riesgo, una cita o una metáfora sin formular una amenaza.",
+      "limit": "El vocabulario aislado no prueba intención ni predice violencia."
+    },
+    {
+      "code": "us_vs_them",
+      "label": "Identidad nosotros/ellos",
+      "pattern": "\\b(nosotros|ellos|los nuestros|los suyos|esa gente)\\b",
+      "explanation": "Se identifican grupos mediante pronombres o etiquetas colectivas.",
+      "alternative": "Los pronombres también pueden ser descriptivos y no antagonistas.",
+      "limit": "Sin el referente y el contexto no puede afirmarse antagonismo."
+    },
+    {
+      "code": "absolute",
+      "label": "Generalización absoluta",
+      "pattern": "\\b(todos|todas|nadie|siempre|jam[aá]s|ninguno|ninguna)\\b",
+      "explanation": "El alcance de la afirmación se expresa sin excepciones.",
+      "alternative": "Puede ser una afirmación acotada o una generalización justificada.",
+      "limit": "Hay que comprobar a qué personas, conductas o periodo se aplica."
+    },
+    {
+      "code": "personal_attack",
+      "label": "Descalificación personal",
+      "pattern": "\\b(imb[eé]cil(?:es)?|idiotas?|est[uú]pid[oa]s?|in[uú]tiles?|payas[oa]s?)\\b",
+      "explanation": "El término puede descalificar a una persona en vez de abordar su argumento.",
+      "alternative": "Puede tratarse de una cita, autocrítica o uso irónico.",
+      "limit": "El detector no distingue por sí solo todos los usos pragmáticos."
+    },
+    {
+      "code": "attribution",
+      "label": "Atribución de intención",
+      "pattern": "\\b(lo hace[n]? porque quiere[n]?|su verdadera intenci[oó]n|solo quiere[n]?|lo que pretende[n]? es)\\b",
+      "explanation": "Se formula una explicación sobre un motivo interno.",
+      "alternative": "El texto puede estar remitiendo a una declaración o evidencia no incluida.",
+      "limit": "Una fórmula lingüística no demuestra que la intención sea falsa o no esté documentada."
+    },
+    {
+      "code": "dehumanization",
+      "label": "Deshumanización / animalización",
+      "pattern": "\\b(alima[ñn]as|par[aá]sitos|cucarachas|subhumanos|escoria|ratas)\\b",
+      "explanation": "La expresión podría degradar la condición humana de un colectivo.",
+      "alternative": "Puede referirse literalmente a animales, reproducir una cita o denunciar ese lenguaje.",
+      "limit": "Solo con el referente humano y el contexto puede confirmarse el uso deshumanizante."
+    },
+    {
+      "code": "certainty",
+      "label": "Certeza epistémica extrema",
+      "pattern": "\\b(es indiscutible|no hay ninguna duda|la [uú]nica verdad|es absolutamente evidente|sin lugar a dudas)\\b",
+      "explanation": "La afirmación se presenta con un grado de certeza muy alto.",
+      "alternative": "Puede tratarse de un hecho efectivamente comprobado.",
+      "limit": "El análisis no contrasta la afirmación con evidencia externa."
+    },
+    {
+      "code": "emotion",
+      "label": "Marcadores emocionales",
+      "pattern": "\\b(odio|asco|rabia|miedo|indignaci[oó]n|humillaci[oó]n|desprecio|verg[üu]enza)\\b",
+      "explanation": "Aparecen palabras que nombran o evocan emociones.",
+      "alternative": "Pueden ser una descripción analítica, una cita o una emoción atribuida.",
+      "limit": "No representan una medición del estado mental real del autor."
+    },
+    {
+      "code": "openness",
+      "label": "Apertura al diálogo",
+      "pattern": "\\b(puedo equivocarme|qu[eé] evidencia|podr[ií]amos|entiendo tu|en parte tienes raz[oó]n|no estoy segur[oa]|quiz[aá]s)\\b",
+      "explanation": "La formulación introduce incertidumbre, concesión o búsqueda de evidencia.",
+      "alternative": "Puede emplearse retóricamente sin apertura efectiva.",
+      "limit": "La disposición real al diálogo no se infiere de estas palabras."
+    },
+    {
+      "code": "closure",
+      "label": "Cierre al diálogo",
+      "pattern": "\\b(no pienso hablar|no hay nada que discutir|c[aá]llate|no mereces respuesta|contigo no se puede hablar)\\b",
+      "explanation": "La formulación limita o rechaza la continuación del intercambio.",
+      "alternative": "Puede ser un límite protector ante acoso o una cita ajena.",
+      "limit": "El contexto puede justificar el límite; no se evalúa moralmente a quien lo establece."
+    },
+    {
+      "code": "source_claim",
+      "label": "Afirmaciones que requieren fuente",
+      "pattern": "\\b\\d+(?:[.,]\\d+)?\\s*(?:%|por ciento|millones|personas|euros|a[ñn]os)|\\b(?:19|20)\\d{2}\\b|\\b(causa|provoca|demuestra que|seg[uú]n el estudio)\\b",
+      "explanation": "Hay cifras, fechas o relaciones que podrían comprobarse.",
+      "alternative": "Puede ser una hipótesis, ejemplo o experiencia propia.",
+      "limit": "Marcar no significa falsedad: se requiere la fuente y su contexto."
+    },
+    {
+      "code": "whataboutism",
+      "label": "Cambio de foco potencial",
+      "pattern": "\\b(y qu[eé] pasa con|pero los otros|y vosotros m[aá]s|y t[uú] m[aá]s|pero cuando ellos)\\b",
+      "explanation": "La expresión puede desplazar el foco hacia otro caso.",
+      "alternative": "La comparación puede ser pertinente para el argumento.",
+      "limit": "No se puede identificar una evasión sin conocer la pregunta y el intercambio previo."
+    }
+  ],
+  "summary": "Coincidencias léxicas para revisión contextual. La confianza es orientativa; no procede de una validación psicométrica.",
+  "global_limitations": [
+    "Este análisis describe patrones del texto. No diagnostica a su autor, no determina intenciones reales y puede equivocarse sin el contexto completo.",
+    "La ausencia de coincidencias no demuestra ausencia del patrón. La ironía, negación, citas y el contexto pueden cambiar la interpretación.",
+    "Motor de reglas locales en español. No verifica hechos ni evalúa ideologías."
+  ]
+}

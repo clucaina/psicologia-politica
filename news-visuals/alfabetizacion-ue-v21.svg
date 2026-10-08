@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img">
+  <title>De los informes nacionales a la evaluación de alfabetización mediática</title>
+  <desc>La Comisión Europea reúne informes nacionales del periodo 2022 a 2025. La visualización distingue registrar medidas de evaluar su alcance, resultados y comparación.</desc>
+  <rect width="1200" height="675" fill="#f3ecdf"/>
+  <text x="60" y="75" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="2" fill="#7d2432">UNIÓN EUROPEA · 2022–2025</text>
+  <text x="60" y="124" font-family="Georgia, serif" font-size="39" font-weight="700" fill="#101b2d">Un mapa de medidas no es aún una evaluación</text>
+  <line x1="60" y1="153" x2="1140" y2="153" stroke="#101b2d" stroke-width="2"/>
+  <rect x="60" y="205" width="290" height="185" rx="8" fill="#101b2d"/>
+  <text x="88" y="252" font-family="Arial, sans-serif" font-size="20" fill="#e8dbc3">1 · ESTADOS</text>
+  <text x="88" y="300" font-family="Georgia, serif" font-size="31" font-weight="700" fill="#fff9ee">Informan</text>
+  <text x="88" y="337" font-family="Arial, sans-serif" font-size="21" fill="#fff9ee">medidas nacionales</text>
+  <path d="M370 298H432" stroke="#c9a45c" stroke-width="8"/><path d="M416 280L440 298L416 316" fill="none" stroke="#c9a45c" stroke-width="8"/>
+  <rect x="455" y="205" width="290" height="185" rx="8" fill="#fff9ee" stroke="#101b2d" stroke-width="2"/>
+  <text x="483" y="252" font-family="Arial, sans-serif" font-size="20" fill="#7d2432">2 · COMISIÓN</text>
+  <text x="483" y="300" font-family="Georgia, serif" font-size="31" font-weight="700" fill="#101b2d">Reúne</text>
+  <text x="483" y="337" font-family="Arial, sans-serif" font-size="21" fill="#101b2d">el inventario por país</text>
+  <path d="M765 298H827" stroke="#c9a45c" stroke-width="8"/><path d="M811 280L835 298L811 316" fill="none" stroke="#c9a45c" stroke-width="8"/>
+  <rect x="850" y="205" width="290" height="185" rx="8" fill="#d9e4dc"/>
+  <text x="878" y="252" font-family="Arial, sans-serif" font-size="20" fill="#275846">3 · PREGUNTA</text>
+  <text x="878" y="300" font-family="Georgia, serif" font-size="31" font-weight="700" fill="#101b2d">Evaluar</text>
+  <text x="878" y="337" font-family="Arial, sans-serif" font-size="21" fill="#101b2d">resultados comparables</text>
+  <rect x="60" y="447" width="1080" height="102" rx="8" fill="#eadadd"/>
+  <text x="90" y="487" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#7d2432">CUATRO PREGUNTAS QUE FALTAN</text>
+  <text x="90" y="524" font-family="Arial, sans-serif" font-size="24" fill="#101b2d">¿A quién llega? · ¿Qué habilidad cambia? · ¿Cuánto dura? · ¿Frente a qué alternativa?</text>
+  <line x1="60" y1="590" x2="1140" y2="590" stroke="#101b2d" stroke-width="2"/>
+  <text x="60" y="632" font-family="Arial, sans-serif" font-size="21" fill="#101b2d">Directiva audiovisual · artículo 33 bis (2) · España incluida en español e inglés</text>
+</svg>

@@ -46,7 +46,9 @@ jobs:
       - name: Lint JavaScript
         shell: bash
         run: |
-          find assets tests -name '*.js' -type f -print0; test -s analytics.js && node --check analytics.js | xargs -0 -n1 node --check
+          find assets tests -name '*.js' -type f -print0 | xargs -0 -r -n1 node --check
+          test -s analytics.js
+          node --check analytics.js
 
       - name: Tests de PHP y ciencia de datos
         shell: bash

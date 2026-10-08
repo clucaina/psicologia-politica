@@ -8,7 +8,7 @@ ROOT = "https://psicologiapolitica.es"
 CHECKS = (
     ("/blog/decreto-mari-carmen-0071e38b", "Decreto Mari Carmen"),
     ("/blog", "Decreto Mari Carmen"),
-    ("/assets/analytics.js", "G-D7KPSFPMM5"),
+    ("/analytics.js", "G-D7KPSFPMM5"),
 )
 
 def main():

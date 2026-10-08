@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "policy": "Never auto-merge conceptually similar series with different methodologies, sources, geographic levels or dates",
+  "related_but_not_equivalent": [
+    {
+      "indicator_ids": [
+        "POV_AROPE",
+        "ecv_arope_pct"
+      ],
+      "reason": "Eurostat regional AROPE and INE ECV AROPE may differ by period, territorial treatment and revision. Require human methodology harmonization before a combined timeline."
+    },
+    {
+      "indicator_ids": [
+        "DEM_POP",
+        "ECP_POP"
+      ],
+      "reason": "Population snapshots and reference dates can differ; only harmonize with matching period, geography and measurement definition."
+    }
+  ],
+  "no_automatic_inference": [
+    "national_to_region",
+    "correlation_to_causality",
+    "police_records_to_prevalence",
+    "convictions_to_reported_crime",
+    "screening_to_diagnosis",
+    "missing_to_zero"
+  ]
+}

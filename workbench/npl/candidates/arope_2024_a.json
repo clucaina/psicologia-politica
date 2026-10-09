@@ -1,0 +1,187 @@
+{
+ "batch_id": "T19-AROPE-A",
+ "status": "candidate_unmerged",
+ "retrieved_at": "2026-10-09",
+ "observations": [
+  {
+   "indicator_id": "ine.ecv.arope_total",
+   "source_id": "ine",
+   "source_url": "https://www.ine.es/dyngs/Prensa/ECV2024.htm",
+   "geo_id": "ES",
+   "period": "2024",
+   "unit": "%",
+   "measure": "percentage",
+   "universe": "poblacion_hogares_ECV",
+   "definition_version": "ECV2024_AROPE",
+   "kind": "raw",
+   "subgroup": "total",
+   "method_flag": [
+    "survey_estimate",
+    "income_reference_2023"
+   ],
+   "value": 25.8
+  },
+  {
+   "indicator_id": "ine.ecv.arope_total",
+   "source_id": "ine",
+   "source_url": "https://www.ine.es/dyngs/Prensa/ECV2024.htm",
+   "geo_id": "ES61",
+   "period": "2024",
+   "unit": "%",
+   "measure": "percentage",
+   "universe": "poblacion_hogares_ECV",
+   "definition_version": "ECV2024_AROPE",
+   "kind": "raw",
+   "subgroup": "total",
+   "method_flag": [
+    "survey_estimate",
+    "income_reference_2023"
+   ],
+   "value": 35.6
+  },
+  {
+   "indicator_id": "ine.ecv.arope_total",
+   "source_id": "ine",
+   "source_url": "https://www.ine.es/dyngs/Prensa/ECV2024.htm",
+   "geo_id": "ES24",
+   "period": "2024",
+   "unit": "%",
+   "measure": "percentage",
+   "universe": "poblacion_hogares_ECV",
+   "definition_version": "ECV2024_AROPE",
+   "kind": "raw",
+   "subgroup": "total",
+   "method_flag": [
+    "survey_estimate",
+    "income_reference_2023"
+   ],
+   "value": 21
+  },
+  {
+   "indicator_id": "ine.ecv.arope_total",
+   "source_id": "ine",
+   "source_url": "https://www.ine.es/dyngs/Prensa/ECV2024.htm",
+   "geo_id": "ES12",
+   "period": "2024",
+   "unit": "%",
+   "measure": "percentage",
+   "universe": "poblacion_hogares_ECV",
+   "definition_version": "ECV2024_AROPE",
+   "kind": "raw",
+   "subgroup": "total",
+   "method_flag": [
+    "survey_estimate",
+    "income_reference_2023"
+   ],
+   "value": 20.9
+  },
+  {
+   "indicator_id": "ine.ecv.arope_total",
+   "source_id": "ine",
+   "source_url": "https://www.ine.es/dyngs/Prensa/ECV2024.htm",
+   "geo_id": "ES53",
+   "period": "2024",
+   "unit": "%",
+   "measure": "percentage",
+   "universe": "poblacion_hogares_ECV",
+   "definition_version": "ECV2024_AROPE",
+   "kind": "raw",
+   "subgroup": "total",
+   "method_flag": [
+    "survey_estimate",
+    "income_reference_2023"
+   ],
+   "value": 16.2
+  },
+  {
+   "indicator_id": "ine.ecv.arope_total",
+   "source_id": "ine",
+   "source_url": "https://www.ine.es/dyngs/Prensa/ECV2024.htm",
+   "geo_id": "ES70",
+   "period": "2024",
+   "unit": "%",
+   "measure": "percentage",
+   "universe": "poblacion_hogares_ECV",
+   "definition_version": "ECV2024_AROPE",
+   "kind": "raw",
+   "subgroup": "total",
+   "method_flag": [
+    "survey_estimate",
+    "income_reference_2023"
+   ],
+   "value": 31.2
+  },
+  {
+   "indicator_id": "ine.ecv.arope_total",
+   "source_id": "ine",
+   "source_url": "https://www.ine.es/dyngs/Prensa/ECV2024.htm",
+   "geo_id": "ES13",
+   "period": "2024",
+   "unit": "%",
+   "measure": "percentage",
+   "universe": "poblacion_hogares_ECV",
+   "definition_version": "ECV2024_AROPE",
+   "kind": "raw",
+   "subgroup": "total",
+   "method_flag": [
+    "survey_estimate",
+    "income_reference_2023"
+   ],
+   "value": 22.2
+  },
+  {
+   "indicator_id": "ine.ecv.arope_total",
+   "source_id": "ine",
+   "source_url": "https://www.ine.es/dyngs/Prensa/ECV2024.htm",
+   "geo_id": "ES41",
+   "period": "2024",
+   "unit": "%",
+   "measure": "percentage",
+   "universe": "poblacion_hogares_ECV",
+   "definition_version": "ECV2024_AROPE",
+   "kind": "raw",
+   "subgroup": "total",
+   "method_flag": [
+    "survey_estimate",
+    "income_reference_2023"
+   ],
+   "value": 24
+  },
+  {
+   "indicator_id": "ine.ecv.arope_total",
+   "source_id": "ine",
+   "source_url": "https://www.ine.es/dyngs/Prensa/ECV2024.htm",
+   "geo_id": "ES42",
+   "period": "2024",
+   "unit": "%",
+   "measure": "percentage",
+   "universe": "poblacion_hogares_ECV",
+   "definition_version": "ECV2024_AROPE",
+   "kind": "raw",
+   "subgroup": "total",
+   "method_flag": [
+    "survey_estimate",
+    "income_reference_2023"
+   ],
+   "value": 34.2
+  },
+  {
+   "indicator_id": "ine.ecv.arope_total",
+   "source_id": "ine",
+   "source_url": "https://www.ine.es/dyngs/Prensa/ECV2024.htm",
+   "geo_id": "ES51",
+   "period": "2024",
+   "unit": "%",
+   "measure": "percentage",
+   "universe": "poblacion_hogares_ECV",
+   "definition_version": "ECV2024_AROPE",
+   "kind": "raw",
+   "subgroup": "total",
+   "method_flag": [
+    "survey_estimate",
+    "income_reference_2023"
+   ],
+   "value": 20.5
+  }
+ ]
+}

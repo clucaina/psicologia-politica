@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-if(!function_exists('mb_strtolower'))function mb_strtolower(string $s):string{return strtolower($s);}
+if(!function_exists('mb_strtolower')){function mb_strtolower(string $s):string{return strtolower($s);}}
 require __DIR__.'/../_private/core.php';
 require __DIR__.'/../_private/pages.php';
 $src=file_get_contents(__DIR__.'/../_private/pages.php');

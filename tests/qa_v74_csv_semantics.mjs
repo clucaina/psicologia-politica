@@ -22,7 +22,8 @@ assert.equal(missing[statusIndex],'sin_dato','missing value must be flagged');
 assert.equal(zero[valIndex],0,'measured 0 remains 0');
 assert.equal(zero[statusIndex],'revisado','measured 0 retains reviewed status');
 assert.ok(ctx.__formula.startsWith('"\'='),'dangerous formula is escaped');
-assert.ok(ctx.__unicode.includes("'+2"),'Unicode prefix formula is escaped');
+assert.ok(ctx.__unicode[0]==='"' && ctx.__unicode[1]==="'" && ctx.__unicode.endsWith('+2"'),
+          'Unicode prefix formula is escaped before the hidden Unicode character');
 assert.equal(ctx.__negative,'"-20"','valid negative measurement is not mangled');
 assert.equal(rows.length,21,'19 NUTS2, Spain and CSV header');
 console.log('PASS: V74 null != 0 in CSV, coverage, injection prevention and negative values');

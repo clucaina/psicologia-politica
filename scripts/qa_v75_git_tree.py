@@ -5,7 +5,8 @@ from pathlib import Path
 REQUIRED={'index.php','.htaccess','_private/core.php','_private/pages.php',
           '_private/api.php','_private/assets.json','assets/site.css',
           'assets/observatorio/mapa-espana.js','geo/spain-communities.geojson'}
-PROTECTED={'_private/config.php','.env','_private/installed.lock','analytics.js'}
+PROTECTED={'_private/config.php','.env','_private/installed.lock'}
+PRESERVE_RUNTIME={'analytics.js'}
 PROTECTED_PREFIX=('_private/sessions/','_private/backups/','uploads/')
 def inspect(root):
     root=Path(root).resolve()
@@ -33,12 +34,13 @@ def inspect(root):
     files=[]
     for name in sorted(tracked):
         f=root/name
-        if not f.is_file() or f.is_symlink():continue
+        if not f.is_file() or f.is_symlink() or name in PRESERVE_RUNTIME:continue
         b=f.read_bytes()
         files.append({'path':name,'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()})
     return {'status':'PASS_INVENTORY_ONLY' if not errors else 'BLOCK',
             'release_gate':'NO_GO','deployment_authorized':False,
             'file_count':len(files),'files':files,'issues':errors,
+            'preserved_runtime_files':sorted(set(tracked)&PRESERVE_RUNTIME),
             'note':'Repository provenance only, not equality with Hostinger or scientific approval.'}
 def main():
     p=argparse.ArgumentParser()

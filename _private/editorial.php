@@ -1,5 +1,10 @@
 <?php
 declare(strict_types=1);
+/** Published scientific news requires a public HTTPS primary source; drafts stay editable. */
+function pp_editorial_news_source_ready(mixed $candidate): bool {
+    $v=pp_url($candidate);
+    return $v!==''&&str_starts_with(strtolower($v),'https://');
+}
 function pp_names(mixed $v): array {$r=is_string($v)?pp_parse($v,explode("\n",$v)):$v;return array_slice(array_values(array_filter(array_map(fn($x)=>pp_clean($x,200),is_array($r)?$r:[]))),0,20);}
 function pp_programme(mixed $v): array {$rows=is_string($v)?pp_parse($v,null):($v??[]);if(!is_array($rows)||count($rows)>50)throw new PPError(400,'El programa admite hasta 50 intervenciones.');return array_map(function($r){if(!is_array($r))throw new PPError(400,'Revisa las intervenciones.');$e=[];foreach(['time','kind','title','speaker','description'] as $k)$e[$k]=pp_clean($r[$k]??'',$k==='description'?1500:240);if(!$e['title'])throw new PPError(400,'Cada intervención necesita un título.');return $e;},$rows);}
 /** Admin content editor and author desk must share a server-enforced concurrency gate.
@@ -54,7 +59,7 @@ function pp_admin(string $section,?array $payload=null): never {
    $values=[...$values,'slug'=>pp_slug(pp_clean($d['slug']??'',160)?:$values['title']),'kind'=>in_array($d['kind']??'',['news','blog','analysis'],true)?$d['kind']:'news','post_kind'=>pp_post_kind($d['post_kind']??''),'status'=>$status,'featured'=>!empty($d['featured'])?1:0,'source_url'=>pp_url($d['source_url']??'')?:null,'author'=>pp_clean($d['author']??'',140)?:$u['fullName'],'author_id'=>$before['author_id']??$u['email'],'reviewer_id'=>$u['email'],'canonical_url'=>pp_url($d['canonical_url']??'')?:null,'comments_enabled'=>in_array($d['comments_enabled']??1,[false,0],true)?0:1,'cover_image_key'=>pp_cover($d['cover_image_key']??null)??($before['cover_image_key']??null),'published_at'=>$status==='published'?($before['published_at']??pp_now()):($before['published_at']??null),'updated_at'=>pp_now(),'deleted_at'=>($d['operation']??'')==='delete'?pp_now():($before['deleted_at']??null)];
    $news=[];foreach(['occurred','evidence','limits','importance','methodology'] as $k)$news[$k]=pp_clean($body[$k]??'',16000);$values['news_body']=pp_json($news);$tags=pp_parse($d['tags']??'[]');$values['tags']=pp_json(array_slice(array_map(fn($x)=>pp_clean($x,60),is_array($tags)?$tags:[]),0,20));
    if(mb_strlen($values['title'])<8||!$values['slug']||!$values['section'])throw new PPError(400,'Completa título y tema.');if($status==='published'&&(mb_strlen($values['excerpt'])<20||mb_strlen($values['content'])<80))throw new PPError(400,'Completa entradilla y texto antes de publicar.');
-   if($status==='published'&&$values['kind']==='news'){if(!$values['source_url']||!$values['source_name']||!$values['evidence_type'])throw new PPError(400,'Completa la fuente y el tipo de evidencia.');foreach($news as $v)if(mb_strlen($v)<31)throw new PPError(400,'Completa hechos, evidencia, límites, contexto y metodología.');}
+   if($status==='published'&&$values['kind']==='news'){if(!pp_editorial_news_source_ready($values['source_url'])||!$values['source_name']||!$values['evidence_type'])throw new PPError(400,'Para publicar una noticia científica se necesita fuente primaria HTTPS y tipo de evidencia.');foreach($news as $v)if(mb_strlen($v)<31)throw new PPError(400,'Completa hechos, evidencia, límites, contexto y metodología.');}
    if($before&&isset($p['expected_updated_at'])&&$p['expected_updated_at']!==$before['updated_at'])throw new PPError(409,'La publicación cambió. Recarga antes de guardar.');
   }elseif($section==='activities'){
    $d=[...($before??[]),...$p];foreach(['title'=>220,'description'=>12000,'content'=>30000,'activity_type'=>90,'starts_at'=>30,'ends_at'=>30,'venue'=>180,'modality'=>90,'organizer'=>200,'cover_image_alt'=>240] as $k=>$max)$values[$k]=pp_clean($d[$k]??'',$max);

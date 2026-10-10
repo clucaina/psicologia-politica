@@ -54,6 +54,9 @@ function pp_percent_value_valid(array $o): bool {
 function pp_json(mixed $v): string {return json_encode($v,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_THROW_ON_ERROR);}
 function pp_parse(mixed $v,mixed $fallback=[]): mixed {if(!is_string($v))return $v??$fallback;try{return json_decode($v,true,512,JSON_THROW_ON_ERROR);}catch(Throwable){return $fallback;}}
 function pp_url(mixed $v): string {
+    // Validate raw bytes first: pp_clean() may remove tabs/newlines silently.
+    if(!is_string($v))return '';
+    if(preg_match('/[\\x00-\\x20\\x7f]/',$v)||str_contains($v,chr(92)))return '';
     $v=pp_clean($v,2000);
     // Published source links are never executable, local or credential-bearing.
     if($v===''||preg_match('/[\\x00-\\x20\\x7f]/',$v)||str_contains($v,chr(92))||!filter_var($v,FILTER_VALIDATE_URL))return '';

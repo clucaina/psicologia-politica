@@ -33,6 +33,8 @@ jobs:
           php tests/qa_v76_url_guard.php
           php tests/qa_v76_editorial_https.php
           php tests/qa_v76_ine_candidates.php
+          php tests/qa_v76_text_mobility.php
+          php tests/qa_v76_editorial_index.php
       - name: All PHP, JavaScript and JSON syntax
         run: |
           set -euo pipefail

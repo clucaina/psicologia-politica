@@ -22,5 +22,7 @@ jobs:
           set -eu
           find . -name '*.php' -type f -exec php -l {} \;
           find assets -name '*.js' -type f -exec node --check {} \;
+      - name: Require complete V78 staging source and SHA256 hashes
+        run: python3 scripts/qa_v78_remote_completeness.py
       - name: No deployment
         run: echo 'Preproduction NO-GO; never deploy to Hostinger automatically.'

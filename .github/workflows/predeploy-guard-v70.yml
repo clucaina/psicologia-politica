@@ -36,6 +36,8 @@ jobs:
           node tests/qa_v72_correlation_parity.mjs
           python3 tests/qa_v72_npl_temporal.py
           python3 tests/qa_v72_editorial_dedup.py
+          python3 scripts/qa_v74_cartography.py
+          python3 tests/qa_v74_cartography_mutations.py
       - name: Syntax checks
         run: |
           set -euo pipefail

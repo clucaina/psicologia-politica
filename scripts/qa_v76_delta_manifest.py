@@ -37,13 +37,13 @@ def inspect_delta(root=ROOT, baseline=MANIFEST):
     if not issues:
         b=json.loads(batch.read_text(encoding="utf-8"))
         n=json.loads(index.read_text(encoding="utf-8"))
-        if b.get("publication_policy")!="review_only_no_auto_publish" or
+        if (b.get("publication_policy")!="review_only_no_auto_publish" or
            b.get("automatic_publication") is not False or
            b.get("human_source_verification") is not False or
-           len(b.get("observations",[]))!=25 or len(b.get("new_indicators",[]))!=12:
+           len(b.get("observations",[]))!=25 or len(b.get("new_indicators",[]))!=12):
             issues.append("INVALID_CANDIDATE_PUBLICATION_STATE")
-        if n.get("version")!="V76" or n.get("publication_authorized") is not False or
-           n.get("source_count")!=185 or n.get("title_count")!=153:
+        if (n.get("version")!="V76" or n.get("publication_authorized") is not False or
+           n.get("source_count")!=185 or n.get("title_count")!=153):
             issues.append("INVALID_EDITORIAL_DEDUP")
     return {
         "status":"PASS_DELTA_AUDIT_NO_GO" if not issues else "BLOCK",

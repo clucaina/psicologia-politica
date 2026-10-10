@@ -1,0 +1,1 @@
+var s=t=>typeof t=="string"&&(/^[a-f0-9-]{36}\.jpg$/.test(t)||/^static:(editorial|news-visuals|group-assets)\/[a-z0-9.-]+\.(jpg|png|svg)$/.test(t)),i=t=>s(t)?String(t).startsWith("static:")?"/"+String(t).slice(7):"/api/media/"+t:void 0;export{i as a};

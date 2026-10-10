@@ -1,0 +1,44 @@
+{
+  "batch_id": "T40_FUENTES_CIS_CANDIDATAS_20261008",
+  "status": "source_discovery_only",
+  "numeric_npl_observations": 0,
+  "publication_policy": "no_automatic_data_import",
+  "prepared_at": "2026-10-08",
+  "source_endpoints": [
+    {
+      "source_id": "CIS",
+      "study_code": "3540",
+      "label": "Barómetro enero 2026",
+      "study_url": "https://www.cis.es/es/estudios/barometro-de-enero-2026",
+      "survey_population": "personas de 18 años o más",
+      "measurement_type": "survey",
+      "geo_scope": "ES",
+      "source_checked": "2026-10-08",
+      "import_status": "pending_download_questionnaire_codebook_microdata",
+      "guard": "Resultados nacionales de encuesta: no crear valores autonómicos si el diseño o microdatos no los sostienen.",
+      "study_date": "2026-01-05",
+      "date_note": "Fecha de estudio indicada en ficha CIS; comprobar ficha técnica para fechas exactas de trabajo de campo."
+    },
+    {
+      "source_id": "CIS",
+      "study_code": "3557",
+      "label": "Barómetro abril 2026",
+      "study_url": "https://www.cis.es/es/estudios/barometro-de-abril-2026",
+      "survey_population": "personas de 18 años o más",
+      "measurement_type": "survey",
+      "geo_scope": "ES",
+      "source_checked": "2026-10-08",
+      "import_status": "pending_download_questionnaire_codebook_microdata",
+      "guard": "No equiparar intención de voto, recuerdo de voto, percepción de problemas y resultados electorales.",
+      "study_date": "2026-04-06",
+      "date_note": "Fecha de estudio indicada en ficha CIS; comprobar ficha técnica para fechas exactas de trabajo de campo."
+    }
+  ],
+  "next_validation": [
+    "Descargar cuestionario y ficha técnica oficiales y confirmar universo, muestra, método y fecha de publicación.",
+    "Inspeccionar categorías de respuesta, no sabe/no contesta, ponderaciones y diseño muestral.",
+    "Crear identificadores por variable/pregunta y edición; no unir series sin comprobar cambios de redacción.",
+    "Registrar porcentaje sobre denominador válido o total, ponderación, subgrupo y fecha de consulta.",
+    "Si no hay tabla regional fiable, conservar únicamente geografía ES."
+  ]
+}

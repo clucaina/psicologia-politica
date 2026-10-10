@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img">
+  <title>Voz política percibida y confianza en el gobierno nacional</title>
+  <desc>En la encuesta OCDE de 2025 declara confianza alta o moderada el 69 por ciento de quienes sienten que tienen voz política y el 22 por ciento de quienes sienten que no, una diferencia de 47 puntos.</desc>
+  <rect width="1200" height="675" fill="#f3ecdf"/>
+  <text x="60" y="72" font-family="Arial, sans-serif" font-size="23" font-weight="700" letter-spacing="2" fill="#7d2432">OCDE · ENCUESTA DE CONFIANZA 2025</text>
+  <text x="60" y="123" font-family="Georgia, serif" font-size="40" font-weight="700" fill="#101b2d">La mayor brecha aparece al preguntar por la voz</text>
+  <line x1="60" y1="153" x2="1140" y2="153" stroke="#101b2d" stroke-width="2"/>
+  <text x="60" y="210" font-family="Arial, sans-serif" font-size="21" fill="#101b2d">SIENTO QUE PERSONAS COMO YO TIENEN VOZ</text>
+  <rect x="60" y="230" width="940" height="74" rx="6" fill="#d8cec0"/>
+  <rect x="60" y="230" width="649" height="74" rx="6" fill="#275846"/>
+  <text x="82" y="281" font-family="Arial, sans-serif" font-size="40" font-weight="700" fill="#fff9ee">69 % confía</text>
+  <text x="60" y="365" font-family="Arial, sans-serif" font-size="21" fill="#101b2d">NO SIENTO QUE PERSONAS COMO YO TENGAN VOZ</text>
+  <rect x="60" y="385" width="940" height="74" rx="6" fill="#d8cec0"/>
+  <rect x="60" y="385" width="207" height="74" rx="6" fill="#7d2432"/>
+  <text x="82" y="436" font-family="Arial, sans-serif" font-size="40" font-weight="700" fill="#fff9ee">22 %</text>
+  <rect x="1020" y="230" width="120" height="229" rx="8" fill="#101b2d"/>
+  <text x="1080" y="288" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#e8dbc3">BRECHA</text>
+  <text x="1080" y="362" text-anchor="middle" font-family="Georgia, serif" font-size="54" font-weight="700" fill="#fff9ee">47</text>
+  <text x="1080" y="397" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#fff9ee">puntos</text>
+  <text x="1080" y="424" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#fff9ee">porcentuales</text>
+  <rect x="60" y="500" width="1080" height="92" rx="8" fill="#fff9ee" stroke="#101b2d" stroke-width="2"/>
+  <text x="88" y="538" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#101b2d">ASOCIACIÓN ENTRE GRUPOS ≠ EFECTO CAUSAL DEMOSTRADO</text>
+  <text x="88" y="571" font-family="Arial, sans-serif" font-size="19" fill="#626875">76.927 respuestas · 33 miembros y 5 candidatos · promedios multinacionales</text>
+  <text x="60" y="637" font-family="Arial, sans-serif" font-size="20" fill="#615b52">Fuente: OECD Survey on Drivers of Trust in Public Institutions 2026 Results</text>
+</svg>

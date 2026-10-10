@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-08",
+  "public_site": "https://psicologiapolitica.es",
+  "checks": [
+    {
+      "path": "/conflictometro",
+      "status": "public_reader_accessible",
+      "finding": "HTML fallback still displays long generic news list instead of tool-specific content",
+      "confidence": "high",
+      "production_fix_applied": false
+    },
+    {
+      "path": "/",
+      "status": "unverified",
+      "finding": "Public reader could not fetch; not evidence of a real HTTP failure",
+      "confidence": "none"
+    },
+    {
+      "path": "/blog",
+      "status": "unverified",
+      "finding": "Public reader could not fetch; not evidence of a real HTTP failure",
+      "confidence": "none"
+    }
+  ],
+  "local_checks": {
+    "map_route": 200,
+    "js": 200,
+    "css": 200,
+    "svg": 200,
+    "note": "PHP built-in server with static router; no MySQL integration"
+  }
+}

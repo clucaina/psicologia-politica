@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
-if(!function_exists('pp_escape'))function pp_escape(string $s): string {return htmlspecialchars($s,ENT_QUOTES|ENT_SUBSTITUTE,'UTF-8');}
-if(!function_exists('pp_url'))function pp_url(string $s): ?string {return str_starts_with($s,'https://')?$s:null;}
+if(!function_exists('pp_escape')) { function pp_escape(string $s): string {return htmlspecialchars($s,ENT_QUOTES|ENT_SUBSTITUTE,'UTF-8');} }
+if(!function_exists('pp_url')) { function pp_url(string $s): ?string {return str_starts_with($s,'https://')?$s:null;} }
 require_once __DIR__.'/../_private/pages.php';
 function check73(bool $pass,string $message): void {
     if(!$pass)throw new RuntimeException('V73 FAIL: '.$message);

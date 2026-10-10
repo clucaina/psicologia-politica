@@ -1,4 +1,4 @@
-name: PP V73 isolated release gate (NO DEPLOY)
+name: PP V75 integration QA (NO DEPLOY)
 on:
   push:
     branches:
@@ -30,6 +30,19 @@ jobs:
           python3 tests/qa_v73_npl_semantics.py
           php tests/qa_v73_author_markdown.php
           node tests/qa_v73_correlation_integrity.mjs
+          php tests/qa_v74_public_privacy.php
+          php tests/qa_v72_author_identity.php
+          php tests/qa_v71_markdown.php
+          node tests/qa_v72_correlation_parity.mjs
+          python3 tests/qa_v72_npl_temporal.py
+          python3 tests/qa_v72_editorial_dedup.py
+          python3 scripts/qa_v74_cartography.py
+          python3 tests/qa_v74_cartography_mutations.py
+          node tests/qa_v74_csv_semantics.mjs
+          php tests/qa_v75_public_author_query.php
+          php tests/qa_v75_map_entry.php
+          php tests/qa_v75_ssr_routes.php
+          node tests/qa_v75_sensitivity.mjs
       - name: Syntax checks
         run: |
           set -euo pipefail
@@ -40,5 +53,17 @@ jobs:
           for p in pathlib.Path('.').rglob('*.json'): json.loads(p.read_text(encoding='utf-8'))
           print('PASS: syntax')
           PY
+      - name: Confirm 133 V75 source files with exact SHA256, no Hostinger writes
+        run: python3 scripts/qa_v75_reconciled_manifest.py
+      - name: Test SHA256 staging assembly without remote writes
+        run: python3 tests/qa_v75_staging.py
+      - name: Build auditable SHA256 inventory (read-only, no deploy)
+        run: python3 scripts/qa_v75_git_tree.py --output build/qa_v75_git_inventory.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pp-v75-source-sha256
+          path: build/qa_v75_git_inventory.json
+          if-no-files-found: error
+          retention-days: 7
       - name: Explicit NO-GO for production
         run: echo 'This workflow NEVER publishes to Hostinger or updates MariaDB.'

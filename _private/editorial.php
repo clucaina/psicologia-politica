@@ -2,6 +2,40 @@
 declare(strict_types=1);
 function pp_names(mixed $v): array {$r=is_string($v)?pp_parse($v,explode("\n",$v)):$v;return array_slice(array_values(array_filter(array_map(fn($x)=>pp_clean($x,200),is_array($r)?$r:[]))),0,20);}
 function pp_programme(mixed $v): array {$rows=is_string($v)?pp_parse($v,null):($v??[]);if(!is_array($rows)||count($rows)>50)throw new PPError(400,'El programa admite hasta 50 intervenciones.');return array_map(function($r){if(!is_array($r))throw new PPError(400,'Revisa las intervenciones.');$e=[];foreach(['time','kind','title','speaker','description'] as $k)$e[$k]=pp_clean($r[$k]??'',$k==='description'?1500:240);if(!$e['title'])throw new PPError(400,'Cada intervención necesita un título.');return $e;},$rows);}
+/** Admin content editor and author desk must share a server-enforced concurrency gate.
+ * Hash all editable editorial fields, not only article body. */
+function pp_admin_content_fingerprint(array $post): string {
+ $keys=['title','slug','excerpt','content','section','kind','post_kind','status','featured',
+   'source_url','source_name','source_type','evidence_type','verification_status',
+   'author','author_id','canonical_url','comments_enabled','cover_image_key','cover_image_alt',
+   'published_at','deleted_at','news_body','tags','seo_title','seo_description'];
+ $data=[];foreach($keys as $key)$data[$key]=$post[$key]??null;
+ return hash('sha256',pp_json($data));
+}
+/** Acceptance of a community proposal is NOT publication. The editorial team must
+ * independently check sources, authorship, moderation and the publication fields.
+ * A moderator may accept a proposal, but only an editor can publish it later.
+ * Keep the original contributor as author; do not impersonate the approving staff.
+ */
+function pp_proposal_review_post(array $proposal,string $author): array {
+ $id=(string)($proposal['id']??'');
+ if(!preg_match('/^[a-f0-9-]{36}$/D',$id))throw new PPError(400,'ID de propuesta inválido.');
+ $title=pp_clean($proposal['title']??'',240);
+ $content=pp_clean($proposal['body']??'',50000);
+ if(mb_strlen($title)<8||mb_strlen($content)<20)throw new PPError(400,'Propuesta incompleta.');
+ $links=pp_parse($proposal['source_urls']??'[]',[]);
+ $url=is_array($links)?pp_url($links[0]??''):'';
+ return [
+  'slug'=>'propuesta-'.$id,'title'=>$title,
+  'excerpt'=>mb_substr($content,0,400),'content'=>$content,
+  'section'=>'Comunicación y discurso','kind'=>'blog',
+  'post_kind'=>pp_post_kind($proposal['proposed_kind']??'debate'),
+  'status'=>'review','author'=>pp_clean($author,140)?:'Lector/a',
+  'author_id'=>$proposal['proposer_id'],'source_url'=>$url?:null,
+  'published_at'=>null,'verification_status'=>'pending_editorial_review',
+  'comments_enabled'=>0
+ ];
+}
 function pp_admin(string $section,?array $payload=null): never {
  $u=pp_require_role(['superadmin','admin_editor','moderator']);$p=$payload??pp_body();pp_rate('admin',$u['email'],180,300);
  $allowed=['superadmin'=>['content','activities','team','comments','reports','proposals','roles','users','invite','categories','restore','contacts'],'admin_editor'=>['content','activities','team','comments','reports','proposals','contacts'],'moderator'=>['comments','reports','proposals']];if(!in_array($section,$allowed[$u['role']],true))throw new PPError(403,'Tu rol no permite esta operación.');
@@ -9,6 +43,12 @@ function pp_admin(string $section,?array $payload=null): never {
   $key=(string)($p['id']??'');$note=pp_clean($p['note']??'',1000);$before=null;$values=[];$table='';$tables=['content'=>'editorial_posts','activities'=>'activities','team'=>'team_members','comments'=>'article_comments','reports'=>'comment_reports','contacts'=>'contact_messages','categories'=>'editorial_categories'];
   if(isset($tables[$section])){$table=$tables[$section];$before=$key?pp_one("SELECT * FROM $table WHERE id=? FOR UPDATE",[$key]):null;if($key&&!$before)throw new PPError(404,'Registro no encontrado.');}
   if($section==='content'){
+   if($before){
+    $expected=$p['_server_content_hash']??null;
+    if(!is_string($expected)||!preg_match('/^[a-f0-9]{64}$/D',$expected)||
+       !hash_equals(pp_admin_content_fingerprint($before),$expected))
+       throw new PPError(409,'El contenido cambió en otra sesión. Descarga tu texto y recarga antes de guardar.');
+   }
    $d=[...($before??[]),...$p];$status=in_array($d['status']??'',['draft','review','published','archived'],true)?$d['status']:'draft';$body=pp_parse($d['news_body']??'{}');if(!is_array($body))$body=[];
    foreach(['title'=>240,'excerpt'=>700,'content'=>50000,'section'=>90,'source_name'=>180,'source_type'=>90,'evidence_type'=>90,'verification_status'=>120,'seo_title'=>150,'seo_description'=>300,'cover_image_alt'=>240] as $k=>$max)$values[$k]=pp_clean($d[$k]??'',$max);
    $values=[...$values,'slug'=>pp_slug(pp_clean($d['slug']??'',160)?:$values['title']),'kind'=>in_array($d['kind']??'',['news','blog','analysis'],true)?$d['kind']:'news','post_kind'=>pp_post_kind($d['post_kind']??''),'status'=>$status,'featured'=>!empty($d['featured'])?1:0,'source_url'=>pp_url($d['source_url']??'')?:null,'author'=>pp_clean($d['author']??'',140)?:$u['fullName'],'author_id'=>$before['author_id']??$u['email'],'reviewer_id'=>$u['email'],'canonical_url'=>pp_url($d['canonical_url']??'')?:null,'comments_enabled'=>in_array($d['comments_enabled']??1,[false,0],true)?0:1,'cover_image_key'=>pp_cover($d['cover_image_key']??null)??($before['cover_image_key']??null),'published_at'=>$status==='published'?($before['published_at']??pp_now()):($before['published_at']??null),'updated_at'=>pp_now(),'deleted_at'=>($d['operation']??'')==='delete'?pp_now():($before['deleted_at']??null)];
@@ -31,8 +71,8 @@ function pp_admin(string $section,?array $payload=null): never {
   elseif($section==='categories'){$values=['name'=>pp_clean($p['name']??'',90),'sort_order'=>(int)($p['sort_order']??0)];if(mb_strlen($values['name'])<3)throw new PPError(400,'Introduce el nombre de categoría.');}
   elseif($section==='proposals'){
    $before=pp_one('SELECT * FROM thread_proposals WHERE id=? FOR UPDATE',[$key]);if(!$before||$before['status']!=='pending')throw new PPError(409,'La propuesta ya ha sido revisada.');if(!in_array($p['status']??'',['approved','rejected'],true)||mb_strlen($note)<5)throw new PPError(400,'Indica decisión y motivo.');
-   if($p['status']==='approved'){$author=pp_one('SELECT display_name FROM reader_profiles WHERE email=?',[$before['proposer_id']]);pp_insert('editorial_posts',['slug'=>'propuesta-'.$key,'title'=>$before['title'],'excerpt'=>mb_substr($before['body'],0,400),'content'=>$before['body'],'section'=>'Comunicación y discurso','kind'=>'blog','post_kind'=>$before['proposed_kind'],'status'=>'published','author'=>$author['display_name']??'Lector/a','author_id'=>$before['proposer_id'],'source_url'=>pp_parse($before['source_urls'])[0]??null,'published_at'=>pp_now()]);}
-   $values=['status'=>$p['status'],'reviewer_id'=>$u['email'],'review_note'=>$note,'reviewed_at'=>pp_now()];pp_update('thread_proposals',$values,'id',$key);pp_audit($u['email'],$section,$key,$p['status'],$before,$values,$note);return ['ok'=>true];
+   if($p['status']==='approved'){$author=pp_one('SELECT display_name FROM reader_profiles WHERE email=?',[$before['proposer_id']]);pp_insert('editorial_posts',pp_proposal_review_post($before,$author['display_name']??'Lector/a'));}
+   $values=['status'=>$p['status'],'reviewer_id'=>$u['email'],'review_note'=>$note,'reviewed_at'=>pp_now()];pp_update('thread_proposals',$values,'id',$key);pp_audit($u['email'],$section,$key,$p['status'],$before,$values,$note);return ['ok'=>true,'publication_status'=>$p['status']==='approved'?'pending_editorial_review':'not_published'];
   }elseif(in_array($section,['roles','invite'],true)){
    $email=pp_email($p['email']??'');$role=pp_clean($p['role']??'',50);$teamId=pp_clean($p['team_id']??'',160)?:null;if($email===$u['email'])throw new PPError(400,'No puedes cambiar tu propio rol.');if(!in_array($role,$section==='invite'?['admin_editor','moderator']:['superadmin','admin_editor','moderator','registered_user'],true))throw new PPError(400,'Rol no válido.');$target=pp_one('SELECT * FROM reader_profiles WHERE email=? FOR UPDATE',[$email]);
    if($section==='roles'&&(!$target||!$target['email_verified']||$target['status']!=='active'))throw new PPError(400,'Primero debe entrar con una cuenta verificada.');
@@ -49,11 +89,13 @@ function pp_admin(string $section,?array $payload=null): never {
   if($before)pp_update($table,$values,'id',$key);else{if($table!=='editorial_posts')$values=['id'=>pp_uuid(),...$values];$inserted=pp_insert($table,$values);$key=$values['id']??$inserted;}pp_audit($u['email'],$section,$key,$before?'update':'create',$before,$values,$note);return ['ok'=>true,'id'=>$key];
  });pp_reply($result);
 }
-/** Mandatory strong optimistic locking for every existing Blog document. */
+/** Mandatory optimistic locking for every existing Blog document.
+ * The author and admin editor MUST fingerprint the same editorial fields: otherwise
+ * a same-timestamp admin change to authorship, publication or SEO metadata can be
+ * overwritten by a stale author tab without a 409. updated_at is deliberately omitted.
+ */
 function pp_author_fingerprint(array $post): string {
- $keys=['title','excerpt','content','section','post_kind','status','cover_image_key','cover_image_alt','source_url','source_name'];
- $data=[];foreach($keys as $key)$data[$key]=$post[$key]??null;
- return hash('sha256',pp_json($data));
+ return pp_admin_content_fingerprint($post);
 }
 /** Canonical deep-link retrieval: never expose another author's draft. */
 function pp_author_get(): never {
@@ -61,7 +103,8 @@ function pp_author_get(): never {
  $id=(string)($_GET['id']??'');if(!preg_match('/^[0-9]{1,19}$/D',$id))throw new PPError(400,'ID de artículo inválido.');
  $post=pp_one("SELECT * FROM editorial_posts WHERE id=? AND author_id IN (?,?) AND kind='blog' AND deleted_at IS NULL LIMIT 1",[$id,$u['email'],$u['id']]);
  if(!$post)throw new PPError(404,'Artículo propio no encontrado.');
- pp_reply(['post'=>$post,'content_hash'=>pp_author_fingerprint($post)]);
+ $hash=pp_author_fingerprint($post);header('Cache-Control: no-store');header('ETag: "pp-post-'.$hash.'"');
+ pp_reply(['post'=>$post,'content_hash'=>$hash]);
 }
 function pp_author_post(): never {
  $u=pp_require_role(['superadmin','admin_editor']);$p=pp_body();pp_rate('own-post',$u['email'],120);$result=pp_transaction(function()use($p,$u){
@@ -69,5 +112,6 @@ function pp_author_post(): never {
   $v=['title'=>pp_clean($d['title']??'',240),'excerpt'=>pp_clean($d['excerpt']??'',700),'content'=>pp_clean($d['content']??'',50000),'section'=>pp_clean($d['section']??'',90),'post_kind'=>pp_post_kind($d['post_kind']??''),'source_url'=>pp_url($d['source_url']??'')?:null,'source_name'=>pp_clean($d['source_name']??'',180),'cover_image_key'=>pp_cover($d['cover_image_key']??null),'cover_image_alt'=>pp_clean($d['cover_image_alt']??'',240),'author'=>$team['full_name']??$u['fullName'],'author_id'=>$u['email'],'kind'=>'blog','evidence_type'=>'Opinión y análisis de autor','status'=>$status,'updated_at'=>pp_now(),'published_at'=>$status==='published'?($before['published_at']??pp_now()):($before['published_at']??null)];
   if(mb_strlen($v['title'])<8||!in_array($v['section'],['Polarización','Comunicación y discurso','Desinformación','Redes y algoritmos','IA y política','Opinión pública y decisión','Liderazgo y poder','España','Regulación digital','Agenda'],true))throw new PPError(400,'Escribe un título de al menos 8 caracteres y elige un tema.');if($status!=='draft'&&(mb_strlen($v['excerpt'])<20||mb_strlen($v['content'])<80))throw new PPError(400,'Completa el resumen y el texto.');if($v['cover_image_key']&&!$v['cover_image_alt'])throw new PPError(400,'Describe la imagen.');
   if($before){$id=$before['id'];pp_update('editorial_posts',$v,'id',$id);}else{$v['slug']=pp_slug($v['title']).'-'.substr(pp_uuid(),0,8);$id=(int)pp_insert('editorial_posts',$v);}pp_audit($u['email'],'content',(string)$id,$before?'author-save':'author-create',$before,$v,'Guardado del autor');$saved=pp_one('SELECT * FROM editorial_posts WHERE id=?',[$id]);return ['ok'=>true,'post'=>['id'=>$saved['id'],'slug'=>$saved['slug'],'status'=>$saved['status'],'updated_at'=>$saved['updated_at']],'content_hash'=>pp_author_fingerprint($saved)];
- });pp_reply($result);
+ });
+ if(!empty($result['content_hash']))header('ETag: "pp-post-'.$result['content_hash'].'"');header('Cache-Control: no-store');pp_reply($result);
 }

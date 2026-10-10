@@ -1,0 +1,756 @@
+{
+  "version": "V75",
+  "created_at": "2026-10-10",
+  "mode": "STAGING_MANIFEST_ONLY_NO_REMOTE_ACTION",
+  "publication_gate": "NO_GO",
+  "count": 133,
+  "files": [
+    {
+      "path": ".htaccess",
+      "size": 823,
+      "sha256": "51f8ce59bce836ee933362da3d915fbec6e12d86d5450b3c46d9f7f63b3f0db7"
+    },
+    {
+      "path": ".user.ini",
+      "size": 102,
+      "sha256": "0b4c3743232b094cc70043fbea5a109d5120dc2b213a277fc3e7654f0f6473de"
+    },
+    {
+      "path": "VERSION.json",
+      "size": 365,
+      "sha256": "4705d26a2ff05fe5f61210c0789e8b4d959a945aa48a7a64233a00c7c6d53002"
+    },
+    {
+      "path": "_private/.htaccess",
+      "size": 19,
+      "sha256": "fa28d421a28ed9b6f4b997d5119c2b8adbacff6e2dd119a179b71230f9664934"
+    },
+    {
+      "path": "_private/api.php",
+      "size": 12658,
+      "sha256": "5f72e6083ba967f0d4593779b997667c188fdf6905c1ae68e66d480bbe4193c4"
+    },
+    {
+      "path": "_private/assets.json",
+      "size": 76,
+      "sha256": "9288a48bba682039693ef6bb2a36a61649afc1f36092a070492631ae330075d7"
+    },
+    {
+      "path": "_private/auth.php",
+      "size": 5281,
+      "sha256": "e33a1138b106eaf3b29b7fdb1e623b12fb2c8e9e97636376676fd0a253725a41"
+    },
+    {
+      "path": "_private/backup.php",
+      "size": 18438,
+      "sha256": "ca77f17ea414c0b0989fed425325b53e74ebb11f963fa0e4597cc921f2e74c6c"
+    },
+    {
+      "path": "_private/community.php",
+      "size": 10839,
+      "sha256": "7760056dff3cacdfadf35b85669477c10a7c8a9e874cdab811c9fba35533cb47"
+    },
+    {
+      "path": "_private/core.php",
+      "size": 13529,
+      "sha256": "3feff17d9cf6a1f917aed865f84dd7ed8db59a75183381c0efe5ece026747a53"
+    },
+    {
+      "path": "_private/editorial.php",
+      "size": 19165,
+      "sha256": "23911f114ecf65b1c7cd9a8409a0fc7679ca854300ae08bab63308f7037d014f"
+    },
+    {
+      "path": "_private/mail.php",
+      "size": 3589,
+      "sha256": "fe459f743d758cb59c546447e633287fab3e236a8e0b4329a431ef8e9a728a0b"
+    },
+    {
+      "path": "_private/migration-counts.json",
+      "size": 697,
+      "sha256": "f60f063ff2bbfb553509325289c4972f83d2b36a7ccfe5d0d064a03294568234"
+    },
+    {
+      "path": "_private/migrations.php",
+      "size": 4455,
+      "sha256": "208bc390486f5c1e3098ffb7f5e23d85b838aa219878bf6cb49b39eb64aed202"
+    },
+    {
+      "path": "_private/news_crossref.php",
+      "size": 10121,
+      "sha256": "8d9d946336c3bbbf3b2037645f3db1a98863bc4a5a00b8ab74f00837e7ddc775"
+    },
+    {
+      "path": "_private/news_ingest.php",
+      "size": 28680,
+      "sha256": "e8812a26ec0a2b4ac6476cf16a0a7e13d593b5fc20d155a3f27c6266ce17c5f0"
+    },
+    {
+      "path": "_private/npl.php",
+      "size": 37852,
+      "sha256": "b3b35bb527068ef7589520b19ddfca657f203648becd7af352d26c6fc9abfb18"
+    },
+    {
+      "path": "_private/npl_analytics.php",
+      "size": 62777,
+      "sha256": "6642dc5545cc53670ef52395fc55d4266cc7eea53363ad6899cc3cc2c24b74fc"
+    },
+    {
+      "path": "_private/npl_batch.php",
+      "size": 25510,
+      "sha256": "1458bc02abe51125237e6634496f61ef905da325e57b1a043123880f250bd6ba"
+    },
+    {
+      "path": "_private/npl_catalog.php",
+      "size": 1906,
+      "sha256": "2ad907276a6fb54df4eb1c3a0fb5bd0389d0b8ff78be30c1a182f83f1c05388b"
+    },
+    {
+      "path": "_private/npl_quarterly.php",
+      "size": 12354,
+      "sha256": "0fc94569bd615d161656d38d3935d31097700106f55641c2df0d933981b7bf76"
+    },
+    {
+      "path": "_private/npl_release.php",
+      "size": 6894,
+      "sha256": "83114ce4458c83b2ab6c3d9def84d9a410b3351311512d063ef2b756b628561b"
+    },
+    {
+      "path": "_private/npl_review_ui.php",
+      "size": 7581,
+      "sha256": "5827921dd690806850936dfc94dd29ff6cf6f2699ec22a2fc438e0af3dd7b472"
+    },
+    {
+      "path": "_private/observatorio-espana.html",
+      "size": 8992,
+      "sha256": "43cb5dbfb29168d0ed08d081af4ff489596590e29f0ac962ae62197b9dd64939"
+    },
+    {
+      "path": "_private/pages.php",
+      "size": 27545,
+      "sha256": "d63f84827745ef6ce2690b8aa8672678c1d3175f1822f1a27398a2eb7dd2a6b4"
+    },
+    {
+      "path": "_private/runtime.php",
+      "size": 4944,
+      "sha256": "03a7e00a9ab0f49d0a1856031c3ed27fe6d8c969d42dded3ce1f3290f3c967e1"
+    },
+    {
+      "path": "_private/schema.json",
+      "size": 16800,
+      "sha256": "63701dd7f224157c09b8d09926b8c9f85ec847eeac2c0fd46a886074ce5a4074"
+    },
+    {
+      "path": "_private/security_paths.php",
+      "size": 1189,
+      "sha256": "d46edd20c4415d86969049362d6a029213d699da794f6db1629dcbdcd4632b5f"
+    },
+    {
+      "path": "_private/text-rules.json",
+      "size": 6163,
+      "sha256": "97f498f30379a1e60b84b32afe514700a2ac07460338f49e279b1d6db5a8b490"
+    },
+    {
+      "path": "_private/text_analysis_v2.php",
+      "size": 35471,
+      "sha256": "d56401991d3822f246f279bfda198274f9e9e44089da1fa78439e3e7f702b166"
+    },
+    {
+      "path": "_private/uploads.php",
+      "size": 6726,
+      "sha256": "953dfeaa1d36c0d4e5595a401ad9f5fc274b50a25a7198707079f258cd4375c5"
+    },
+    {
+      "path": "assets/app-851E8E35.js",
+      "size": 187762,
+      "sha256": "851e8e35aba324de87e7f8ac5bcaf0bc38ec3249b4b74f99b0f7b6765c2ad235"
+    },
+    {
+      "path": "assets/app-96BD6C1D.js",
+      "size": 187762,
+      "sha256": "96bd6c1d0a37c71a7cdf12460373c55f178e504c57c8fd300017dee26e6392c7"
+    },
+    {
+      "path": "assets/app-D558F952.js",
+      "size": 187762,
+      "sha256": "d558f9523eafc8746a1c07a841cc61617c3bfa19ba16c46aa54f8549d88e3f27"
+    },
+    {
+      "path": "assets/chunk-0479189C.js",
+      "size": 879,
+      "sha256": "0479189cb3da46dcb68b005a8b0957a9a9a909aedc2023650c34562d459dab47"
+    },
+    {
+      "path": "assets/chunk-0D397A1F.js",
+      "size": 879,
+      "sha256": "0d397a1f72cd210fff731fa72326c9a273a2976807fb3bc179d833f8cb20c698"
+    },
+    {
+      "path": "assets/chunk-2YQUI6FZ.js",
+      "size": 1167,
+      "sha256": "fd42125c46578a85f0b4fb67007319f1d76046664e6b3e9add76bf6f2465a0ca"
+    },
+    {
+      "path": "assets/chunk-3LWZ3MZR.js",
+      "size": 4279,
+      "sha256": "946d87faa494aa45bc984283de0c2320a13f2fb1997493d2fee0dad2f83d1536"
+    },
+    {
+      "path": "assets/chunk-3NFA6D4K.js",
+      "size": 15024,
+      "sha256": "f9dd35f69a81b4136c7389c6e3c1d65d358e28eb5d092e58f8cd28b166cc02c3"
+    },
+    {
+      "path": "assets/chunk-3R4CETLY.js",
+      "size": 3783,
+      "sha256": "78ffd2cef594e0fca70acfb6e2d7afff9b3c19bb51507bd7cb19fa9d17969b65"
+    },
+    {
+      "path": "assets/chunk-493DA4C8.js",
+      "size": 15156,
+      "sha256": "493da4c8f8c003e25dc243ffbc171e3e176cee72ce1e42afa6721b803dc05679"
+    },
+    {
+      "path": "assets/chunk-4BEWCCV7.js",
+      "size": 252,
+      "sha256": "96a9e19db299a8fb2ac5213e33e9b893e71f2ea5891900c1e605d9e5f2f8e298"
+    },
+    {
+      "path": "assets/chunk-4VGUOLRD.js",
+      "size": 1755,
+      "sha256": "6e4a395f8fddb33dc607fa6757aa5c3e4707dc446ad36afe6421adc8b5c623cf"
+    },
+    {
+      "path": "assets/chunk-54816D1C.js",
+      "size": 5017,
+      "sha256": "54816d1c08d0f553f239c17f62e2c33109ea9cff912536cd95b1a2bea28a5296"
+    },
+    {
+      "path": "assets/chunk-555LNIMU.js",
+      "size": 200,
+      "sha256": "e288232a53ead4f1818a2b6bffa7ec3ef7f984b403bce0b2f537b7b03f0f0998"
+    },
+    {
+      "path": "assets/chunk-5PGMWKBR.js",
+      "size": 94,
+      "sha256": "11d246c2d65e0fca379af49a0150fcff99614bfff2ab282cc241a47288d86329"
+    },
+    {
+      "path": "assets/chunk-5PM23RVO.js",
+      "size": 841,
+      "sha256": "9c655f84cb54503f1cf27b3e4afff0a3349de2eb34413f55b7bc6750583acd0b"
+    },
+    {
+      "path": "assets/chunk-5TBJLUOQ.js",
+      "size": 87,
+      "sha256": "0ee3ff03b6ac3c283d330ff1ec690d289ad2219bc699286e7a816ec57f21a518"
+    },
+    {
+      "path": "assets/chunk-5WNI6ZOT.js",
+      "size": 4549,
+      "sha256": "7918057c26bd04fa1222224fbcddbcb5cc4a55a3ccc95e84161ecc49e5aedbb8"
+    },
+    {
+      "path": "assets/chunk-6FA504EC.js",
+      "size": 957,
+      "sha256": "6fa504ec68a7ac0570bd5777517c6feae5daa2d7d2076eb93800b8afdc2af8cf"
+    },
+    {
+      "path": "assets/chunk-8FDECE63.js",
+      "size": 24184,
+      "sha256": "8fdece63fb2b90aa8dcff9e8f7f8935f93aa8410fd4031364a7c71a02af79873"
+    },
+    {
+      "path": "assets/chunk-979CB0BE.js",
+      "size": 25013,
+      "sha256": "979cb0be9226190a4fcb4e7bca2f1e290dcb5eb8640a2ba3ff54e0a6eb087e42"
+    },
+    {
+      "path": "assets/chunk-A7XYANQO.js",
+      "size": 2157,
+      "sha256": "5b49e227ca03eebbce2ca3fdcd5bc09816982e808cc99e97c484bab8e2769b94"
+    },
+    {
+      "path": "assets/chunk-ACSD76BL.js",
+      "size": 461,
+      "sha256": "05ebdf0789130b0e1d6d6b4dd2cbd1d7cea8f4844b79656cfd77563d456edd5a"
+    },
+    {
+      "path": "assets/chunk-AU6NHUC3.js",
+      "size": 6366,
+      "sha256": "3f805f219db835e80d15b5b30b24c5ea2ff607f88a3a011cb3a6768f2a252e44"
+    },
+    {
+      "path": "assets/chunk-AY4ZBXJM.js",
+      "size": 686,
+      "sha256": "a2b68a4556fd228e861ddbda14b75fa8ea3b93cda199b52c769a02cc39185f40"
+    },
+    {
+      "path": "assets/chunk-C6469B31.js",
+      "size": 957,
+      "sha256": "c6469b3143792ff6403cd0ad7b743a259e638f952ffe0a7c189df1d4d493525d"
+    },
+    {
+      "path": "assets/chunk-D24QMBGH.js",
+      "size": 15484,
+      "sha256": "dc670faa2006eabc1a148fd5e1e476f1802df01070710d9e78b02e2e57bbd76a"
+    },
+    {
+      "path": "assets/chunk-D37XXVPB.js",
+      "size": 5380,
+      "sha256": "da004a3f4711f80394caadfd10e431acc9a1cd75f58900a1a1c50e661b702908"
+    },
+    {
+      "path": "assets/chunk-DA4BAXI7.js",
+      "size": 4235,
+      "sha256": "a325d5d8ceb79383876bf410b133719d79660898983b40a90364861a5f1f873c"
+    },
+    {
+      "path": "assets/chunk-E7AONN2V.js",
+      "size": 11293,
+      "sha256": "f9aac8beb4806f33e204b524fe14e911ddcf432e561c453eaaf02e6b2edf9092"
+    },
+    {
+      "path": "assets/chunk-GCMBJWJ5.js",
+      "size": 1853,
+      "sha256": "ecd877327e4e8095f05331eeb9ce2766c6aa8c3ff2bef9c48a753e212083c07b"
+    },
+    {
+      "path": "assets/chunk-GN2ZJTWV.js",
+      "size": 181,
+      "sha256": "6624d467cd3ddc883cf2d9edadbcc7da0003659085bb6ee0ab7176394d7ea65f"
+    },
+    {
+      "path": "assets/chunk-I5L54KD5.js",
+      "size": 2316,
+      "sha256": "8373fe3bbaad8f373ae1165aec72adeb8bc2ee4d1ba03d459009c4ca915b374b"
+    },
+    {
+      "path": "assets/chunk-KECI7H7X.js",
+      "size": 14974,
+      "sha256": "dc199cd0bc404023a4df5abd65a81f57b9a4145e72b3e7b1106632e3788038dd"
+    },
+    {
+      "path": "assets/chunk-KEHTYMRA.js",
+      "size": 2873,
+      "sha256": "0f20f3aae7208a2503cfcd4c8b95fe7bb6a6a5fd8a61e31db72257a676c45389"
+    },
+    {
+      "path": "assets/chunk-LZW235CB.js",
+      "size": 1055,
+      "sha256": "7416b596c9b1b1a2727333bb61347db9f334668299856e891ca5cd07161395a4"
+    },
+    {
+      "path": "assets/chunk-MGIPEK2Z.js",
+      "size": 7901,
+      "sha256": "1910775be77d33698dc6ac9f33fed87257e3cde1af3ea7c1d24253e4dbfcf5d2"
+    },
+    {
+      "path": "assets/chunk-PRDJLZMZ.js",
+      "size": 3832,
+      "sha256": "60689fa6621d3da6741dc0fa3ab38ea0a14fc93d6cb07373eea5d24ee320e7aa"
+    },
+    {
+      "path": "assets/chunk-Q7NELXTM.js",
+      "size": 4177,
+      "sha256": "b9fcfdb9b6e3b0e4283b7bee2e84ee805ea0ab1ba1f2c1899ae1fbc4dc91544c"
+    },
+    {
+      "path": "assets/chunk-R7RGJYT5.js",
+      "size": 210,
+      "sha256": "6143efdbc24163a10130f4f562c0f2295e77fda849ecac44294f1360ab0a6567"
+    },
+    {
+      "path": "assets/chunk-RD7MXXWC.js",
+      "size": 2041,
+      "sha256": "1e73d39630fc3b29eea5145360ec438bd6844773e9efb46cab5875a138843adb"
+    },
+    {
+      "path": "assets/chunk-RRLC42QP.js",
+      "size": 90,
+      "sha256": "a8bbb4f5e7aa98252ea893d02f96ea6afdf1437a437a416ff31a6a98dba50b61"
+    },
+    {
+      "path": "assets/chunk-S2KPDF66.js",
+      "size": 330,
+      "sha256": "ac73fe9fd8bd7b9fcdb041adaade8259c470a84083c93b6917fe88904d57e83b"
+    },
+    {
+      "path": "assets/chunk-SAFSIGYH.js",
+      "size": 1239,
+      "sha256": "da5e5f708179463c7f9d0e65e68ec556dd4ff60de0cf2e1435093240f68e576f"
+    },
+    {
+      "path": "assets/chunk-SJSS2QHL.js",
+      "size": 6320,
+      "sha256": "bceeb91ee89835349cb95d61bbb286a5f3c305b955d4e527646999f872be7c18"
+    },
+    {
+      "path": "assets/chunk-T3W3TYYG.js",
+      "size": 9598,
+      "sha256": "63325c79e4d0142d6c0f8d048f87c4c70094a0f0a67e0b6320a9b50b3202a09f"
+    },
+    {
+      "path": "assets/chunk-UHRZUUUY.js",
+      "size": 4133,
+      "sha256": "a97f9053edb5ef82431501f86c22d56d79620035a6be3f3eaf9e8da4c1527ea1"
+    },
+    {
+      "path": "assets/chunk-USLT2ZFY.js",
+      "size": 28034,
+      "sha256": "79ab96d9b6d5e007b603b8d5acc51b9ccab7f9d0f1e4e1a0f009ca54d8c564fa"
+    },
+    {
+      "path": "assets/chunk-V5RUDLZO.js",
+      "size": 330,
+      "sha256": "ac73fe9fd8bd7b9fcdb041adaade8259c470a84083c93b6917fe88904d57e83b"
+    },
+    {
+      "path": "assets/chunk-VUPVCPNP.js",
+      "size": 6461,
+      "sha256": "80cca9288829e40ab6feed4eb6d6d3cabc9bbaf9a5ecbba50f4a898047c72584"
+    },
+    {
+      "path": "assets/chunk-W23B356X.js",
+      "size": 320,
+      "sha256": "955213d65a0ff9f863d696afd2a2fd5e6bde6ab1d70248896c63c3e97642bc8e"
+    },
+    {
+      "path": "assets/chunk-WEH423TP.js",
+      "size": 17667,
+      "sha256": "83c1d7b9d2781f5dc4c3ee1868d4094d6983f23eb60200b5fb7ac0392959623f"
+    },
+    {
+      "path": "assets/chunk-XAUYMOPC.js",
+      "size": 2555,
+      "sha256": "b6285a51fa3f908584e9ebd6d6538eab196e95ed21b5ae9f5816d9f48e4f02c0"
+    },
+    {
+      "path": "assets/chunk-ZEFQ2ZKV.js",
+      "size": 1343,
+      "sha256": "7b372fcb114cb7515fe2a5ec3be64fd4f30fa9196bf584d5a13a8c272fc58564"
+    },
+    {
+      "path": "assets/chunk-ZUFOKSAX.js",
+      "size": 2255,
+      "sha256": "98d02753527d5c2010fe0eff85d46437963d3fa508b720710618cd7a3de2c07d"
+    },
+    {
+      "path": "assets/npl-review-console.css",
+      "size": 2430,
+      "sha256": "2cf62720ca56cc7d4c4229f4865b379fb686a76e629942b8db5a2c6668e0bdbb"
+    },
+    {
+      "path": "assets/npl-review-console.js",
+      "size": 12828,
+      "sha256": "677d4c4292c019d9f6624b125cfb19255be02c6806d64271c6ad13d078328e23"
+    },
+    {
+      "path": "assets/observatorio/mapa-espana.css",
+      "size": 13137,
+      "sha256": "0529388cf2aeba049d0b1ac4eef857c67491ed8328e3857e8c333355bf0e3ff2"
+    },
+    {
+      "path": "assets/observatorio/mapa-espana.js",
+      "size": 87053,
+      "sha256": "e35a1334d0b4df7171a41cf09123c1017bee0de1b871d424b7d2154f1c741947"
+    },
+    {
+      "path": "assets/observatorio/mapa-espana.svg",
+      "size": 356738,
+      "sha256": "d5463dd9c352f713205391095661b9de7fdc4d4c16e2721474ae24b53dbe9d04"
+    },
+    {
+      "path": "assets/site.css",
+      "size": 191049,
+      "sha256": "72679341a40d2a25ec1535282e327981d00ca54ce23af43635adeb6c74b1850d"
+    },
+    {
+      "path": "database/.htaccess",
+      "size": 131,
+      "sha256": "7fc49c939fdae3c5e5da860bc137f0afd55113552a6442aea43639534e2b2052"
+    },
+    {
+      "path": "database/ANALIZADOR_TAXONOMY_V2.json",
+      "size": 65927,
+      "sha256": "6d08c4ec8b05753e2a1ef94f3e4ddba2cefa4cd9b9def807573f0beff42af4ad"
+    },
+    {
+      "path": "database/DATA_BATCH_SCHEMA.json",
+      "size": 4360,
+      "sha256": "4b52017be9177377e1b16c998306f4aa1af2165b45b59d48ed19cf8c498ad893"
+    },
+    {
+      "path": "database/migrations/20261008_001_npl_batch_ledger.schema.sql",
+      "size": 751,
+      "sha256": "3f737413d3971742280ea0d02f72a35447cd167a584338afa65ae9039b50ea53"
+    },
+    {
+      "path": "database/migrations/20261008_002_news_candidate_queue.schema.sql",
+      "size": 462,
+      "sha256": "6fc7843c8cde9d65900261631a90ea50d825245a7fa8e48497edb220a22355e8"
+    },
+    {
+      "path": "database/news_crossref_sources_v23.json",
+      "size": 807,
+      "sha256": "f11e5df8bb9343b887069e847f9fe407cfc2af0f3095f7238dc87c13c9763238"
+    },
+    {
+      "path": "database/news_feeds.json",
+      "size": 1287,
+      "sha256": "29356169f09b84af2211bc787908359cdb961825ba87cc8b794133e15465da05"
+    },
+    {
+      "path": "database/news_prepared_identity_index_v72.json",
+      "size": 19692,
+      "sha256": "30dddd63bc7e5b6f3131a14fb1a93ec3861daa68eb18e816c708b369b2312bb8"
+    },
+    {
+      "path": "editorial/archive-congress.svg",
+      "size": 803,
+      "sha256": "24a1a678652eea01c756b7f973748221299abc51b598b230b79a9a0fa43ccc17"
+    },
+    {
+      "path": "editorial/archive-media.svg",
+      "size": 892,
+      "sha256": "04beccbf2c182b86ffea70c1234683a9232e9466112647c72fb018ec344b97db"
+    },
+    {
+      "path": "editorial/archive-timeline.svg",
+      "size": 1005,
+      "sha256": "40bce5100e9272913fa13d49fc09c8eeee8625da3426816ab1b0be15eb3595cc"
+    },
+    {
+      "path": "editorial/blog-alerta.svg",
+      "size": 726,
+      "sha256": "dac6206b0e02426cfde90d4172766be5a05ce0b4636afbfa11d2ab804e6609cb"
+    },
+    {
+      "path": "editorial/blog-memoria.svg",
+      "size": 796,
+      "sha256": "0636224e1dbe2a5fd88ff26a8d422974baf7581096e7b3953725e67810567617"
+    },
+    {
+      "path": "editorial/blog-obediencia.svg",
+      "size": 856,
+      "sha256": "e75a97ae16fb8d39e367819480d35076d8c411480ca757c8c4e3a02dd6269c7b"
+    },
+    {
+      "path": "editorial/blog-polarizacion.svg",
+      "size": 911,
+      "sha256": "bc91550f594bde3d7f3c23d1b093adb716ec037791791f0e4d7d50ebd0a85348"
+    },
+    {
+      "path": "editorial/critical-reading-v17.jpg",
+      "size": 446855,
+      "sha256": "8f3cc9748cc226096958fe547f3b882d1dafc89d90189c5b0f0a695525dc7d24"
+    },
+    {
+      "path": "editorial/critical-reading-v17.png",
+      "size": 2783835,
+      "sha256": "205c91322503f5cc8e1affecd3676ac91e667b7043bd4f6241d4da751482de2a"
+    },
+    {
+      "path": "editorial/perspectives-v17.jpg",
+      "size": 465071,
+      "sha256": "ff3ac97a595a0c4555315c89aa4e8e3083275f724e58471b3166055d36dd0f2e"
+    },
+    {
+      "path": "editorial/perspectives-v17.png",
+      "size": 2750552,
+      "sha256": "f14420c8483e73a02af1eb4e3d3008749e9046630d5e19669f791a4507fa25b6"
+    },
+    {
+      "path": "favicon.svg",
+      "size": 688,
+      "sha256": "7fbe0f62f8d926eb8e115fb836de5af5f0c50a9d9dee62063fcf19f1736dfcf1"
+    },
+    {
+      "path": "file.svg",
+      "size": 392,
+      "sha256": "1e0ae4d1a1ddfa36752988647b731e4abf150c414d069ec83c96fb0aaeff0307"
+    },
+    {
+      "path": "geo/GEOMETRY_QA_V40.json",
+      "size": 3897,
+      "sha256": "42d7efe28fc40c5e47924fbccbb8127766739bf8e280e02adfd8e55d46752a0c"
+    },
+    {
+      "path": "geo/LICENSE.txt",
+      "size": 1079,
+      "sha256": "4895ffb278e3c7238b10594a36d4c5085dc150ca1c8d32f32958daaeb84059c9"
+    },
+    {
+      "path": "geo/ORIGEN.md",
+      "size": 1584,
+      "sha256": "de4c223b1820c7d95787347c9782110a170a3c9512612e386b47b9d2b9c7736e"
+    },
+    {
+      "path": "geo/ccaa-code-map.json",
+      "size": 1023,
+      "sha256": "faeadedbbd5b830ed697d3e5bd98cca678f1b2fde8e97fe5b92aa6eaace56029"
+    },
+    {
+      "path": "geo/spain-communities-display.geojson",
+      "size": 618129,
+      "sha256": "487489a99eb76397acbc1ab0950ac8c29911f3b0d72dafe1b306ace7a3339f93"
+    },
+    {
+      "path": "geo/spain-communities.geojson",
+      "size": 618218,
+      "sha256": "d4a4fa34c7392c17096922e32f7946c87d8d364bdf52bfb779aaa4ba41dc1f0a"
+    },
+    {
+      "path": "geo/spain-communities.metadata.json",
+      "size": 280,
+      "sha256": "666cbeb784301fd5237ae9ea245f37ebaddb3e9cd74fba5cbc288ccb1689f1bf"
+    },
+    {
+      "path": "geo/spain-provinces.geojson",
+      "size": 1386016,
+      "sha256": "562f0fe9329dcc575828454e994979732fe5dd5be5b470081e010885345b47de"
+    },
+    {
+      "path": "geo/spain-provinces.metadata.json",
+      "size": 279,
+      "sha256": "3b5aafa617b48c46d533a15ae5ac35074cb26c83dfb879ab6bc887a0a4f882a4"
+    },
+    {
+      "path": "globe.svg",
+      "size": 1036,
+      "sha256": "d051a8c47936990a9085693d307bb7cea1bc1b6d7ed956bcbaacf674f4ec96b9"
+    },
+    {
+      "path": "index.php",
+      "size": 4118,
+      "sha256": "4aaf048e5270f63bc439a8036e99ccb12d9b0adaf9e2ac66f7a78ee16255711a"
+    },
+    {
+      "path": "licenses/react-LICENSE.txt",
+      "size": 1088,
+      "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93"
+    },
+    {
+      "path": "licenses/react-dom-LICENSE.txt",
+      "size": 1088,
+      "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93"
+    },
+    {
+      "path": "licenses/scheduler-LICENSE.txt",
+      "size": 1088,
+      "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93"
+    },
+    {
+      "path": "licenses/tailwindcss-LICENSE.txt",
+      "size": 1071,
+      "sha256": "60e0b68c0f35c078eef3a5d29419d0b03ff84ec1df9c3f9d6e39a519a5ae7985"
+    },
+    {
+      "path": "og-v2.png",
+      "size": 2911717,
+      "sha256": "eb12dafa1239d3f3335ae21ff0b1b3c2a57583e72ecf1107f9c15fbd082f3261"
+    },
+    {
+      "path": "og.png",
+      "size": 3573399,
+      "sha256": "d9927683a550492366900a0f39acf44f1fbfe1ef050e8054f4e60c59f48eb25a"
+    },
+    {
+      "path": "psychopolitical-atlas.webp",
+      "size": 192466,
+      "sha256": "7a9cad96146ac35fee69d776da1e25451a8344a17a3833a8173f1f56bd3b2b90"
+    },
+    {
+      "path": "scripts/news_cron.php",
+      "size": 549,
+      "sha256": "5352fc341a79f59c8be1032e53cc84e120390558d8f87e1a806e47661e9c3bac"
+    },
+    {
+      "path": "window.svg",
+      "size": 386,
+      "sha256": "decf1cf7bb22b5c99c4857cfcd5718ce5465c4454166317589c83fc73df74b66"
+    }
+  ],
+  "protected_remote_paths": [
+    "analytics.js",
+    "uploads/",
+    "team-assets/",
+    "group-assets/",
+    "news-visuals/",
+    "_private/config.php",
+    "_private/backups/",
+    "_private/sessions/",
+    "Decreto Mari Carmen original photo: preserve remote path/hash before any integration"
+  ],
+  "do_not_delete_remote_files": true,
+  "staging_only_no_install_entrypoint": true,
+  "requires_before_deploy": [
+    "Read-only SHA inventory of Hostinger and reconcile with remote GitHub branches",
+    "Restore MariaDB to isolated staging, test SQL NULL, media permissions and rollback",
+    "Integrate autosave source module into rebuildable Blog editor; two accounts and tabs",
+    "Human review of all 125 flagged NPL series records and three source pairs",
+    "Check CMS dedupe and approve T95 science candidate after corrections/retraction checks",
+    "Browser/mobile/keyboard/accessibility/performance QA and source links",
+    "Explicit authorization before any production write",
+    "Compare read-only Hostinger inventory and preserve all remote media",
+    "Verify MariaDB staging integration and published-only correlation sensitivity",
+    "Rebuild editor from genuine frontend sources; V59 local autosave adapter is NOT integrated",
+    "Verify SSR route-specific fallback against the publicly deployed old version",
+    "Review T96 source and all NPL candidate records before publishing",
+    "Verify paired-observation scatterplot and matching time windows against MariaDB staging",
+    "Review T97 editorial studies and source corrections before any publication",
+    "Run V61 browser/keyboard and source-quality QA on a real staging domain",
+    "V62 Spearman sensitivity reranks after each territorial omission; validate in MariaDB staging",
+    "V62 Blog unsaved-to-server-ID migration is source-only; rebuild real frontend and test with two accounts",
+    "V62 INE IPV 25 numeric values checked against press release; scientific review still mandatory",
+    "V62 editorial DOI enrichment prevents T33 duplicate; new T98 candidate remains review-only",
+    "Reconcile read-only Hostinger snapshot and protect original media before staging",
+    "V63 compare payload must match selected indicator, subgroup, year and geography; exercise against MariaDB staging",
+    "V63 Pregunta a España rejects multiple indicators instead of silently selecting one; verify against CMS UX",
+    "V63 T99 adds 10 INE national candidate values only, NOT approved or published",
+    "V63 T100 two editorial candidates require independent source review, CMS deduplication and human approval",
+    "Rebuild frontend Blog editor with autosave modules V58/V59/V62 and verify cross-account isolation",
+    "V64 official ECV 2025 correction quarantine must be tested against actual MariaDB with pre-notice and post-notice review evidence",
+    "V64 three-digit NPL batch IDs and T101 dependency require staging importer dry-run/rollback; T101 never auto-published",
+    "V64 admin review UI must expose revision fields for PDF and INEbase official sources",
+    "V64 INE correction news is review-only; verify table-level differences and dedupe live CMS",
+    "Confirm no protected originals, uploads or secrets overwritten, and obtain explicit human approval before production",
+    "V65 latest editorial compact manifest must be consumed by runtime; older V64 identities alone are insufficient",
+    "V65 T103 26 INE housing subgroups depend on T44 and must remain review-only until INE 01/10 correction scope and denominators are checked",
+    "V65 T104 two editorial candidates require live CMS dedupe and human approval; preprint is not a lie detector or causal proof",
+    "V65 isolated staging builder must be validated; never run it inside public_html or overwrite original media",
+    "No production deploy without MariaDB, multiuser Blog editor and host reconciliation",
+    "V66 exact rank ties and partial territorial correlation coverage require MariaDB + live-browser integration",
+    "V66 T105 6 provisional INE ECP stock observations are NOT quarterly averages, foreign nationality is NOT birthplace or migration flow; verify 2026-Q1 revision",
+    "V66 T106 scientific study performed 2017 and published March 2026 requires CMS dedupe and editorial approval",
+    "V66 Blog consent revocation is source-only; frontend integration and privacy QA still mandatory",
+    "V66 source identity manifest must replace V65, with rollback and reconciliation, never automatic publication",
+    "V67 stock vs flow, rolling 3m vs 12m and ECP date metadata must be verified against MariaDB and real browser",
+    "V67 T107 TICH2025 64 observations/7 indicators are review-only, NOT part of deploy payload",
+    "V67 T108 4 editorial candidates require DOI/URL dedupe with CMS and human approval",
+    "V67 Blog abort-on-consent-revocation is source-only and not integrated into compiled editor",
+    "V67 requires reconciliation and human permission before any production deployment",
+    "V68 validate annual and quarterly response binding in real browser/API; local fixtures are not MariaDB integration",
+    "V68 T109 IPC September 2026 is an advance estimate only; reconcile final INE release before any import or display",
+    "V68 T110 three editorial candidates require CMS/DOI dedupe and human approval; online publication dates differ from volume years",
+    "V68 NPL total 1213 observations/84 candidate indicator IDs remain review-only; release gate NO-GO",
+    "V68 index replaces V67 identity-only index; no automatic publication, deployment or writes",
+    "V71 resolve Hostinger restored runtime: compare files SHA without copying database secrets",
+    "V71 Browser SVG tests cover 19 geo and ten hostile mutations; real Hostinger browser still required",
+    "V71 confirm Markdown rendering for original Decreto Mari Carmen without modifying original article rows",
+    "V71 1,213 NPL candidates: many legacy rows missing frequency/population; scientific source review incomplete",
+    "V71 T111 two science candidates: human review only; article in Nature Health is perspective not trial",
+    "V71 compact editorial dedupe index supersedes V68; zero automatic publication",
+    "Do not enable GitHub main→public_html; staging and explicit release approval only",
+    "V72 verify correlation pair/coefficients parity against actual MariaDB staging API",
+    "V72 T112 DOI and evidence are review-only; reconcile with CMS before publication",
+    "V72 temporal candidate audit is not proof of primary-source accuracy",
+    "V72 do not deploy without protected production files, uploads and database reconciliation",
+    "V75 staging inventory is not equality with Hostinger public_html; preserve analytics.js, config.php, uploads and database",
+    "V75 public author SQL, SSR, map error and correlation sensitivity require real browser and MariaDB staging",
+    "V75 explicit human approval and rollback are mandatory; GitHub auto-deploy remains disabled"
+  ],
+  "reconciliation_state": "GITHUB_SHA_VERIFIED_NOT_HOSTINGER",
+  "base_git_sha": "8b08d6233628f289aa1dbda9a00a1902841d0961",
+  "reviewer_note": "133 code/static files SHA256 verified from GitHub Actions tracked-source inventory; Hostinger and MariaDB reconciliation pending."
+}

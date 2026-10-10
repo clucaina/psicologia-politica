@@ -7,11 +7,11 @@ function check73(bool $pass,string $message): void {
     if(!$pass)throw new RuntimeException('V73 FAIL: '.$message);
 }
 $team=[
- ['user_id'=>'user-1','full_name'=>'Ana','slug'=>'ana','photo_url'=>'/ana.jpg','focus_line'=>'A'],
- ['user_id'=>'user-2','full_name'=>'Ana','slug'=>'ana-duplicate','photo_url'=>'/ana2.jpg','focus_line'=>'B'],
- ['user_id'=>'user-3','full_name'=>'Maribel','slug'=>'maribel','photo_url'=>'/m.jpg','focus_line'=>'C'],
- ['user_id'=>'DUP','full_name'=>'Carlos','slug'=>'carlos1','photo_url'=>'','focus_line'=>'D'],
- ['user_id'=>'dup','full_name'=>'Carlos','slug'=>'carlos2','photo_url'=>'','focus_line'=>'E'],
+ ['user_id'=>'user-1','full_name'=>'Ana','slug'=>'ana','photo_url'=>'/ana.jpg','focus_line'=>'A','is_public'=>1],
+ ['user_id'=>'user-2','full_name'=>'Ana','slug'=>'ana-duplicate','photo_url'=>'/ana2.jpg','focus_line'=>'B','is_public'=>1],
+ ['user_id'=>'user-3','full_name'=>'Maribel','slug'=>'maribel','photo_url'=>'/m.jpg','focus_line'=>'C','is_public'=>1],
+ ['user_id'=>'DUP','full_name'=>'Carlos','slug'=>'carlos1','photo_url'=>'','focus_line'=>'D','is_public'=>1],
+ ['user_id'=>'dup','full_name'=>'Carlos','slug'=>'carlos2','photo_url'=>'','focus_line'=>'E','is_public'=>1],
 ];
 $posts=[
  ['author_id'=>'user-1','author'=>'Ana','slug'=>'id-1'],

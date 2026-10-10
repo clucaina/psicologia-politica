@@ -9526,3 +9526,11 @@ summary {
 #pp-fallback section[aria-labelledby="tool-method"] a{font-weight:700;text-decoration:underline;text-underline-offset:3px}
 @media (max-width:600px){#pp-fallback section[aria-labelledby="tool-method"]{padding:1rem;margin:1rem 0}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+/* V30: explicit, accessible scientific-source conflict reconciliation in NPL editor. */
+.npl-source-conflict{min-width:0;margin:1.25rem 0;padding:1rem 1.2rem;border:2px solid #9c4737;border-radius:12px;background:#fff7f3;color:#33211e}
+.npl-source-conflict legend{max-width:100%;padding:0 .45rem;font-weight:800;line-height:1.4}
+.npl-source-conflict p{overflow-wrap:anywhere;line-height:1.55}
+.npl-source-conflict label{display:grid;gap:.4rem;margin-top:.8rem;font-weight:650}
+.npl-source-conflict input,.npl-source-conflict textarea{display:block;width:100%;max-width:100%;min-width:0;padding:.7rem .8rem;border:1px solid #8d6b64;border-radius:8px;background:#fff;color:#101b2d;font:inherit}
+.npl-source-conflict :is(input,textarea):focus-visible{outline:3px solid #176e89;outline-offset:2px}
+@media(max-width:480px){.npl-source-conflict{padding:.85rem .75rem}}

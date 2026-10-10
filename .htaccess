@@ -2,7 +2,7 @@ Options -Indexes
 DirectoryIndex index.php
 <IfModule mod_rewrite.c>
 RewriteEngine On
-RewriteRule ^(?:_private|src|tests|vendor|database|docs|experiments|scripts)/ - [F,L,NC]
+RewriteRule ^(?:_private|src|tests|vendor|database|docs|experiments|scripts|preintegration|uploads|editorial/review_queue)(?:/|$) - [F,L,NC]
 RewriteRule (^|/)\. - [F,L]
 RewriteRule \.(?:sql|sqlite|env|log|bak|ini|tar|gz|zip)$ - [F,L,NC]
 RewriteCond %{REQUEST_FILENAME} -f [OR]

@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "mode": "metadata_discovery_review_only",
+  "reference": "https://www.crossref.org/documentation/retrieve-metadata/rest-api/",
+  "journal_sources": [
+    {
+      "id": "nature_human_behaviour",
+      "issn": "2397-3374",
+      "journal": "Nature Human Behaviour",
+      "issn_reference": "https://portal.issn.org/resource/ISSN/2397-3374"
+    },
+    {
+      "id": "political_communication",
+      "issn": "1058-4609",
+      "journal": "Political Communication",
+      "issn_reference": "https://portal.issn.org/resource/ISSN/1058-4609"
+    }
+  ],
+  "limits": {"max_rows_per_request": 50, "max_days_per_window": 62, "max_bytes": 2097152},
+  "publication_policy": "never_auto_publish;human_primary_source_verification_required",
+  "activation": "manual_cli_preview_only_until_staging_qa"
+}

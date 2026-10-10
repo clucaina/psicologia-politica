@@ -1,29 +1,77 @@
 <?php
 declare(strict_types=1);
 /** Author projections for public pages; no identity inferred from an ambiguous display name. */
+/** Public boot payload: project only approved fields; private SQL columns must not leak. */
+function pp_public_post_projection(array $post): array {
+    $fields=['id','slug','title','excerpt','content','section','kind','status','author',
+        'featured','published_at','created_at','updated_at','cover_image_key',
+        'cover_image_alt','source_url','post_kind','source_name','source_type',
+        'evidence_type','verification_status','news_body','tags','seo_title',
+        'seo_description','canonical_url','event_date','comments_enabled','author_profile'];
+    $public=array_intersect_key($post,array_flip($fields));
+    if(isset($public['author_profile'])&&is_array($public['author_profile']))
+        $public['author_profile']=array_intersect_key($public['author_profile'],
+            array_flip(['slug','full_name','focus_line','photo_url']));
+    return $public;
+}
+function pp_public_team_projection(array $member): array {
+    return array_intersect_key($member,array_flip(['id','slug','full_name','focus_line',
+        'bio','trajectory','credentials','sources','photo_url','sort_order','is_public','updated_at']));
+}
+function pp_public_activity_projection(array $activity): array {
+    return array_intersect_key($activity,array_flip(['id','slug','status','activity_type',
+        'title','description','starts_at','ends_at','venue','modality','organizer',
+        'participants','source_url','media','materials','published','created_at',
+        'updated_at','programme','content','cover_image_key','cover_image_alt']));
+}
+function pp_public_boot_redact(array $boot): array {
+    if(isset($boot['posts'])&&is_array($boot['posts']))
+        $boot['posts']=array_map('pp_public_post_projection',$boot['posts']);
+    if(isset($boot['team'])&&is_array($boot['team']))
+        $boot['team']=array_map('pp_public_team_projection',$boot['team']);
+    if(isset($boot['activities'])&&is_array($boot['activities']))
+        $boot['activities']=array_map('pp_public_activity_projection',$boot['activities']);
+    if(isset($boot['record'])&&is_array($boot['record'])){
+        if(array_key_exists('kind',$boot['record']))$boot['record']=pp_public_post_projection($boot['record']);
+        elseif(array_key_exists('full_name',$boot['record']))$boot['record']=pp_public_team_projection($boot['record']);
+        elseif(array_key_exists('activity_type',$boot['record']))$boot['record']=pp_public_activity_projection($boot['record']);
+        else $boot['record']=[];
+    }
+    if(isset($boot['overview'])&&is_array($boot['overview'])){
+        $boot['overview']=array_map(static function(array $row): array {
+            $data=pp_parse($row['data']??'{}');
+            $evidence=pp_parse($row['evidence']??'{}');
+            if(!is_array($data))$data=[];
+            if(!is_array($evidence))$evidence=[];
+            [$safeData,$safeEvidence]=pp_npl_public_projection($data,$evidence);
+            return ['data'=>pp_json($safeData),'evidence'=>pp_json($safeEvidence),
+                'reviewed_at'=>$row['reviewed_at']??null];
+        },$boot['overview']);
+    }
+    foreach(['saved','followed'] as $section){
+        if(isset($boot['account'][$section])&&is_array($boot['account'][$section]))
+            $boot['account'][$section]=array_map('pp_public_post_projection',$boot['account'][$section]);
+    }
+    return $boot;
+}
 function pp_attach_public_author_profiles(array $posts,array $team): array {
-    $teamByUser=[];$teamByName=[];$ambiguousIds=[];$ambiguousNames=[];
+    $byId=[];$byName=[];
     foreach($team as $member){
-        $uid=mb_strtolower(trim((string)($member['user_id']??'')));
-        $nm=mb_strtolower(trim((string)($member['full_name']??'')));
-        if($uid!==''){
-            if(isset($teamByUser[$uid])){$ambiguousIds[$uid]=true;unset($teamByUser[$uid]);}
-            elseif(!isset($ambiguousIds[$uid]))$teamByUser[$uid]=$member;
-        }
-        if($nm!==''){
-            if(isset($teamByName[$nm])){$ambiguousNames[$nm]=true;unset($teamByName[$nm]);}
-            elseif(!isset($ambiguousNames[$nm]))$teamByName[$nm]=$member;
-        }
+        if(!is_array($member)||((int)($member['is_public']??0))!==1)continue;
+        $id=mb_strtolower(trim((string)($member['user_id']??'')));
+        $name=mb_strtolower(trim((string)($member['full_name']??'')));
+        if($id!=='')$byId[$id][]=$member;
+        if($name!=='')$byName[$name][]=$member;
     }
     foreach($posts as &$post){
-        $uid=mb_strtolower(trim((string)($post['author_id']??'')));
-        $nm=mb_strtolower(trim((string)($post['author']??'')));
-        // If author_id is present, never substitute a similar display name.
-        $ap=$uid!==''?($teamByUser[$uid]??null):($teamByName[$nm]??null);
-        if($ap)$post['author_profile']=[
-            'slug'=>$ap['slug'],'full_name'=>$ap['full_name'],
-            'focus_line'=>$ap['focus_line'],'photo_url'=>$ap['photo_url']
-        ];
+        if(!is_array($post))continue;
+        unset($post['author_profile']);
+        $id=mb_strtolower(trim((string)($post['author_id']??'')));
+        $name=mb_strtolower(trim((string)($post['author']??'')));
+        $matches=$id!==''?($byId[$id]??[]):($byName[$name]??[]);
+        if(count($matches)!==1)continue;
+        $person=$matches[0];
+        $post['author_profile']=array_intersect_key($person,array_flip(['slug','full_name','focus_line','photo_url']));
     }
     unset($post);
     return $posts;
@@ -52,7 +100,7 @@ function pp_bootstrap(string $path): array {
     if(($admin||$route==='/blog/escribir')&&$u&&$u['mustChangePassword'])pp_redirect('/cuenta#seguridad');
     if($admin&&!in_array($u['role'],['superadmin','admin_editor','moderator'],true))throw new PPError(403,'Esta cuenta no tiene permisos de redacción.');
     if(in_array($route,['/admin/datos','/admin/preview/[id]'],true)&&!$editor)throw new PPError(403,'Acceso editorial restringido.');
-    $b=['route'=>$route,'params'=>$params,'site_url'=>pp_origin(),'csrf'=>$_SESSION['csrf'],'user'=>$u,'posts'=>pp_all("SELECT * FROM editorial_posts WHERE status='published' AND deleted_at IS NULL ORDER BY featured DESC,published_at DESC,id DESC"),'team'=>pp_all('SELECT id,slug,full_name,focus_line,bio,trajectory,credentials,sources,photo_url,user_id FROM team_members WHERE is_public=1 ORDER BY sort_order'),'activities'=>pp_all('SELECT * FROM activities WHERE published=1 ORDER BY starts_at DESC')];
+    $b=['route'=>$route,'params'=>$params,'site_url'=>pp_origin(),'csrf'=>$_SESSION['csrf'],'user'=>$u,'posts'=>pp_all("SELECT * FROM editorial_posts WHERE status='published' AND deleted_at IS NULL ORDER BY featured DESC,published_at DESC,id DESC"),'team'=>pp_all('SELECT id,slug,full_name,focus_line,bio,trajectory,credentials,sources,photo_url,user_id,is_public FROM team_members WHERE is_public=1 ORDER BY sort_order'),'activities'=>pp_all('SELECT * FROM activities WHERE published=1 ORDER BY starts_at DESC')];
     $b['posts']=pp_attach_public_author_profiles($b['posts'],$b['team']);
     if($route==='/'){
         $b['comment_counts']=pp_all("SELECT post_id,count(*) AS total,max(created_at) AS latest FROM article_comments WHERE status='published' AND deleted_at IS NULL GROUP BY post_id");
@@ -80,7 +128,7 @@ function pp_bootstrap(string $path): array {
         if($u['role']==='superadmin')$queries['users']='SELECT p.email,p.display_name,p.email_verified,p.status,r.role,r.team_id,EXISTS(SELECT 1 FROM local_credentials c WHERE c.email=p.email) AS local_access FROM reader_profiles p LEFT JOIN user_roles r ON r.email=p.email ORDER BY joined_at DESC LIMIT 300';
         foreach($queries as $k=>$sql)$b['admin'][$k]=pp_all($sql);
     }
-    return $b;
+    return pp_public_boot_redact($b);
 }
 function pp_navigation(): string {$s='<nav aria-label="Navegación principal">';foreach(['Inicio'=>'/','Noticias'=>'/noticias','Blog'=>'/blog','Actividades'=>'/actividades','Herramientas'=>'/herramientas','Quiénes somos'=>'/quienes-somos','Contacto'=>'/contacto','Acceder'=>'/acceso'] as $label=>$href)$s.='<a style="margin-right:1rem" href="'.$href.'">'.$label.'</a>';return $s.'</nav>';}
 function pp_markdown_inline(string $text): string {
@@ -138,6 +186,57 @@ function pp_fallback_tool(string $route): string {
     if($route==='/herramientas')$links='<ul><li><a href="/conflictometro">Conflictómetro</a></li><li><a href="/mapa-espana">Mapa de España 2D (experimental)</a></li><li><a href="/herramientas/datos-espana">Datos de España</a></li><li><a href="/herramientas/analizar-texto">Analizador de texto</a></li></ul>';
     return '<section aria-labelledby="tool-method"><h2 id="tool-method">Qué puedes hacer aquí</h2><p>'.pp_escape($intro).'</p><h3>Metodología y límites</h3><p>'.pp_escape($method).'</p>'.$links.'</section>';
 }
+
+/** Accessible, route-specific server rendering. Never substitute the news feed for an unrelated page. */
+function pp_ssr_card(array $row,string $kind): string {
+    $title=trim((string)($row['title']??$row['full_name']??''));
+    $slug=(string)($row['slug']??'');
+    if($title===''||!preg_match('/^[a-z0-9][a-z0-9-]{0,139}$/D',$slug))return '';
+    $prefix=match($kind){'blog'=>'/blog/','activity'=>'/actividades/','team'=>'/quienes-somos/',default=>'/noticias/'};
+    $description=trim((string)($row['excerpt']??$row['description']??$row['focus_line']??''));
+    return '<article><h3><a href="'.pp_escape($prefix.$slug).'">'.pp_escape($title).'</a></h3>'.
+        ($description!==''?'<p>'.pp_escape(function_exists('mb_substr')?mb_substr($description,0,320):substr($description,0,320)).'</p>':'').'</article>';
+}
+function pp_ssr_section(string $title,array $rows,string $kind,int $limit=30): string {
+    $html='';$count=0;
+    foreach($rows as $row){
+        if($count>=$limit)break;
+        if(!is_array($row))continue;
+        $card=pp_ssr_card($row,$kind);
+        if($card==='')continue;
+        $html.=$card;$count++;
+    }
+    return '<section class="pp-ssr-collection"><h2>'.pp_escape($title).'</h2>'.
+        ($html!==''?$html:'<p>No hay publicaciones disponibles en esta sección.</p>').'</section>';
+}
+function pp_ssr_route_content(array $data): string {
+    $route=(string)($data['route']??'');
+    $posts=is_array($data['posts']??null)?$data['posts']:[];
+    $news=array_values(array_filter($posts,static fn($x)=>is_array($x)&&($x['kind']??'')!=='blog'));
+    $blog=array_values(array_filter($posts,static fn($x)=>is_array($x)&&($x['kind']??'')==='blog'));
+    $team=is_array($data['team']??null)?$data['team']:[];
+    $activities=is_array($data['activities']??null)?$data['activities']:[];
+    if($route==='/')return '<p><a href="/mapa-espana">Mapa de España 2D (experimental)</a> · '.
+        '<a href="/conflictometro">Conflictómetro</a> · <a href="/herramientas/analizar-texto">Analizar textos</a></p>'.
+        pp_ssr_section('Noticias recientes',$news,'news',6).
+        pp_ssr_section('Artículos del Blog',$blog,'blog',4).
+        pp_ssr_section('Actividades',$activities,'activity',3);
+    if($route==='/noticias')return pp_ssr_section('Noticias',$news,'news',40);
+    if($route==='/blog')return pp_ssr_section('Artículos del Blog',$blog,'blog',40);
+    if($route==='/actividades')return pp_ssr_section('Actividades',$activities,'activity',40);
+    if($route==='/quienes-somos')return pp_ssr_section('Equipo',$team,'team',40);
+    if($route==='/blog/recursos')return pp_ssr_section('Recursos publicados',
+        array_values(array_filter($blog,static fn($x)=>($x['post_kind']??'')==='resource')),'blog',40);
+    if($route==='/observatorio')return '<section><h2>Observatorio de datos</h2><p>Indicadores territoriales publicados y revisados. '.
+        'Un registro histórico no acredita disponibilidad ni equivale a un cero medido.</p>'.
+        '<p><a href="/mapa-espana">Abrir mapa de España</a></p></section>';
+    if($route==='/privacidad')return '<section><h2>Privacidad y contacto</h2><p>Evita enviar datos clínicos '.
+        'o información personal de terceros. Para ejercer derechos, utiliza <a href="/contacto">Contacto</a>.</p></section>';
+    if($route==='/normas')return '<section><h2>Participación responsable</h2><p>Distingue hechos, inferencias '.
+        'y opiniones. La publicación de propuestas requiere revisión humana.</p><p><a href="/blog">Blog</a></p></section>';
+    return '';
+}
+
 function pp_render_page(array $b): never {
     $names=['/'=>'Entender la política desde la conducta humana.','/noticias'=>'Noticias','/blog'=>'Blog','/actividades'=>'Actividades','/quienes-somos'=>'Quiénes somos','/herramientas'=>'Herramientas','/conflictometro'=>'Conflictómetro','/herramientas/datos-espana'=>'Datos de España','/herramientas/analizar-texto'=>'Analizar un texto','/acceso'=>'Acceso seguro','/cuenta'=>'Mi panel','/contacto'=>'Contacto','/privacidad'=>'Privacidad','/normas'=>'Normas de participación','/blog/escribir'=>'Escribir en el Blog','/admin'=>'Panel editorial'];
     $record=$b['record']??null;$toolDescriptions=['/conflictometro'=>'Mapa interactivo de conflictos e indicadores sociales. Explora territorios, series temporales, fuentes y límites metodológicos.','/herramientas/datos-espana'=>'Indicadores oficiales de España y comunidades autónomas: consulta periodos, unidades, cobertura, fuentes y comparaciones.','/herramientas/analizar-texto'=>'Examina sesgos, falacias y recursos retóricos sin confundir estilo lingüístico con veracidad.','/contacto'=>'Contacta con el equipo de Psicología Política para propuestas, colaboraciones, actividades y rectificaciones.'];$title=($record['seo_title']??'')?:($record['title']??$record['full_name']??$names[$b['route']]??'Psicología Política');$description=($record['seo_description']??'')?:($record['excerpt']??$record['description']??$record['focus_line']??$toolDescriptions[$b['route']]??'Psicología, comunicación y política. Noticias con fuentes, análisis, actividades y herramientas para comprender la vida pública.');
@@ -147,13 +246,8 @@ function pp_render_page(array $b): never {
     echo '<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'.pp_escape($title).' · Psicología Política</title><meta name="description" content="'.pp_escape($description).'"><meta name="robots" content="'.($private?'noindex,nofollow':'index,follow').'"><link rel="canonical" href="'.pp_escape($canonical).'"><meta property="og:title" content="'.pp_escape($title).'"><meta property="og:description" content="'.pp_escape($description).'"><meta property="og:url" content="'.pp_escape($canonical).'"><meta property="og:type" content="'.($record&&isset($record['kind'])?'article':'website').'"><meta name="twitter:card" content="summary_large_image">'.($image?'<meta property="og:image" content="'.pp_escape(pp_origin().$image).'">':'').'<link rel="icon" href="/favicon.svg"><link rel="stylesheet" href="'.pp_escape($assets['css']).'"><script async src="https://www.googletagmanager.com/gtag/js?id=G-D7KPSFPMM5"></script><script defer src="/analytics.js"></script></head><body'.(!empty($b['user']['email'])&&$b['route']==='/blog/escribir'?' data-pp-editor-scope="'.hash('sha256',mb_strtolower(trim($b['user']['email']))).'"':'').'><a class="skip-link" href="#pp-root">Saltar al contenido</a><div id="pp-root"></div><div id="pp-fallback"><header class="site-header">'.pp_navigation().'</header><main class="pp-shell reading-body"><h1>'.pp_escape($title).'</h1><p>'.pp_escape($description).'</p>';
     if($record){if($image)echo '<img style="max-width:100%" src="'.pp_escape($image).'" alt="'.pp_escape($record['cover_image_alt']??$title).'">';if(!empty($record['kind'])){ $ap=$record['author_profile']??null;echo '<aside class="pp-ssr-author" aria-label="Autoría">';if($ap&&!empty($ap['photo_url'])&&str_starts_with($ap['photo_url'],'/'))echo '<img width="56" height="56" loading="lazy" src="'.pp_escape($ap['photo_url']).'" alt="Retrato de '.pp_escape($ap['full_name']).'">';echo '<span>Por ';if($ap)echo '<a href="/quienes-somos/'.pp_escape($ap['slug']).'">'.pp_escape($ap['full_name']).'</a>';else echo pp_escape($record['author']??'Redacción');echo '</span></aside>';}echo pp_plain_content($record['content']??$record['bio']??'');if(!empty($record['source_url']))echo '<p>Fuente original: <a href="'.pp_escape($record['source_url']).'" rel="noreferrer">'.pp_escape($record['source_name']??'Consultar fuente').'</a></p>';}
     elseif(!$private){
-        if($b['route']==='/')echo '<p><a href="/mapa-espana">Explorar España en el mapa 2D (experimental)</a> · <a href="/conflictometro">Mapa mundial</a> · <a href="/noticias">Leer Noticias</a></p>';
-        if(in_array($b['route'],['/conflictometro','/herramientas/datos-espana','/herramientas/analizar-texto','/herramientas','/contacto'],true)){
-            echo pp_fallback_tool($b['route']);
-        }else{
-        $collection=str_starts_with($b['route'],'/actividades')?$b['activities']:($b['route']==='/quienes-somos'?$b['team']:array_filter($b['posts'],fn($r)=>$b['route']==='/blog'?$r['kind']==='blog':$r['kind']!=='blog'));
-        foreach($collection as $r){$href=isset($r['kind'])?($r['kind']==='blog'?'/blog/':'/noticias/'):$b['route'].'/';echo '<article><h2><a href="'.pp_escape($href.$r['slug']).'">'.pp_escape($r['title']??$r['full_name']).'</a></h2><p>'.pp_escape($r['excerpt']??$r['description']??$r['focus_line']??'').'</p></article>';}
-        }
+        $tool=pp_fallback_tool((string)$b['route']);
+        echo $tool!==''?$tool:pp_ssr_route_content($b);
     }
     echo '</main><footer class="site-footer">'.pp_navigation().'</footer></div><p id="pp-loading" class="pp-shell" role="status">Activando funciones interactivas…</p><noscript><p class="pp-shell">Activa JavaScript para usar el mapa, los filtros, formularios y tu cuenta.</p></noscript>';
     $flags=JSON_HEX_TAG|JSON_HEX_AMP|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES;

@@ -29,6 +29,7 @@ jobs:
           python3 tests/qa_public_readonly_v70.py
           python3 tests/qa_v73_npl_semantics.py
           php tests/qa_v73_author_markdown.php
+          node tests/qa_v73_correlation_integrity.mjs
       - name: Syntax checks
         run: |
           set -euo pipefail

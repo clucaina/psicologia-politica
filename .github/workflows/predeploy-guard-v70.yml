@@ -1,4 +1,4 @@
-name: PP V74 isolated integration QA (NO DEPLOY)
+name: PP V75 integration QA (NO DEPLOY)
 on:
   push:
     branches:
@@ -39,6 +39,10 @@ jobs:
           python3 scripts/qa_v74_cartography.py
           python3 tests/qa_v74_cartography_mutations.py
           node tests/qa_v74_csv_semantics.mjs
+          php tests/qa_v75_public_author_query.php
+          php tests/qa_v75_map_entry.php
+          php tests/qa_v75_ssr_routes.php
+          node tests/qa_v75_sensitivity.mjs
       - name: Syntax checks
         run: |
           set -euo pipefail

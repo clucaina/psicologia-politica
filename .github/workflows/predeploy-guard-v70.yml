@@ -38,6 +38,7 @@ jobs:
           python3 tests/qa_v72_editorial_dedup.py
           python3 scripts/qa_v74_cartography.py
           python3 tests/qa_v74_cartography_mutations.py
+          node tests/qa_v74_csv_semantics.mjs
       - name: Syntax checks
         run: |
           set -euo pipefail

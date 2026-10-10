@@ -1,8 +1,8 @@
 {
-  "version": "V16",
-  "date": "2026-10-08",
-  "status": "preproduction_not_deployed",
-  "notes": "Mandatory blog hash locking; per-editor draft scope; strict map years and percentage-point comparisons; evidence HTTPS guard; 21 editorial review candidates; 2 CIS source catalogs; QA V16.",
-  "updated_at": "2026-10-08",
+  "version": "V72",
+  "date": "2026-10-10",
+  "status": "PREPRODUCTION_NO_GO",
+  "notes": "V72 local-only: correlation coefficient parity checks, NPL temporal audit, editorial dedupe gate and two source-reviewed scientific candidates. NOT deployed.",
+  "updated_at": "2026-10-10",
   "release_gate": "NO-GO"
 }

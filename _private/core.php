@@ -38,6 +38,15 @@ function pp_percent_value_valid(array $o): bool {
     $v=(float)$v;
     if(!is_finite($v))return false;
     if(($o['unit']??'')!=='%')return true;
+    // A year-on-year/quarter-on-quarter index variation may be negative or
+    // exceed +100%. It is NOT a prevalence, a share, or a probability. Permit
+    // signed changes only with an explicit, narrowly defined semantic marker
+    // and traceable source; keep bounded percentages [0,100] by default.
+    if(in_array($o['percentage_semantics']??null,['relative_change','year_over_year_index_change'],true)
+       &&in_array($o['measurement_type']??null,['administrative_record','estimate','derived'],true)
+       &&str_starts_with((string)($o['source_url']??''),'https://')
+       &&in_array($o['frequency']??null,['quarterly','annual','monthly'],true))
+        return $v>=-100&&$v<=1000000;
     if(($o['measurement_type']??'')==='derived'&&($o['signed_percent']??false)===true
        &&str_starts_with((string)($o['methodology_flag']??''),'NPL_DERIVED_'))return abs($v)<=1000000;
     return $v>=0&&$v<=100;
@@ -48,7 +57,20 @@ function pp_url(mixed $v): string {$v=pp_clean($v,2000);$p=parse_url($v);return 
 function pp_links(mixed $v): array {$v=is_array($v)?$v:explode("\n",(string)$v);return array_slice(array_values(array_unique(array_filter(array_map('pp_url',$v)))),0,5);}
 function pp_slug(string $v): string {$s=iconv('UTF-8','ASCII//TRANSLIT//IGNORE',$v);return substr(trim(preg_replace('/[^a-z0-9]+/','-',strtolower($s?:$v)),'-'),0,140);}
 function pp_escape(mixed $s): string {return htmlspecialchars((string)$s,ENT_QUOTES|ENT_SUBSTITUTE,'UTF-8');}
-function pp_reply(mixed $data,int $code=200): never {http_response_code($code);header('Content-Type: application/json; charset=utf-8');header('Cache-Control: no-store');echo pp_json($data);exit;}
+function pp_reply(mixed $data,int $code=200): never {if(function_exists('pp_runtime_headers'))pp_runtime_headers();http_response_code($code);header('Content-Type: application/json; charset=utf-8');header('Cache-Control: no-store');echo pp_json($data);exit;}
+/** Prevent staging/preview copies from being indexed as production.
+ * The configured canonical origin AND actual HTTP Host must match the official
+ * site; a staging vhost with a copied production config still stays noindex. */
+function pp_indexable_origin(string $configuredOrigin,string $requestHost): bool {
+ $configured=strtolower(rtrim($configuredOrigin,'/'));
+ $host=strtolower(trim($requestHost));
+ return in_array($configured,['https://psicologiapolitica.es','https://www.psicologiapolitica.es'],true)
+     &&in_array($host,['psicologiapolitica.es','www.psicologiapolitica.es'],true)
+     &&parse_url($configured,PHP_URL_HOST)===$host;
+}
+function pp_is_public_production_host(): bool {
+ return pp_indexable_origin(pp_origin(),(string)($_SERVER['HTTP_HOST']??''));
+}
 function pp_origin(): string {return rtrim(pp_config()['site_url'],'/');}
 function pp_session(): void {
     if(session_status()===PHP_SESSION_ACTIVE)return;

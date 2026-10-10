@@ -11,6 +11,7 @@ APPROVED_CHANGED = frozenset({
     "_private/core.php",
     "_private/editorial.php",
     "_private/text_analysis_v2.php",
+    "VERSION.json",
 })
 
 def inspect_delta(root=ROOT, baseline=MANIFEST):

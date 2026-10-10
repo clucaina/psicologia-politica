@@ -1,5 +1,33 @@
 <?php
 declare(strict_types=1);
+/** Author projections for public pages; no identity inferred from an ambiguous display name. */
+function pp_attach_public_author_profiles(array $posts,array $team): array {
+    $teamByUser=[];$teamByName=[];$ambiguousIds=[];$ambiguousNames=[];
+    foreach($team as $member){
+        $uid=mb_strtolower(trim((string)($member['user_id']??'')));
+        $nm=mb_strtolower(trim((string)($member['full_name']??'')));
+        if($uid!==''){
+            if(isset($teamByUser[$uid])){$ambiguousIds[$uid]=true;unset($teamByUser[$uid]);}
+            elseif(!isset($ambiguousIds[$uid]))$teamByUser[$uid]=$member;
+        }
+        if($nm!==''){
+            if(isset($teamByName[$nm])){$ambiguousNames[$nm]=true;unset($teamByName[$nm]);}
+            elseif(!isset($ambiguousNames[$nm]))$teamByName[$nm]=$member;
+        }
+    }
+    foreach($posts as &$post){
+        $uid=mb_strtolower(trim((string)($post['author_id']??'')));
+        $nm=mb_strtolower(trim((string)($post['author']??'')));
+        // If author_id is present, never substitute a similar display name.
+        $ap=$uid!==''?($teamByUser[$uid]??null):($teamByName[$nm]??null);
+        if($ap)$post['author_profile']=[
+            'slug'=>$ap['slug'],'full_name'=>$ap['full_name'],
+            'focus_line'=>$ap['focus_line'],'photo_url'=>$ap['photo_url']
+        ];
+    }
+    unset($post);
+    return $posts;
+}
 function pp_bootstrap(string $path): array {
     $aliases=['/panel'=>'/admin','/periodico'=>'/noticias','/laboratorio'=>'/herramientas'];
     if(isset($aliases[$path]))pp_redirect($aliases[$path],301);
@@ -25,7 +53,7 @@ function pp_bootstrap(string $path): array {
     if($admin&&!in_array($u['role'],['superadmin','admin_editor','moderator'],true))throw new PPError(403,'Esta cuenta no tiene permisos de redacción.');
     if(in_array($route,['/admin/datos','/admin/preview/[id]'],true)&&!$editor)throw new PPError(403,'Acceso editorial restringido.');
     $b=['route'=>$route,'params'=>$params,'site_url'=>pp_origin(),'csrf'=>$_SESSION['csrf'],'user'=>$u,'posts'=>pp_all("SELECT * FROM editorial_posts WHERE status='published' AND deleted_at IS NULL ORDER BY featured DESC,published_at DESC,id DESC"),'team'=>pp_all('SELECT id,slug,full_name,focus_line,bio,trajectory,credentials,sources,photo_url,user_id FROM team_members WHERE is_public=1 ORDER BY sort_order'),'activities'=>pp_all('SELECT * FROM activities WHERE published=1 ORDER BY starts_at DESC')];
-    $teamByUser=[];$teamByName=[];foreach($b['team'] as $member){$uid=mb_strtolower(trim((string)($member['user_id']??'')));$nm=mb_strtolower(trim((string)($member['full_name']??'')));if($uid!=='')$teamByUser[$uid]=$member;if($nm!=='')$teamByName[$nm]=$member;}foreach($b['posts'] as &$post){$uid=mb_strtolower(trim((string)($post['author_id']??'')));$nm=mb_strtolower(trim((string)($post['author']??'')));$ap=$teamByUser[$uid]??$teamByName[$nm]??null;if($ap)$post['author_profile']=['slug'=>$ap['slug'],'full_name'=>$ap['full_name'],'focus_line'=>$ap['focus_line'],'photo_url'=>$ap['photo_url']];}unset($post);
+    $b['posts']=pp_attach_public_author_profiles($b['posts'],$b['team']);
     if($route==='/'){
         $b['comment_counts']=pp_all("SELECT post_id,count(*) AS total,max(created_at) AS latest FROM article_comments WHERE status='published' AND deleted_at IS NULL GROUP BY post_id");
         $b['overview']=pp_all('SELECT o.data,r.evidence,r.reviewed_at FROM npl_observations o '.PP_REVIEW_JOIN.' WHERE '.PP_PUBLISHED." AND o.geo_code='ES' AND ((o.indicator_id='MH_RISK_ADULT' AND o.subgroup='Ambos sexos') OR (o.indicator_id='CRIME_SEXUAL' AND o.subgroup='Total hechos conocidos')) ORDER BY o.period DESC LIMIT 100");
@@ -57,7 +85,13 @@ function pp_bootstrap(string $path): array {
 function pp_navigation(): string {$s='<nav aria-label="Navegación principal">';foreach(['Inicio'=>'/','Noticias'=>'/noticias','Blog'=>'/blog','Actividades'=>'/actividades','Herramientas'=>'/herramientas','Quiénes somos'=>'/quienes-somos','Contacto'=>'/contacto','Acceder'=>'/acceso'] as $label=>$href)$s.='<a style="margin-right:1rem" href="'.$href.'">'.$label.'</a>';return $s.'</nav>';}
 function pp_markdown_inline(string $text): string {
     // The old editor escaped Markdown delimiters before persisting some articles.
-    $text=str_replace(['\\*\\*','\\*','\\_'],['**','*','_'],$text);
+    // Historic editor saves occasionally escaped Markdown emphasis twice.
+    // Strip only escape slashes preceding Markdown emphasis, never arbitrary HTML.
+    for($layer=0;$layer<3;$layer++){
+        $normalized=str_replace([chr(92).'*',chr(92).'_'],['*','_'],$text);
+        if($normalized===$text)break;
+        $text=$normalized;
+    }
     $links=[];
     $text=preg_replace_callback('~\[([^\]\\r\\n]{1,180})\]\((https?://[^\s)<>]{1,1500})\)~u',function($m)use(&$links){
         $url=pp_url($m[2]);if(!$url)return $m[1];

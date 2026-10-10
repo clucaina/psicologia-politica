@@ -1,0 +1,44 @@
+name: PP V73 isolated release gate (NO DEPLOY)
+on:
+  push:
+    branches:
+      - 'integracion/**'
+      - 'preproduccion/**'
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  safety:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, pdo_mysql
+          coverage: none
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate entrypoint and protected runtime
+        run: python3 scripts/predeploy_guard_v70.py --root . --target isolated-staging
+      - name: Guard regressions
+        run: |
+          python3 tests/qa_predeploy_guard_v70.py
+          python3 tests/qa_public_readonly_v70.py
+          python3 tests/qa_v73_npl_semantics.py
+          php tests/qa_v73_author_markdown.php
+          node tests/qa_v73_correlation_integrity.mjs
+      - name: Syntax checks
+        run: |
+          set -euo pipefail
+          find . -name '*.php' -type f -print0 | while IFS= read -r -d '' f; do php -l "$f" >/dev/null; done
+          find assets -name '*.js' -type f -print0 | while IFS= read -r -d '' f; do node --check "$f" >/dev/null; done
+          python3 - <<'PY'
+          import json,pathlib
+          for p in pathlib.Path('.').rglob('*.json'): json.loads(p.read_text(encoding='utf-8'))
+          print('PASS: syntax')
+          PY
+      - name: Explicit NO-GO for production
+        run: echo 'This workflow NEVER publishes to Hostinger or updates MariaDB.'

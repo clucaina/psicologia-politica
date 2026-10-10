@@ -181,6 +181,14 @@ function pp_text_verification_tasks(string $segment,array $types): array {
         $tasks[]=['code'=>'absolute_risk','question'=>'¿Se informa el riesgo absoluto inicial, tamaño del efecto, intervalo de confianza y número de personas afectadas, además de la razón relativa?'];
     if(preg_match('/\b(?:percepci[oó]n\s+(?:de\s+)?(?:inseguridad|criminalidad|delito)|miedo\s+al\s+delito|inseguridad\s+percibida)\b/iu',$segment))
         $tasks[]=['code'=>'perceived_vs_recorded_security','question'=>'¿Se mide percepción de inseguridad o hechos registrados? Son constructos distintos y pueden variar en direcciones diferentes.'];
+    // INE transport bulletins count journeys rather than distinct individuals.
+    if(preg_match('/\b(?:transporte\s+p[uú]blico|viajes?\s+urbanos?|viajeros?\s+transportad[oa]s?|transporte\s+interurbano|autob[uú]s\s+urbano|estad[ií]stica\s+de\s+transporte)\b/iu',$segment))
+        $tasks[]=['code'=>'transport_journeys_vs_unique_people',
+            'question'=>'¿Se contabilizan viajes efectuados o personas únicas? ¿La tasa compara el mismo modo y mes del año anterior y hay supresión territorial?'];
+    // Original and adjusted IPI rates describe different index series.
+    if(preg_match('/\b(?:[ií]ndice\s+de\s+producci[oó]n\s+industrial|producci[oó]n\s+industrial|IPI)\b/iu',$segment))
+        $tasks[]=['code'=>'industrial_index_series_compatibility',
+            'question'=>'¿La cifra es variación del índice original, corregido de estacionalidad/calendario, mensual o interanual? ¿Es provisional y se usa la misma base?'];
     // Evidence quality is a separate dimension from rhetoric. These are
     // reviewer questions only, not automatic labels of fraud or falsehood.
     if(preg_match('/\b(?:preprint|prepublicaci[oó]n|revisi[oó]n\s+por\s+pares|art[ií]culo\s+revisado|working\s+paper)\b/iu',$segment))

@@ -1,4 +1,4 @@
-name: PP V75 integration QA (NO DEPLOY)
+name: PP V76 historical-baseline delta audit (NO DEPLOY)
 on:
   push:
     branches:
@@ -53,15 +53,15 @@ jobs:
           for p in pathlib.Path('.').rglob('*.json'): json.loads(p.read_text(encoding='utf-8'))
           print('PASS: syntax')
           PY
-      - name: Confirm 133 V75 source files with exact SHA256, no Hostinger writes
-        run: python3 scripts/qa_v75_reconciled_manifest.py
-      - name: Test SHA256 staging assembly without remote writes
-        run: python3 tests/qa_v75_staging.py
+      - name: Verify 130 unchanged V75 hashes and three enumerated V76 deltas
+        run: python3 scripts/qa_v76_delta_manifest.py
+      - name: Recheck staging guard rejects production and unsafe manifests
+        run: python3 tests/qa_predeploy_guard_v70.py
       - name: Build auditable SHA256 inventory (read-only, no deploy)
         run: python3 scripts/qa_v75_git_tree.py --output build/qa_v75_git_inventory.json
       - uses: actions/upload-artifact@v4
         with:
-          name: pp-v75-source-sha256
+          name: pp-v76-historical-inventory-not-release
           path: build/qa_v75_git_inventory.json
           if-no-files-found: error
           retention-days: 7

@@ -85,7 +85,11 @@ function pp_bootstrap(string $path): array {
 function pp_navigation(): string {$s='<nav aria-label="Navegación principal">';foreach(['Inicio'=>'/','Noticias'=>'/noticias','Blog'=>'/blog','Actividades'=>'/actividades','Herramientas'=>'/herramientas','Quiénes somos'=>'/quienes-somos','Contacto'=>'/contacto','Acceder'=>'/acceso'] as $label=>$href)$s.='<a style="margin-right:1rem" href="'.$href.'">'.$label.'</a>';return $s.'</nav>';}
 function pp_markdown_inline(string $text): string {
     // The old editor escaped Markdown delimiters before persisting some articles.
-    // Historic editor saves occasionally escaped Markdown emphasis twice.\n    // Strip only escape slashes preceding Markdown emphasis, never arbitrary HTML.\n    $text=preg_replace_callback('~\\\\+([*_])~u',static fn($m)=>$m[1],$text);
+    // Historic editor saves occasionally escaped Markdown emphasis twice.\n    // Strip only escape slashes preceding Markdown emphasis, never arbitrary HTML.\n    for($layer=0;$layer<3;$layer++){
+        $normalized=str_replace([chr(92).'*',chr(92).'_'],['*','_'],$text);
+        if($normalized===$text)break;
+        $text=$normalized;
+    }
     $links=[];
     $text=preg_replace_callback('~\[([^\]\\r\\n]{1,180})\]\((https?://[^\s)<>]{1,1500})\)~u',function($m)use(&$links){
         $url=pp_url($m[2]);if(!$url)return $m[1];

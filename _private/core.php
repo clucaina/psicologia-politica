@@ -53,7 +53,19 @@ function pp_percent_value_valid(array $o): bool {
 }
 function pp_json(mixed $v): string {return json_encode($v,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_THROW_ON_ERROR);}
 function pp_parse(mixed $v,mixed $fallback=[]): mixed {if(!is_string($v))return $v??$fallback;try{return json_decode($v,true,512,JSON_THROW_ON_ERROR);}catch(Throwable){return $fallback;}}
-function pp_url(mixed $v): string {$v=pp_clean($v,2000);$p=parse_url($v);return $p&&in_array($p['scheme']??'',['https','http'],true)&&!isset($p['user'])&&!isset($p['pass'])? $v:'';}
+function pp_url(mixed $v): string {
+    $v=pp_clean($v,2000);
+    // Published source links are never executable, local or credential-bearing.
+    if($v===''||preg_match('/[\\x00-\\x20\\x7f]/',$v)||str_contains($v,chr(92))||!filter_var($v,FILTER_VALIDATE_URL))return '';
+    $p=parse_url($v);
+    if(!is_array($p)||!in_array(strtolower((string)($p['scheme']??'')),['https','http'],true)||isset($p['user'])||isset($p['pass']))return '';
+    $host=strtolower(rtrim((string)($p['host']??''),'.'));
+    if($host===''||$host==='localhost'||str_ends_with($host,'.localhost')||str_ends_with($host,'.local'))return '';
+    if(filter_var($host,FILTER_VALIDATE_IP)){
+        if(!filter_var($host,FILTER_VALIDATE_IP,FILTER_FLAG_NO_PRIV_RANGE|FILTER_FLAG_NO_RES_RANGE))return '';
+    }elseif(!preg_match('/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\\.)+[a-z]{2,63}$/i',$host))return '';
+    return $v;
+}
 function pp_links(mixed $v): array {$v=is_array($v)?$v:explode("\n",(string)$v);return array_slice(array_values(array_unique(array_filter(array_map('pp_url',$v)))),0,5);}
 function pp_slug(string $v): string {$s=iconv('UTF-8','ASCII//TRANSLIT//IGNORE',$v);return substr(trim(preg_replace('/[^a-z0-9]+/','-',strtolower($s?:$v)),'-'),0,140);}
 function pp_escape(mixed $s): string {return htmlspecialchars((string)$s,ENT_QUOTES|ENT_SUBSTITUTE,'UTF-8');}

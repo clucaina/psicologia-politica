@@ -1,8 +1,1 @@
-{
-  "version": "V76_INTEGRATION_PARTIAL",
-  "date": "2026-10-10",
-  "status": "PREPRODUCTION_NO_GO",
-  "notes": "Partial code sync: URL/HTTPS editor security, Analizador V2 mobility semantics, provisional T111 INE candidates and editorial dedup. Full V76 master remains in offline ZIP; database and Hostinger not validated, deployment forbidden.",
-  "updated_at": "2026-10-10",
-  "release_gate": "NO-GO"
-}
+{"version":"V78","date":"2026-10-10","status":"PREPRODUCTION_NO_GO","release_gate":"NO-GO","source_package":"PSICOLOGIAPOLITICA_MASTER_V78_PREPRODUCCION.zip","hostinger_deployment":false}

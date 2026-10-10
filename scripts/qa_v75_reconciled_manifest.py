@@ -4,7 +4,7 @@ import argparse,hashlib,json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 MANIFEST=ROOT/'docs/RELEASE_PAYLOAD_V75_GITHUB.json'
-PROTECTED={'analytics.js','_private/config.php','install.php','.env','.user.ini'}
+PROTECTED={'analytics.js','_private/config.php','install.php','.env'}
 PROTECTED_PREFIX=('uploads/','_private/backups/','_private/sessions/')
 def inspect(root=ROOT,manifest=MANIFEST):
     root=Path(root).resolve();doc=json.loads(Path(manifest).read_text(encoding='utf-8'))

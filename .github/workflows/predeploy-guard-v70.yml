@@ -53,6 +53,8 @@ jobs:
           for p in pathlib.Path('.').rglob('*.json'): json.loads(p.read_text(encoding='utf-8'))
           print('PASS: syntax')
           PY
+      - name: Confirm 133 V75 source files with exact SHA256, no Hostinger writes
+        run: python3 scripts/qa_v75_reconciled_manifest.py
       - name: Build auditable SHA256 inventory (read-only, no deploy)
         run: python3 scripts/qa_v75_git_tree.py --output build/qa_v75_git_inventory.json
       - uses: actions/upload-artifact@v4

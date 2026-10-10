@@ -1,0 +1,195 @@
+{
+  "version": "V40",
+  "scope": "display_geometry_only",
+  "source_file": "spain-communities.geojson",
+  "source_sha256": "d4a4fa34c7392c17096922e32f7946c87d8d364bdf52bfb779aaa4ba41dc1f0a",
+  "derived_file": "spain-communities-display.geojson",
+  "derived_sha256": "487489a99eb76397acbc1ab0950ac8c29911f3b0d72dafe1b306ace7a3339f93",
+  "feature_count": 19,
+  "codes": [
+    "ES41",
+    "ES51",
+    "ES63",
+    "ES62",
+    "ES23",
+    "ES53",
+    "ES70",
+    "ES13",
+    "ES61",
+    "ES12",
+    "ES52",
+    "ES64",
+    "ES22",
+    "ES11",
+    "ES24",
+    "ES30",
+    "ES43",
+    "ES42",
+    "ES21"
+  ],
+  "repaired_geometries": [
+    {
+      "geo_code": "ES70",
+      "reason": "Too few points in geometry component[-13.499276 29.391792]",
+      "repair": "make_valid_polygonal_only",
+      "original_area_degrees2": 0.6901154489714985,
+      "display_area_degrees2": 0.6901154489714988
+    }
+  ],
+  "approximate_border_overlaps": [
+    {
+      "a": "ES41",
+      "b": "ES23",
+      "area_degrees2": 0.0009535219
+    },
+    {
+      "a": "ES41",
+      "b": "ES13",
+      "area_degrees2": 0.0016216902
+    },
+    {
+      "a": "ES41",
+      "b": "ES12",
+      "area_degrees2": 0.0005946951
+    },
+    {
+      "a": "ES41",
+      "b": "ES11",
+      "area_degrees2": 0.0001872247
+    },
+    {
+      "a": "ES41",
+      "b": "ES24",
+      "area_degrees2": 0.0002135067
+    },
+    {
+      "a": "ES41",
+      "b": "ES30",
+      "area_degrees2": 0.0002586615
+    },
+    {
+      "a": "ES41",
+      "b": "ES43",
+      "area_degrees2": 0.0003099988
+    },
+    {
+      "a": "ES41",
+      "b": "ES42",
+      "area_degrees2": 0.0013432264
+    },
+    {
+      "a": "ES41",
+      "b": "ES21",
+      "area_degrees2": 0.0002627195
+    },
+    {
+      "a": "ES51",
+      "b": "ES52",
+      "area_degrees2": 0.0002451784
+    },
+    {
+      "a": "ES51",
+      "b": "ES24",
+      "area_degrees2": 0.0005235882
+    },
+    {
+      "a": "ES62",
+      "b": "ES61",
+      "area_degrees2": 8.0145e-06
+    },
+    {
+      "a": "ES62",
+      "b": "ES52",
+      "area_degrees2": 0.0005039283
+    },
+    {
+      "a": "ES62",
+      "b": "ES42",
+      "area_degrees2": 0.0004257556
+    },
+    {
+      "a": "ES23",
+      "b": "ES22",
+      "area_degrees2": 0.0009871846
+    },
+    {
+      "a": "ES23",
+      "b": "ES24",
+      "area_degrees2": 5.18341e-05
+    },
+    {
+      "a": "ES23",
+      "b": "ES21",
+      "area_degrees2": 0.0007536407
+    },
+    {
+      "a": "ES13",
+      "b": "ES12",
+      "area_degrees2": 0.0003010827
+    },
+    {
+      "a": "ES13",
+      "b": "ES21",
+      "area_degrees2": 0.0002460843
+    },
+    {
+      "a": "ES61",
+      "b": "ES43",
+      "area_degrees2": 0.0006044803
+    },
+    {
+      "a": "ES61",
+      "b": "ES42",
+      "area_degrees2": 0.0001426492
+    },
+    {
+      "a": "ES12",
+      "b": "ES11",
+      "area_degrees2": 0.0005322455
+    },
+    {
+      "a": "ES52",
+      "b": "ES24",
+      "area_degrees2": 0.0007968355
+    },
+    {
+      "a": "ES52",
+      "b": "ES42",
+      "area_degrees2": 0.0009642853
+    },
+    {
+      "a": "ES22",
+      "b": "ES24",
+      "area_degrees2": 0.0013357018
+    },
+    {
+      "a": "ES22",
+      "b": "ES21",
+      "area_degrees2": 0.0005796918
+    },
+    {
+      "a": "ES24",
+      "b": "ES42",
+      "area_degrees2": 0.0002833936
+    },
+    {
+      "a": "ES30",
+      "b": "ES42",
+      "area_degrees2": 0.0020315326
+    },
+    {
+      "a": "ES43",
+      "b": "ES42",
+      "area_degrees2": 0.0012691285
+    }
+  ],
+  "border_overlap_pairs": 29,
+  "not_authoritative": true,
+  "forbidden_uses": [
+    "area_statistics",
+    "exact_border_intersection",
+    "legal_boundary_claims"
+  ],
+  "note": "Fuente cartográfica histórica simplificada; superposiciones entre límites de CCAA. No asignar indicadores mediante intersección espacial. Los datos NPL se unen por código NUTS2, no por geometría.",
+  "release_gate": "DISPLAY_ONLY_NOT_SPATIAL_ANALYSIS"
+}

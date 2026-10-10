@@ -924,6 +924,25 @@ function correlationPearson(x,y){
  for(let i=0;i<ax.length;i++){const dx=ax[i]-mx,dy=ay[i]-my;cross+=dx*dy;vx+=dx*dx;vy+=dy*dy;}
  return vx>0&&vy>0?Math.max(-1,Math.min(1,(cross/Math.sqrt(vx))/Math.sqrt(vy))):null;
 }
+/** Recompute omitted-territory sensitivity from verified regional pairs.
+ * Spearman reranks ties after EACH omission, and never treats this as inference. */
+function correlationLeaveOneOut(x,y,territories,rankBased=false){
+ if(x.length<8||x.length!==y.length||x.length!==territories.length)return {status:'insufficient_coverage'};
+ const coeff=(a,b)=>rankBased?correlationPearson(correlationRanks(a),correlationRanks(b)):correlationPearson(a,b);
+ const full=coeff(x,y);if(full===null)return {status:'constant_series'};
+ let min=Infinity,max=-Infinity,delta=-1,most=null;
+ for(let i=0;i<x.length;i++){
+  const ax=x.filter((_,j)=>j!==i),ay=y.filter((_,j)=>j!==i),r=coeff(ax,ay);
+  if(r===null)return {status:'unstable_constant_subsample',omitted_territory:territories[i]};
+  min=Math.min(min,r);max=Math.max(max,r);
+  const difference=Math.abs(r-full);
+  if(difference>delta){delta=difference;most=territories[i];}
+ }
+ const flip=(full>0&&min<0)||(full<0&&max>0);
+ return {status:'ok',n:x.length,min_r:min,max_r:max,max_absolute_change:delta,
+  most_influential_territory:most,sign_flip:flip,fragility_warning:flip||delta>0.30,
+  verified_from_paired_observations:true};
+}
 function validateCorrelationPayload(data,query){
  if(!data||data.status!=='ok'||data.x!==query.x||data.y!==query.y||
     String(data.period)!==String(query.period)||!Array.isArray(data.subgroups)||
@@ -962,6 +981,10 @@ function validateCorrelationPayload(data,query){
  if(recomputed===null||recomputedRanks===null||
     Math.abs(recomputed-r)>0.000002||Math.abs(recomputedRanks-rho)>0.000002)
   throw new Error('Los coeficientes no coinciden con los pares de datos territoriales.');
+ // Server sensitivity is advisory; never display an unverified fragility range.
+ const territories=rows.map(row=>row.geo_code);
+ data.leave_one_territory_out=correlationLeaveOneOut(x,y,territories,false);
+ data.spearman_leave_one_out=correlationLeaveOneOut(x,y,territories,true);
  return data;
 }
 function renderCorrelationResult(data){
@@ -1002,6 +1025,7 @@ function renderCorrelationResult(data){
  }
  const rankSensitivity=data.spearman_leave_one_out;
  if(rankSensitivity?.status==='ok'&&rankSensitivity.fragility_warning)card.append(el('p',{class:'warning'},'También la correlación por rangos (Spearman) es sensible a la exclusión de un territorio.'));
+ if(loo?.status==='unstable_constant_subsample'||rankSensitivity?.status==='unstable_constant_subsample')card.append(el('p',{class:'warning'},'La sensibilidad no es estable: al excluir un territorio, alguna variable se vuelve constante. No se muestra un intervalo incompleto.'));
  if(!renderCorrelationScatter(card,data,n))card.append(el('p',{class:'warning'},'No se puede dibujar una dispersión fiable con los pares recibidos; revisa la respuesta de la API.'));
  if(Array.isArray(data.excluded)&&data.excluded.length)card.append(el('p',{class:'hint'},`${data.excluded.length} territorios excluidos por ausencia o incompatibilidad de datos.`));
  correlationSource(card,'Indicador A',data.sources?.x);correlationSource(card,'Indicador B',data.sources?.y);

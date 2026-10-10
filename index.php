@@ -19,7 +19,7 @@ try{
         foreach(['activities'=>['published','actividades'],'team_members'=>['is_public','quienes-somos']] as $table=>[$field,$prefix])foreach(pp_all("SELECT slug FROM $table WHERE $field=1") as $r)$paths[]='/'.$prefix.'/'.$r['slug'];
         echo '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';foreach($paths as $p)echo '<url><loc>'.pp_escape(pp_origin().$p).'</loc></url>';echo '</urlset>';exit;
     }
-    if($path==='/mapa-espana'){header('Content-Type: text/html; charset=utf-8');header('Cache-Control: no-store');header("Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'");readfile(__DIR__.'/_private/observatorio-espana.html');exit;}
+    if($path==='/mapa-espana'){if(!is_file(__DIR__.'/_private/observatorio-espana.html'))throw new PPError(503,'El mapa no está disponible. Vuelve a intentarlo más tarde.');header('Content-Type: text/html; charset=utf-8');header('Cache-Control: no-store');header("Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'");readfile(__DIR__.'/_private/observatorio-espana.html');exit;}
     if($path==='/admin/revision-npl'){require __DIR__.'/_private/npl_review_ui.php';pp_npl_review_console();}
     if($path==='/mantenimiento'){require __DIR__.'/_private/backup.php';pp_maintenance();}
     if($path==='/signin-with-chatgpt')pp_redirect('/acceso');if($path==='/signout-with-chatgpt')pp_redirect('/cuenta');

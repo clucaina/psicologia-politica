@@ -1,8 +1,8 @@
 {
-  "version": "V72",
+  "version": "V75",
   "date": "2026-10-10",
   "status": "PREPRODUCTION_NO_GO",
-  "notes": "V72 local-only: correlation coefficient parity checks, NPL temporal audit, editorial dedupe gate and two source-reviewed scientific candidates. NOT deployed.",
+  "notes": "V75 isolated GitHub integration: public author SQL, accessible per-route SSR, map 503 fallback and independently reconstructed correlation sensitivity. Hostinger not deployed; SHA staging reconciliation pending.",
   "updated_at": "2026-10-10",
   "release_gate": "NO-GO"
 }

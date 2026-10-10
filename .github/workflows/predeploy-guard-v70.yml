@@ -1,4 +1,4 @@
-name: PP V73 isolated release gate (NO DEPLOY)
+name: PP V74 isolated integration QA (NO DEPLOY)
 on:
   push:
     branches:
@@ -30,6 +30,12 @@ jobs:
           python3 tests/qa_v73_npl_semantics.py
           php tests/qa_v73_author_markdown.php
           node tests/qa_v73_correlation_integrity.mjs
+          php tests/qa_v74_public_privacy.php
+          php tests/qa_v72_author_identity.php
+          php tests/qa_v71_markdown.php
+          node tests/qa_v72_correlation_parity.mjs
+          python3 tests/qa_v72_npl_temporal.py
+          python3 tests/qa_v72_editorial_dedup.py
       - name: Syntax checks
         run: |
           set -euo pipefail

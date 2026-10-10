@@ -1,29 +1,77 @@
 <?php
 declare(strict_types=1);
 /** Author projections for public pages; no identity inferred from an ambiguous display name. */
+/** Public boot payload: project only approved fields; private SQL columns must not leak. */
+function pp_public_post_projection(array $post): array {
+    $fields=['id','slug','title','excerpt','content','section','kind','status','author',
+        'featured','published_at','created_at','updated_at','cover_image_key',
+        'cover_image_alt','source_url','post_kind','source_name','source_type',
+        'evidence_type','verification_status','news_body','tags','seo_title',
+        'seo_description','canonical_url','event_date','comments_enabled','author_profile'];
+    $public=array_intersect_key($post,array_flip($fields));
+    if(isset($public['author_profile'])&&is_array($public['author_profile']))
+        $public['author_profile']=array_intersect_key($public['author_profile'],
+            array_flip(['slug','full_name','focus_line','photo_url']));
+    return $public;
+}
+function pp_public_team_projection(array $member): array {
+    return array_intersect_key($member,array_flip(['id','slug','full_name','focus_line',
+        'bio','trajectory','credentials','sources','photo_url','sort_order','is_public','updated_at']));
+}
+function pp_public_activity_projection(array $activity): array {
+    return array_intersect_key($activity,array_flip(['id','slug','status','activity_type',
+        'title','description','starts_at','ends_at','venue','modality','organizer',
+        'participants','source_url','media','materials','published','created_at',
+        'updated_at','programme','content','cover_image_key','cover_image_alt']));
+}
+function pp_public_boot_redact(array $boot): array {
+    if(isset($boot['posts'])&&is_array($boot['posts']))
+        $boot['posts']=array_map('pp_public_post_projection',$boot['posts']);
+    if(isset($boot['team'])&&is_array($boot['team']))
+        $boot['team']=array_map('pp_public_team_projection',$boot['team']);
+    if(isset($boot['activities'])&&is_array($boot['activities']))
+        $boot['activities']=array_map('pp_public_activity_projection',$boot['activities']);
+    if(isset($boot['record'])&&is_array($boot['record'])){
+        if(array_key_exists('kind',$boot['record']))$boot['record']=pp_public_post_projection($boot['record']);
+        elseif(array_key_exists('full_name',$boot['record']))$boot['record']=pp_public_team_projection($boot['record']);
+        elseif(array_key_exists('activity_type',$boot['record']))$boot['record']=pp_public_activity_projection($boot['record']);
+        else $boot['record']=[];
+    }
+    if(isset($boot['overview'])&&is_array($boot['overview'])){
+        $boot['overview']=array_map(static function(array $row): array {
+            $data=pp_parse($row['data']??'{}');
+            $evidence=pp_parse($row['evidence']??'{}');
+            if(!is_array($data))$data=[];
+            if(!is_array($evidence))$evidence=[];
+            [$safeData,$safeEvidence]=pp_npl_public_projection($data,$evidence);
+            return ['data'=>pp_json($safeData),'evidence'=>pp_json($safeEvidence),
+                'reviewed_at'=>$row['reviewed_at']??null];
+        },$boot['overview']);
+    }
+    foreach(['saved','followed'] as $section){
+        if(isset($boot['account'][$section])&&is_array($boot['account'][$section]))
+            $boot['account'][$section]=array_map('pp_public_post_projection',$boot['account'][$section]);
+    }
+    return $boot;
+}
 function pp_attach_public_author_profiles(array $posts,array $team): array {
-    $teamByUser=[];$teamByName=[];$ambiguousIds=[];$ambiguousNames=[];
+    $byId=[];$byName=[];
     foreach($team as $member){
-        $uid=mb_strtolower(trim((string)($member['user_id']??'')));
-        $nm=mb_strtolower(trim((string)($member['full_name']??'')));
-        if($uid!==''){
-            if(isset($teamByUser[$uid])){$ambiguousIds[$uid]=true;unset($teamByUser[$uid]);}
-            elseif(!isset($ambiguousIds[$uid]))$teamByUser[$uid]=$member;
-        }
-        if($nm!==''){
-            if(isset($teamByName[$nm])){$ambiguousNames[$nm]=true;unset($teamByName[$nm]);}
-            elseif(!isset($ambiguousNames[$nm]))$teamByName[$nm]=$member;
-        }
+        if(!is_array($member)||((int)($member['is_public']??0))!==1)continue;
+        $id=mb_strtolower(trim((string)($member['user_id']??'')));
+        $name=mb_strtolower(trim((string)($member['full_name']??'')));
+        if($id!=='')$byId[$id][]=$member;
+        if($name!=='')$byName[$name][]=$member;
     }
     foreach($posts as &$post){
-        $uid=mb_strtolower(trim((string)($post['author_id']??'')));
-        $nm=mb_strtolower(trim((string)($post['author']??'')));
-        // If author_id is present, never substitute a similar display name.
-        $ap=$uid!==''?($teamByUser[$uid]??null):($teamByName[$nm]??null);
-        if($ap)$post['author_profile']=[
-            'slug'=>$ap['slug'],'full_name'=>$ap['full_name'],
-            'focus_line'=>$ap['focus_line'],'photo_url'=>$ap['photo_url']
-        ];
+        if(!is_array($post))continue;
+        unset($post['author_profile']);
+        $id=mb_strtolower(trim((string)($post['author_id']??'')));
+        $name=mb_strtolower(trim((string)($post['author']??'')));
+        $matches=$id!==''?($byId[$id]??[]):($byName[$name]??[]);
+        if(count($matches)!==1)continue;
+        $person=$matches[0];
+        $post['author_profile']=array_intersect_key($person,array_flip(['slug','full_name','focus_line','photo_url']));
     }
     unset($post);
     return $posts;
@@ -52,7 +100,7 @@ function pp_bootstrap(string $path): array {
     if(($admin||$route==='/blog/escribir')&&$u&&$u['mustChangePassword'])pp_redirect('/cuenta#seguridad');
     if($admin&&!in_array($u['role'],['superadmin','admin_editor','moderator'],true))throw new PPError(403,'Esta cuenta no tiene permisos de redacción.');
     if(in_array($route,['/admin/datos','/admin/preview/[id]'],true)&&!$editor)throw new PPError(403,'Acceso editorial restringido.');
-    $b=['route'=>$route,'params'=>$params,'site_url'=>pp_origin(),'csrf'=>$_SESSION['csrf'],'user'=>$u,'posts'=>pp_all("SELECT * FROM editorial_posts WHERE status='published' AND deleted_at IS NULL ORDER BY featured DESC,published_at DESC,id DESC"),'team'=>pp_all('SELECT id,slug,full_name,focus_line,bio,trajectory,credentials,sources,photo_url,user_id FROM team_members WHERE is_public=1 ORDER BY sort_order'),'activities'=>pp_all('SELECT * FROM activities WHERE published=1 ORDER BY starts_at DESC')];
+    $b=['route'=>$route,'params'=>$params,'site_url'=>pp_origin(),'csrf'=>$_SESSION['csrf'],'user'=>$u,'posts'=>pp_all("SELECT * FROM editorial_posts WHERE status='published' AND deleted_at IS NULL ORDER BY featured DESC,published_at DESC,id DESC"),'team'=>pp_all('SELECT id,slug,full_name,focus_line,bio,trajectory,credentials,sources,photo_url,user_id,is_public FROM team_members WHERE is_public=1 ORDER BY sort_order'),'activities'=>pp_all('SELECT * FROM activities WHERE published=1 ORDER BY starts_at DESC')];
     $b['posts']=pp_attach_public_author_profiles($b['posts'],$b['team']);
     if($route==='/'){
         $b['comment_counts']=pp_all("SELECT post_id,count(*) AS total,max(created_at) AS latest FROM article_comments WHERE status='published' AND deleted_at IS NULL GROUP BY post_id");
@@ -80,7 +128,7 @@ function pp_bootstrap(string $path): array {
         if($u['role']==='superadmin')$queries['users']='SELECT p.email,p.display_name,p.email_verified,p.status,r.role,r.team_id,EXISTS(SELECT 1 FROM local_credentials c WHERE c.email=p.email) AS local_access FROM reader_profiles p LEFT JOIN user_roles r ON r.email=p.email ORDER BY joined_at DESC LIMIT 300';
         foreach($queries as $k=>$sql)$b['admin'][$k]=pp_all($sql);
     }
-    return $b;
+    return pp_public_boot_redact($b);
 }
 function pp_navigation(): string {$s='<nav aria-label="Navegación principal">';foreach(['Inicio'=>'/','Noticias'=>'/noticias','Blog'=>'/blog','Actividades'=>'/actividades','Herramientas'=>'/herramientas','Quiénes somos'=>'/quienes-somos','Contacto'=>'/contacto','Acceder'=>'/acceso'] as $label=>$href)$s.='<a style="margin-right:1rem" href="'.$href.'">'.$label.'</a>';return $s.'</nav>';}
 function pp_markdown_inline(string $text): string {

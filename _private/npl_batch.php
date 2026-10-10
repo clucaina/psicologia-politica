@@ -2,7 +2,7 @@
 declare(strict_types=1);
 /** Staging-only NPL importer. Never publishes observations automatically. */
 function pp_batch_load(string $id): array {
-    if(!preg_match('/^T[0-9]{2}(?:_[A-Z0-9_]{3,61})?$/D',$id)||strlen($id)>64)throw new PPError(400,'Identificador de tanda inválido.');
+    if(!preg_match('/^T[1-9][0-9]{1,3}(?:_[A-Z0-9_]{3,61})?$/D',$id)||strlen($id)>64)throw new PPError(400,'Identificador de tanda inválido.');
     $root=realpath(__DIR__.'/../database');if(!$root)throw new PPError(503,'No se encontró la carpeta de datos.');
     $file=$root.'/'.$id.'.json';if(!is_file($file))$file=$root.'/seeds/'.$id.'.json';if(!is_file($file)&&$id==='T19')$file=$root.'/seeds/T19_CCAA_BASELINE.json';
     if(!is_file($file)||filesize($file)>8*1024*1024)throw new PPError(404,'Tanda no encontrada o demasiado grande.');
@@ -11,13 +11,47 @@ function pp_batch_load(string $id): array {
     if(!is_array($data)||($data['batch_id']??'')!==$id||!is_array($data['observations']??null)||count($data['observations'])>5000)throw new PPError(422,'Contrato de tanda inválido (máximo 5.000 observaciones).');
     return ['id'=>$id,'sha256'=>hash('sha256',$bytes),'data'=>$data];
 }
+/** A measured observation cannot have a period that has not begun.
+ * This is a temporal sanity gate, not proof that the source has released a figure.
+ * A fixed clock can be injected for deterministic QA. */
+function pp_batch_observation_period_started(string $period,?DateTimeImmutable $clock=null): bool {
+    if(!preg_match('/^((?:19|20)[0-9]{2})(?:-(Q[1-4]|0[1-9]|1[0-2]))?$/D',$period,$m))return false;
+    $clock=($clock??new DateTimeImmutable('now',new DateTimeZone('Europe/Madrid')))
+        ->setTimezone(new DateTimeZone('Europe/Madrid'));
+    $year=(int)$m[1];$currentYear=(int)$clock->format('Y');
+    if($year<$currentYear)return true;
+    if($year>$currentYear)return false;
+    $sub=$m[2]??'';
+    if($sub==='')return true;
+    $month=(int)$clock->format('n');
+    if(str_starts_with($sub,'Q'))return (int)$sub[1]<=intdiv($month-1,3)+1;
+    return (int)$sub<=$month;
+}
+/** ECP quarterly labels identify the PRECEDING quarter's population stock
+ * at its closing boundary (Q1 = 1 April, Q2 = 1 July). They are not quarterly
+ * averages. This is a narrow guard for INE ECP datasets, not a universal
+ * convention for every quarterly series. */
+function pp_batch_ecp_reference_date_valid(array $o): bool {
+    if(!str_contains(strtoupper((string)($o['dataset_code']??'')),'ECP'))return true;
+    $period=(string)($o['period']??'');
+    if(!preg_match('/^((?:19|20)[0-9]{2})-Q([1-4])$/D',$period,$m))return true;
+    $date=$o['reference_date']??null;
+    if(!is_string($date)||!preg_match('/^(?:19|20)[0-9]{2}-[0-9]{2}-[0-9]{2}$/D',$date))return false;
+    $year=(int)$m[1];$q=(int)$m[2];
+    $expected=$q===4?sprintf('%04d-01-01',$year+1):sprintf('%04d-%02d-01',$year,$q*3+1);
+    if($date!==$expected)return false;
+    $today=(new DateTimeImmutable('now',new DateTimeZone('Europe/Madrid')))->format('Y-m-d');
+    return $date<=$today;
+}
 function pp_batch_key(array $o): string {
     foreach(['indicator_id','period','geo_code','geography','subgroup','unit','source_id','source_url','dataset_code','methodology_flag'] as $key){
         if(!isset($o[$key])||!is_string($o[$key])||trim($o[$key])==='')throw new PPError(422,'Campo obligatorio de observación: '.$key);
         if(mb_strlen($o[$key])>1800)throw new PPError(422,'Campo excesivo: '.$key);
     }
-    if(!preg_match('/^[a-zA-Z0-9_-]{2,100}$/D',$o['indicator_id'])||!preg_match('/^(19|20)[0-9]{2}(?:-[0-9]{2})?$/D',$o['period'])||!preg_match('/^[A-Za-z0-9_-]{2,64}$/D',$o['geo_code']))throw new PPError(422,'Código o periodo inválido.');
+    if(!preg_match('/^[a-zA-Z0-9_-]{2,100}$/D',$o['indicator_id'])||!preg_match('/^(19|20)[0-9]{2}(?:-(?:0[1-9]|1[0-2]|Q[1-4]))?$/D',$o['period'])||!preg_match('/^[A-Za-z0-9_-]{2,64}$/D',$o['geo_code']))throw new PPError(422,'Código o periodo inválido.');
     if(!preg_match('/^[A-Za-z0-9_-]{2,100}$/D',$o['source_id'])||!preg_match('/^[A-Za-z0-9_.-]{2,100}$/D',$o['dataset_code']))throw new PPError(422,'Fuente/dataset inválidos.');
+    if(!pp_batch_observation_period_started($o['period']))throw new PPError(422,'Periodo de observación futuro: no se importa como dato medido.');
+    if(!pp_batch_ecp_reference_date_valid($o))throw new PPError(422,'Fecha de referencia ECP incompatible con el trimestre o todavía futura.');
     if(!str_starts_with($o['source_url'],'https://')||!pp_url($o['source_url']))throw new PPError(422,'La observación necesita URL HTTPS de fuente.');
     if(!array_key_exists('value',$o)||!is_int($o['value'])&&!is_float($o['value'])||!is_finite((float)$o['value']))throw new PPError(422,'Valor numérico obligatorio (0 es válido).');
     if(!pp_percent_value_valid($o))throw new PPError(422,'Porcentaje fuera de rango o derivación con signo no autorizada.');
@@ -33,12 +67,34 @@ function pp_batch_dependents(string $id): array {
     return array_values(array_unique($dependents));
 }
 function pp_batch_validate(array $data): array {
-    $indicators=[];$keys=[];$sources=[];if(isset($data['depends_on_batch'])&&(!is_string($data['depends_on_batch'])||!preg_match('/^T[0-9]{2}(?:_[A-Z0-9_]{3,61})?$/D',$data['depends_on_batch'])||$data['depends_on_batch']===($data['batch_id']??'')))throw new PPError(422,'Dependencia de tanda inválida.');
+    $indicators=[];$keys=[];$sources=[];if(isset($data['depends_on_batch'])&&(!is_string($data['depends_on_batch'])||!preg_match('/^T[1-9][0-9]{1,3}(?:_[A-Z0-9_]{3,61})?$/D',$data['depends_on_batch'])||$data['depends_on_batch']===($data['batch_id']??'')))throw new PPError(422,'Dependencia de tanda inválida.');
     foreach($data['new_indicators']??[] as $i){
         if(!is_array($i)||!preg_match('/^[a-zA-Z0-9_-]{2,100}$/D',(string)($i['indicator_id']??''))||!is_string($i['label_es']??null)||!is_string($i['domain']??null))throw new PPError(422,'Metadatos de indicador inválidos.');
         $id=$i['indicator_id'];if(isset($indicators[$id]))throw new PPError(422,'Indicador duplicado en lote.');$indicators[$id]=$i;
     }
-    foreach($data['source_endpoints']??[] as $s){if(is_array($s)&&!empty($s['source_id']))$sources[$s['source_id']]=$s;}
+    // An institutional source ID can legitimately cover several datasets (INE, CIS).
+    // Validate the source+dataset pair, never overwrite endpoints by source ID.
+    // A documented exceptional release URL is permitted only when explicitly
+    // declared in the endpoint, e.g. a corrected INE EPA quarterly bulletin.
+    $endpoints=[];
+    foreach($data['source_endpoints']??[] as $s){
+        if(!is_array($s)||!is_string($s['source_id']??null)||!is_string($s['dataset_code']??null)||
+           !preg_match('/^[A-Za-z0-9_-]{2,100}$/D',$s['source_id'])||
+           !preg_match('/^[A-Za-z0-9_.-]{2,100}$/D',$s['dataset_code']))
+            throw new PPError(422,'Fuente sin identificador y dataset trazables.');
+        $id=$s['source_id'];$dataset=$s['dataset_code'];$pair=$id.'|'.$dataset;
+        if(isset($endpoints[$pair]))throw new PPError(422,'Fuente y dataset duplicados en el catálogo de la tanda.');
+        $url=$s['url']??null;
+        if(!is_string($url)||!str_starts_with($url,'https://')||!pp_url($url))
+            throw new PPError(422,'La fuente debe identificar un documento HTTPS válido.');
+        if(isset($s['exception_primary_release_url'])&&
+           (!is_string($s['exception_primary_release_url'])||!str_starts_with($s['exception_primary_release_url'],'https://')||!pp_url($s['exception_primary_release_url'])))
+            throw new PPError(422,'La excepción documental requiere URL HTTPS válida.');
+        $endpoints[$pair]=$s;
+        // Existing source records are institutional, not per-dataset. Do not
+        // discard the full endpoint index used for validation.
+        $sources[$id]=$sources[$id]??$s;
+    }
     foreach($data['observations'] as $o){
         if(!is_array($o))throw new PPError(422,'Observación inválida.');
         if(($o['batch_id']??null)!==($data['batch_id']??null))throw new PPError(422,'La observación no pertenece a la tanda declarada.');
@@ -49,7 +105,15 @@ function pp_batch_validate(array $data): array {
             if(($meta['unit_default']??null)!==$o['unit']||($meta['source_id']??null)!==$o['source_id']||($meta['dataset_code']??null)!==$o['dataset_code'])
                 throw new PPError(422,'La observación contradice unidad, fuente o dataset del indicador.');
         }
-        if(!isset($sources[$o['source_id']]))throw new PPError(422,'Faltan metadatos de la fuente en la tanda.');
+        $endpoint=$endpoints[$o['source_id'].'|'.$o['dataset_code']]??null;
+        if(!$endpoint)throw new PPError(422,'Faltan metadatos para el par fuente/dataset de la observación.');
+        $allowedUrls=[$endpoint['url']];
+        if(isset($endpoint['exception_primary_release_url']))$allowedUrls[]=$endpoint['exception_primary_release_url'];
+        if(!in_array($o['source_url'],$allowedUrls,true))
+            throw new PPError(422,'La URL de la observación no corresponde a la fuente/dataset documentada.');
+        if($o['source_url']!==$endpoint['url'] &&
+           empty($o['source_conflict_flag']) && empty($o['source_locator']))
+            throw new PPError(422,'Una URL excepcional exige justificar la discrepancia documental.');
         if(isset($keys[$key]))throw new PPError(422,'Duplicado por clave natural dentro del lote.');$keys[$key]=true;
     }
     return ['indicators'=>$indicators,'sources'=>$sources,'keys'=>$keys];
@@ -57,13 +121,17 @@ function pp_batch_validate(array $data): array {
 /** Same natural key and numeric value are not enough: units and provenance must agree. */
 function pp_batch_semantic_conflicts(array $incoming,array $stored): array {
     $differences=[];
-    foreach(['unit','geography','source_url','methodology_flag','measurement_type','population','denominator','source_locator'] as $field){
+    foreach(['unit','geography','source_url','methodology_flag','measurement_type','population','denominator','source_locator',
+        'measurement_period_start','measurement_period_end','definition_version','percentage_semantics','data_kind','frequency','measurement_window_type'] as $field){
         $a=$incoming[$field]??null;$b=$stored[$field]??null;
-        // Legacy imports may not have newer optional fields. Never fabricate their values.
-        if($a===null||$a===''||$b===null||$b==='')continue;
-        if((string)$a!==(string)$b)$differences[]=$field;
+        // A missing legacy provenance field is NOT evidence of equality.
+        // Fail closed when either record contains an explicit value that the other lacks.
+        $aMissing=$a===null||$a==='';$bMissing=$b===null||$b==='';
+        if($aMissing&&$bMissing)continue;
+        if($aMissing!==$bMissing||(string)$a!==(string)$b)$differences[]=$field;
     }
-    if(!array_key_exists('value',$stored)||abs((float)$incoming['value']-(float)$stored['value'])>1e-9)$differences[]='value';
+    if(!array_key_exists('value',$stored)||!is_numeric($stored['value'])||!is_finite((float)$stored['value'])
+       ||abs((float)$incoming['value']-(float)$stored['value'])>1e-9)$differences[]='value';
     return $differences;
 }
 function pp_batch_existing(array $o): ?array {
@@ -75,7 +143,11 @@ function pp_batch_existing(array $o): ?array {
     return $matches[0]??null;
 }
 function pp_batch_existing_conflicts(array $incoming,array $old): array {
-    $stored=[...pp_parse($old['data']), 'value'=>(float)$old['value'], 'unit'=>$old['unit'], 'geography'=>$old['geography']];
+    // SQL NULL means unmeasured, not the numeric value zero. Never coerce it
+    // before the semantic conflict check; otherwise an incoming measured 0
+    // could silently deduplicate against an unavailable historical value.
+    $rawValue=$old['value']??null;
+    $stored=[...pp_parse($old['data']), 'value'=>$rawValue, 'unit'=>$old['unit'], 'geography'=>$old['geography']];
     return pp_batch_semantic_conflicts($incoming,$stored);
 }
 function pp_batch_preview(array $batch): array {
@@ -97,11 +169,69 @@ function pp_batch_preview(array $batch): array {
     $missing=array_values(array_diff($needed,$available));
     return ['batch_id'=>$batch['id'],'sha256'=>$batch['sha256'],'observations'=>count($batch['data']['observations']),'new_observations'=>$new,'existing_observations'=>$existing,'conflicts'=>$conflicts,'indicators'=>count($validated['indicators']),'requires_existing_indicators'=>$needed,'missing_existing_indicators'=>$missing,'retrieval_date_missing'=>count(array_filter($batch['data']['observations'],fn($o)=>empty($o['retrieved_at']))),'previous'=>$previous,'depends_on_batch'=>$dependency,'dependency_status'=>$dependencyStatus,'note'=>'Vista previa. Ningún dato ha sido modificado ni publicado.'];
 }
+/** A staged ledger is not proof that its observation rows still exist.
+ * The batch table has no foreign key to historical rows; verify ownership and
+ * natural keys before returning an idempotent success. Never auto-repair here. */
+function pp_batch_verify_staged_integrity(array $batch,array $ledger): void {
+    $source=$batch['data']['observations'];
+    $expected=count($source);
+    if((int)$ledger['total_rows']!==$expected)
+        throw new PPError(409,'El tamaño del lote importado no coincide con el archivo actual.');
+    $rows=pp_all('SELECT b.natural_key,b.observation_id,o.value,o.unit,o.geography,o.data '
+        .'FROM hp_npl_batch_items b LEFT JOIN npl_observations o ON o.id=b.observation_id '
+        .'WHERE b.batch_id=? ORDER BY b.observation_id',[$batch['id']]);
+    if(count($rows)!==(int)$ledger['inserted_rows']||count($rows)>$expected)
+        throw new PPError(409,'El libro de importación está incompleto o contiene filas sobrantes.');
+    $ledgerByKey=[];
+    foreach($rows as $row){
+        $key=(string)$row['natural_key'];
+        if(isset($ledgerByKey[$key]))throw new PPError(409,'Clave natural repetida en el libro de importación.');
+        if(!is_string($row['data']??null))throw new PPError(409,'Falta una observación del lote previamente importado.');
+        $stored=pp_parse($row['data'],null);
+        if(!is_array($stored)||($stored['batch_id']??null)!==$batch['id']||
+           !hash_equals($key,pp_batch_key($stored)))
+            throw new PPError(409,'La observación fue modificada o no pertenece a la clave original.');
+        $ledgerByKey[$key]=$row;
+    }
+    // Reconcile *every* input row, not just the ledger count. Rows skipped because
+    // they already existed in the historical archive must still exist and match.
+    // This is deliberately a staging-only integrity check, not a public API query.
+    foreach($source as $incoming){
+        $key=pp_batch_key($incoming);
+        if(isset($ledgerByKey[$key])){
+            $row=$ledgerByKey[$key];
+            if(pp_batch_existing_conflicts($incoming,$row))
+                throw new PPError(409,'La observación importada ya no coincide con valor, unidad o procedencia originales.');
+            unset($ledgerByKey[$key]);
+        }else{
+            $historical=pp_batch_existing($incoming);
+            if(!$historical||pp_batch_existing_conflicts($incoming,$historical))
+                throw new PPError(409,'La observación omitida por existir previamente ha desaparecido o ha cambiado.');
+        }
+    }
+    if($ledgerByKey)throw new PPError(409,'El libro contiene observaciones ajenas al archivo original.');
+}
+
+/** A machine-transcribed batch can call an indicator "VERIFIED" or "A".
+ * These are source-file claims, NOT an independent human approval. Keep the
+ * original immutable JSON/hash but prevent its self-assessment becoming public
+ * catalog metadata when a new indicator is first staged. The final status is
+ * a separate editorial action, never a side effect of ingestion. */
+function pp_batch_staged_indicator_meta(array $indicator,string $batchId): array {
+    $staged=$indicator;
+    $staged['import_declared_status']=$indicator['status']??null;
+    $staged['import_declared_quality_grade']=$indicator['quality_grade']??null;
+    $staged['status']='pending_scientific_review';
+    $staged['quality_grade']='PENDING_HUMAN_SOURCE_QA';
+    $staged['import_batch_id']=$batchId;
+    $staged['human_indicator_reviewed']=false;
+    return $staged;
+}
 function pp_batch_stage(array $batch,string $actor): array {
     $id=$batch['id'];$sha=$batch['sha256'];$data=$batch['data'];$validated=pp_batch_validate($data);
     $existing=pp_one('SELECT * FROM hp_npl_batches WHERE id=?',[$id]);
     if($existing&&$existing['sha256']!==$sha)throw new PPError(409,'El batch_id ya existe con un hash distinto. No se sobreescribe.');
-    if($existing&&$existing['status']==='staged')return ['ok'=>true,'batch_id'=>$id,'status'=>'staged','already_imported'=>true];
+    if($existing&&$existing['status']==='staged'){pp_batch_verify_staged_integrity($batch,$existing);return ['ok'=>true,'batch_id'=>$id,'status'=>'staged','already_imported'=>true,'integrity_checked'=>true];}
     $plan=pp_batch_preview($batch);if($plan['depends_on_batch']&&$plan['dependency_status']!=='staged')throw new PPError(409,'Primero importa y valida la tanda de origen: '.$plan['depends_on_batch']);if($plan['missing_existing_indicators'])throw new PPError(409,'La tanda depende de indicadores previos ausentes: '.implode(', ',$plan['missing_existing_indicators']));if($plan['conflicts'])throw new PPError(409,'Existen valores diferentes para claves naturales ya importadas. Revisión manual obligatoria.');
     pp_transaction(function()use($id,$sha,$actor,$validated,$data,$existing){
         if(!$existing)pp_query('INSERT INTO hp_npl_batches(id,sha256,status,created_at,created_by,total_rows) VALUES(?,?,?,?,?,?)',[$id,$sha,'partial',pp_now(),$actor,count($data['observations'])]);
@@ -111,7 +241,7 @@ function pp_batch_stage(array $batch,string $actor): array {
         foreach($validated['indicators'] as $indicatorId=>$i){
             $prior=pp_one('SELECT id,unit,source_id FROM npl_indicators WHERE id=?',[$indicatorId]);
             if($prior){if($prior['unit']!==($i['unit_default']??null))throw new PPError(409,'Unidad incompatible para indicador '.$indicatorId);continue;}
-            pp_query('INSERT INTO npl_indicators(id,domain,name,unit,source_id,data) VALUES(?,?,?,?,?,?)',[$indicatorId,$i['domain'],$i['label_es'],$i['unit_default']??null,$i['source_id']??null,pp_json($i)]);
+            pp_query('INSERT INTO npl_indicators(id,domain,name,unit,source_id,data) VALUES(?,?,?,?,?,?)',[$indicatorId,$i['domain'],$i['label_es'],$i['unit_default']??null,$i['source_id']??null,pp_json(pp_batch_staged_indicator_meta($i,$id))]);
         }
     });
     $inserted=0;$skipped=0;

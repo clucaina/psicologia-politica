@@ -53,5 +53,13 @@ jobs:
           for p in pathlib.Path('.').rglob('*.json'): json.loads(p.read_text(encoding='utf-8'))
           print('PASS: syntax')
           PY
+      - name: Build auditable SHA256 inventory (read-only, no deploy)
+        run: python3 scripts/qa_v75_git_tree.py --output build/qa_v75_git_inventory.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pp-v75-source-sha256
+          path: build/qa_v75_git_inventory.json
+          if-no-files-found: error
+          retention-days: 7
       - name: Explicit NO-GO for production
         run: echo 'This workflow NEVER publishes to Hostinger or updates MariaDB.'

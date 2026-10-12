@@ -1,0 +1,30 @@
+{
+  "schema": "psicologia-politica-formacion/1",
+  "title": "Leer una votación sin engañarse",
+  "project": "psicologiapolitica.es",
+  "status": "guion_original_para_revision",
+  "privacy": "sin seguimiento de respuestas individuales",
+  "chapters": [
+    {
+      "title": "Votar un trámite no aprueba una ley",
+      "narration": "Un sí a tomar en consideración una propuesta significa apoyar que comience su tramitación. No equivale a aprobar todas sus medidas. Hay que comprobar cuál era exactamente la pregunta sometida a votación."
+    },
+    {
+      "title": "El grupo no siempre es el partido",
+      "narration": "En el Congreso existen grupos parlamentarios con varios partidos, como el Grupo Mixto. Atribuir a un partido el voto mayoritario de todo el grupo puede crear una conclusión completamente equivocada."
+    },
+    {
+      "title": "Una muestra pequeña distorsiona",
+      "narration": "Comparar ocho votaciones, seis de ellas sobre vivienda, no mide la afinidad política general de nadie. Debemos mostrar qué asuntos están representados, cuántas decisiones se comparan y cuáles faltan."
+    },
+    {
+      "title": "La fuente permanece a la vista",
+      "narration": "La transparencia exige enseñar el expediente, la fecha, la pregunta y el recuento. Si la información disponible no es suficiente, mostramos ese límite en vez de rellenarlo con una interpretación inventada."
+    }
+  ],
+  "sources": [
+    "https://www.congreso.es/es/opendata/votaciones",
+    "https://congresoabierto.org/datos/"
+  ],
+  "note": "El vídeo MP4 y los subtítulos permanecen en el paquete local de producción; este archivo es el guion editable. Integración posterior tras revisión."
+}

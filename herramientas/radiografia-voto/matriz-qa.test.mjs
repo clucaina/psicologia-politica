@@ -47,3 +47,14 @@ test('interfaz sin perfilado político local ni transmisión',()=>{
  for(const term of ['localStorage.setItem','sessionStorage.setItem','navigator.sendBeacon','gtag(','dataLayer.push'])assert.ok(!html.includes(term),term);
  assert.match(html,/No se recopilan respuestas políticas/);
 });
+test('resultados de votaciones no se presentan como iniciativas únicas',()=>{
+ const counts=new Map();
+ for(const v of votes)counts.set(v.resultado,(counts.get(v.resultado)||0)+1);
+ assert.equal([...counts.values()].reduce((a,b)=>a+b,0),votes.length);
+ for(const label of ['Aprobada','Rechazada','Convalidado','Derogado'])assert.ok(counts.has(label));
+ const html=readFileSync(join(base,'archivo.html'),'utf8');
+ const js=readFileSync(join(base,'archivo.js'),'utf8');
+ assert.match(html,/Los resultados cuentan votaciones, no leyes o propuestas únicas/);
+ assert.match(js,/outcome-summary/);
+ assert.match(js,/el\("resultado"\)/);
+});

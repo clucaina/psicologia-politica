@@ -22,7 +22,7 @@ OUT = ROOT / "archivo-xv-votos.json"
 FIELDS_V = ("id", "fecha", "tipo", "titulo", "temas", "resultado", "si", "no",
             "abstencion", "no_vota", "url_votacion", "url_expediente")
 FIELDS_G = ("votacion_id", "grupo", "si", "no", "abstencion", "no_vota", "voto_mayoritario")
-MAYORIAS = {"Sí", "No", "Abstención", "Empate", "No vota"}
+MAYORIAS = {"Sí", "No", "Abstención", "Empate", "No vota", ""}
 def read_csv_bytes(data: bytes, required: tuple[str, ...]) -> list[dict]:
     decoded = data.decode("utf-8-sig")
     parser = csv.DictReader(io.StringIO(decoded, newline=""))
@@ -64,7 +64,7 @@ def build(votes: list[dict], group_votes: list[dict], source_hashes: dict) -> di
         index[vid]["grupos"][grupo] = dict(
             si=number(row["si"]), no=number(row["no"]),
             abstencion=number(row["abstencion"]), no_vota=number(row["no_vota"]),
-            mayoria=row["voto_mayoritario"]
+            mayoria=row["voto_mayoritario"] or "No consta"
         )
         linked += 1
     return {

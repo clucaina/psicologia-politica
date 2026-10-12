@@ -1,0 +1,248 @@
+{
+  "schema": "pp-votaciones-auditadas/1",
+  "snapshot": "2026-10-12",
+  "name": "Radiografía del voto",
+  "scope": "Selección editorial de ocho votaciones (seis de vivienda); no representa la totalidad de la acción parlamentaria ni los programas electorales.",
+  "license": "Datos de grupos compilados a partir de Congreso Abierto (CC BY 4.0), derivados de datos oficiales del Congreso de los Diputados; atribución visible y enlaces por registro.",
+  "sources": [
+    "https://www.congreso.es/es/opendata/votaciones",
+    "https://congresoabierto.org/datos/",
+    "https://congresoabierto.org/metodologia/"
+  ],
+  "groups": [
+    "SUMAR",
+    "ERC",
+    "EH Bildu",
+    "PSOE",
+    "PNV",
+    "Junts",
+    "PP",
+    "VOX"
+  ],
+  "records": [
+    {
+      "id": "122-000251",
+      "date": "2026-09-15",
+      "theme": "Vivienda",
+      "kind": "Toma en consideración",
+      "title": "Limitación de compras de viviendas usadas por personas jurídicas",
+      "q": "¿Votarías a favor de iniciar la tramitación de esta proposición, que limitaría la adquisición de vivienda usada por personas jurídicas, con excepciones?",
+      "clarity": "La votación fue sobre admitir a trámite la proposición. No aprobó la norma ni evalúa cada excepción por separado.",
+      "doc": "BOCG B-300-1",
+      "url": "https://congresoabierto.org/votaciones/?v=pl-ley-vivienda-sumar-2026",
+      "groups": {
+        "SUMAR": "si",
+        "ERC": "si",
+        "EH Bildu": "si",
+        "PSOE": "abst",
+        "PNV": "abst",
+        "Junts": "no",
+        "PP": "no",
+        "VOX": "no"
+      },
+      "totals": {
+        "si": 44,
+        "no": 175,
+        "abst": 127
+      },
+      "result": "No tomada en consideración",
+      "archive_id": "pl-ley-vivienda-sumar-2026"
+    },
+    {
+      "id": "162-000498",
+      "date": "2026-05-20",
+      "theme": "Vivienda",
+      "kind": "Proposición no de ley",
+      "title": "PNL sobre compra especulativa y fiscalidad de SOCIMI",
+      "q": "¿Apoyarías el conjunto de la PNL de SUMAR y PSOE sobre limitaciones a adquisiciones especulativas y reforma fiscal de rentas del capital?",
+      "clarity": "La proposición no de ley no crea por sí sola una ley. Se votaron varias medidas en conjunto; no atribuyas cada punto por separado.",
+      "doc": "BOCG D-538",
+      "url": "https://congresoabierto.org/votaciones/?v=pnl-especulacion-2026",
+      "groups": {
+        "SUMAR": "si",
+        "ERC": "si",
+        "EH Bildu": "si",
+        "PSOE": "si",
+        "PNV": "si",
+        "Junts": "abst",
+        "PP": "no",
+        "VOX": "no"
+      },
+      "totals": {
+        "si": 169,
+        "no": 170,
+        "abst": 8
+      },
+      "result": "Rechazada",
+      "archive_id": "pnl-especulacion-2026"
+    },
+    {
+      "id": "122-000254",
+      "date": "2026-05-19",
+      "theme": "Vivienda",
+      "kind": "Toma en consideración",
+      "title": "Proposición sobre ocupación ilegal y convivencia vecinal",
+      "q": "¿Votarías a favor de iniciar el trámite parlamentario de la proposición del PP sobre ocupación ilegal y protección vecinal?",
+      "clarity": "Tomar en consideración no significa aprobar el articulado final. Las medidas penales, civiles y registrales se agruparon en la iniciativa.",
+      "doc": "BOCG B-304-1",
+      "url": "https://congresoabierto.org/votaciones/?v=pl-okupacion-pp-2026",
+      "groups": {
+        "SUMAR": "no",
+        "ERC": "no",
+        "EH Bildu": "no",
+        "PSOE": "no",
+        "PNV": "abst",
+        "Junts": "abst",
+        "PP": "si",
+        "VOX": "si"
+      },
+      "totals": {
+        "si": 171,
+        "no": 164,
+        "abst": 11
+      },
+      "result": "Tomada en consideración",
+      "archive_id": "pl-okupacion-pp-2026"
+    },
+    {
+      "id": "122-000253",
+      "date": "2026-04-21",
+      "theme": "Vivienda",
+      "kind": "Toma en consideración",
+      "title": "Reforma urbanística y de vivienda del PP",
+      "q": "¿Votarías a favor de que comience la tramitación de la proposición de reforma de legislación urbanística, suelo, arrendamientos y vivienda?",
+      "clarity": "Incluye modificaciones de varias leyes. La respuesta es a la toma en consideración de su conjunto, no a cada artículo.",
+      "doc": "BOCG B-303-1",
+      "url": "https://congresoabierto.org/votaciones/?v=pl-suelo-vivienda-pp-2026",
+      "groups": {
+        "SUMAR": "no",
+        "ERC": "no",
+        "EH Bildu": "no",
+        "PSOE": "no",
+        "PNV": "abst",
+        "Junts": "si",
+        "PP": "si",
+        "VOX": "si"
+      },
+      "totals": {
+        "si": 178,
+        "no": 163,
+        "abst": 6
+      },
+      "result": "Tomada en consideración",
+      "archive_id": "pl-suelo-vivienda-pp-2026"
+    },
+    {
+      "id": "122-000214",
+      "date": "2025-10-07",
+      "theme": "Vivienda",
+      "kind": "Toma en consideración",
+      "title": "Proposición sobre viviendas de uso turístico",
+      "q": "¿Votarías a favor de iniciar la tramitación de la propuesta sobre obligaciones de publicación, contratación, inspección y control de viviendas de uso turístico?",
+      "clarity": "Es un trámite inicial, no la entrada en vigor de la norma. Incluye obligaciones y sanciones que requieren leer el expediente.",
+      "doc": "BOCG B-256-1",
+      "url": "https://congresoabierto.org/votaciones/?v=pl-pisos-turisticos-2025",
+      "groups": {
+        "SUMAR": "si",
+        "ERC": "si",
+        "EH Bildu": "si",
+        "PSOE": "si",
+        "PNV": "si",
+        "Junts": "si",
+        "PP": "no",
+        "VOX": "no"
+      },
+      "totals": {
+        "si": 176,
+        "no": 169,
+        "abst": 0
+      },
+      "result": "Tomada en consideración",
+      "archive_id": "pl-pisos-turisticos-2025"
+    },
+    {
+      "id": "122-000136",
+      "date": "2024-12-17",
+      "theme": "Vivienda",
+      "kind": "Toma en consideración",
+      "title": "Proposición sobre alquiler temporal y por habitaciones",
+      "q": "¿Votarías a favor de iniciar el trámite de la reforma de la Ley de Arrendamientos Urbanos para alquiler temporal y de habitaciones?",
+      "clarity": "No implica aceptar cada plazo o modificación particular. Compara únicamente el sentido del voto en esta votación concreta.",
+      "doc": "BOCG B-154-1",
+      "url": "https://congresoabierto.org/votaciones/?v=pl-alquiler-temporada-2024-12",
+      "groups": {
+        "SUMAR": "si",
+        "ERC": "si",
+        "EH Bildu": "si",
+        "PSOE": "si",
+        "PNV": "si",
+        "Junts": "si",
+        "PP": "no",
+        "VOX": "no"
+      },
+      "totals": {
+        "si": 176,
+        "no": 169,
+        "abst": 0
+      },
+      "result": "Tomada en consideración",
+      "archive_id": "pl-alquiler-temporada-2024-12"
+    },
+    {
+      "id": "s36-v024",
+      "date": "2024-04-23",
+      "theme": "Modelo territorial",
+      "kind": "Moción",
+      "title": "Moción sobre financiación singular para Cataluña",
+      "q": "¿Respaldarías la moción de ERC que solicitaba negociar una financiación singular para Cataluña?",
+      "clarity": "Una moción expresa una petición o posición. No equivale a una ley de financiación aprobada.",
+      "doc": "Diario de Sesiones / votación 36-24",
+      "url": "https://congresoabierto.org/votaciones/?v=s36-v024",
+      "groups": {
+        "SUMAR": "abst",
+        "ERC": "si",
+        "EH Bildu": "si",
+        "PSOE": "no",
+        "PNV": "abst",
+        "Junts": "si",
+        "PP": "no",
+        "VOX": "no"
+      },
+      "totals": {
+        "si": 24,
+        "no": 291,
+        "abst": 28
+      },
+      "result": "Rechazada",
+      "archive_id": "s36-v024"
+    },
+    {
+      "id": "s202-v010",
+      "date": "2026-09-30",
+      "theme": "Justicia e igualdad",
+      "kind": "Enmienda a la totalidad",
+      "title": "Devolución del proyecto de ley sobre violencia vicaria",
+      "q": "¿Votarías a favor de DEVOLVER el proyecto de ley sobre violencia vicaria, como proponía la enmienda a la totalidad de VOX?",
+      "clarity": "Ojo con la orientación del voto: SÍ significa devolver el proyecto, NO significa rechazar la devolución. No equivale a votar el texto final de la ley.",
+      "doc": "Sesión 202, votación 10",
+      "url": "https://congresoabierto.org/votaciones/?v=s202-v010",
+      "groups": {
+        "SUMAR": "no",
+        "ERC": "no",
+        "EH Bildu": "no",
+        "PSOE": "no",
+        "PNV": "no",
+        "Junts": "no",
+        "PP": "no",
+        "VOX": "si"
+      },
+      "totals": {
+        "si": 34,
+        "no": 312,
+        "abst": 0
+      },
+      "result": "Enmienda de devolución rechazada",
+      "archive_id": "s202-v010"
+    }
+  ]
+}

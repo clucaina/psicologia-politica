@@ -1,0 +1,27 @@
+name: Matriz parlamentaria · comprobación documental
+on:
+  pull_request:
+    paths:
+      - 'herramientas/radiografia-voto/**'
+      - '.github/workflows/matriz-parlamentaria-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Sintaxis JavaScript del archivo y comparador
+        run: |
+          node --check herramientas/radiografia-voto/archivo.js
+          node --check herramientas/radiografia-voto/app.js
+          node --check herramientas/radiografia-voto/datos-votaciones.js
+      - name: Verificación documental y privacidad
+        run: node --test herramientas/radiografia-voto/matriz-qa.test.mjs

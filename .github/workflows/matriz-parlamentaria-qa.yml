@@ -18,5 +18,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Sintaxis JavaScript del archivo y comparador
+        run: |
+          node --check herramientas/radiografia-voto/archivo.js
+          node --check herramientas/radiografia-voto/app.js
+          node --check herramientas/radiografia-voto/datos-votaciones.js
       - name: Verificación documental y privacidad
         run: node --test herramientas/radiografia-voto/matriz-qa.test.mjs

@@ -2,7 +2,7 @@
 
 ## Trabajo desarrollado el 12 de octubre de 2026
 
-Se ha generado y probado en contenedor un nuevo módulo autónomo para ocho líneas de proyecto. **El HTML completo de Nexo y los recursos binarios están todavía en el paquete local descargable; este documento no equivale a tenerlos desplegados ni subidos íntegramente a GitHub.** La subida a la Biblioteca de archivos no fue posible por límite de almacenamiento. No se ha borrado ningún archivo para liberar espacio.
+Se ha generado y probado en contenedor un nuevo módulo autónomo para ocho líneas de proyecto. **El HTML autónomo íntegro de Nexo se ha subido y cotejado byte a byte como texto con el archivo local en `experimentos/neurolab/nexo-autonomo.html`.** Incluye código, imágenes incrustadas y T19 para la demo sin dependencias externas. El proyecto fuente modular y los recursos editables se entregan por separado en el ZIP local. La subida a la Biblioteca de archivos no fue posible por límite de almacenamiento. No se ha borrado ningún archivo para liberar espacio.
 
 ### Ocho experiencias funcionales en el paquete local
 1. Neuropsicolucía. Ocho microcasos con opciones, fundamentación, tarea y progreso.
@@ -45,4 +45,4 @@ INE datos abiertos: https://www.ine.es/datosabiertos/
 BOE Ley 8/2021: https://www.boe.es/diario_boe/txt.php?id=BOE-A-2021-9233
 BOE Ley 44/2003: https://www.boe.es/buscar/act.php?id=BOE-A-2003-21340
 
-**Estado:** inventario y diseño guardados en GitHub. Binarios, código completo Nexo y datos materializados disponibles como ZIP local en la conversación; su subida completa al repo queda pendiente de una vía de transferencia adecuada.
+**Estado:** código autónomo completo subido y verificado en GitHub, accesible desde `experimentos/neurolab/index.html` mediante un nuevo enlace; rama y PR #10 en borrador. El ZIP modular editable y el JSON fuente T19 original permanecen disponibles en la conversación. No se ha desplegado en la web pública.

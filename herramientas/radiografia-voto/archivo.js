@@ -6,7 +6,7 @@ const normalize=x=>String(x||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"")
 const state={records:[],filtered:[],page:0,size:16,groups:[]};
 function matches(v){
 const query=normalize(el("q").value),theme=el("tema").value,group=el("grupo").value,vote=el("voto").value;
-if(query&&!normalize([v.titulo,v.id,v.tipo,v.temas].join(" ")).includes(query))return false;
+if(query&&!normalize([v.titulo,v.id,v.tipo,v.temas,v.url_expediente].join(" ")).includes(query))return false;
 if(theme&&!String(v.temas).split(/[,;|]/).map(t=>t.trim()).includes(theme))return false;
 if(group){const info=v.grupos[group];if(!info)return false;if(vote&&info.mayoria!==vote)return false;}
 else if(vote&&!Object.values(v.grupos).some(x=>x.mayoria===vote))return false;
@@ -34,8 +34,8 @@ html+='<h3>'+escape(v.titulo)+'</h3><p class="dim">'+escape(v.tipo)+' · '+escap
 html+='<p class="dim">Total oficial: '+v.si+' sí · '+v.no+' no · '+v.abstencion+' abstenciones · '+v.no_vota+' sin voto</p>';
 html+='<details><summary>Ver el sentido mayoritario por grupo y los recuentos</summary><div class="smallgrid">';
 state.groups.forEach(g=>{
-if(!v.grupos[g])return;const x=v.grupos[g],cls=x.mayoria==="Sí"?"sí":x.mayoria==="No"?"no":x.mayoria==="Abstención"?"abstención":"empate";
-html+='<div class="cell '+cls+'"><b>'+escape(g)+'</b>'+escape(x.mayoria)+'<div class="dim" style="font-size:10px">'+x.si+' / '+x.no+' / '+x.abstencion+'</div></div>';
+if(!v.grupos[g])return;const x=v.grupos[g],cls=x.mayoria==="Sí"?"sí":x.mayoria==="No"?"no":x.mayoria==="Abstención"?"abstención":x.mayoria==="Empate"?"empate":"none";
+html+='<div class="cell '+cls+'"><b>'+escape(g)+'</b>'+escape(x.mayoria||'No consta')+'<div class="dim" style="font-size:10px">'+x.si+' / '+x.no+' / '+x.abstencion+'</div></div>';
 });
 html+='</div><p class="dim">Recuento de sí, no y abstención; el Grupo Mixto puede incluir partidos diferentes.</p></details>';
 html+='<p class="sourcebox">'+(v.url_votacion?'<a href="'+escape(v.url_votacion)+'" rel="noopener noreferrer" target="_blank">Votación oficial (JSON) ↗</a>':'Voto nominal no disponible')+(v.url_expediente?' · <a href="'+escape(v.url_expediente)+'" rel="noopener noreferrer" target="_blank">Expediente ↗</a>':'')+'</p></article>';

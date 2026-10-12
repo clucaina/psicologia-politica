@@ -45,7 +45,8 @@
         "no": 175,
         "abst": 127
       },
-      "result": "No tomada en consideración"
+      "result": "No tomada en consideración",
+      "archive_id": "pl-ley-vivienda-sumar-2026"
     },
     {
       "id": "162-000498",
@@ -72,7 +73,8 @@
         "no": 170,
         "abst": 8
       },
-      "result": "Rechazada"
+      "result": "Rechazada",
+      "archive_id": "pnl-especulacion-2026"
     },
     {
       "id": "122-000254",
@@ -99,7 +101,8 @@
         "no": 164,
         "abst": 11
       },
-      "result": "Tomada en consideración"
+      "result": "Tomada en consideración",
+      "archive_id": "pl-okupacion-pp-2026"
     },
     {
       "id": "122-000253",
@@ -126,7 +129,8 @@
         "no": 163,
         "abst": 6
       },
-      "result": "Tomada en consideración"
+      "result": "Tomada en consideración",
+      "archive_id": "pl-suelo-vivienda-pp-2026"
     },
     {
       "id": "122-000214",
@@ -153,7 +157,8 @@
         "no": 169,
         "abst": 0
       },
-      "result": "Tomada en consideración"
+      "result": "Tomada en consideración",
+      "archive_id": "pl-pisos-turisticos-2025"
     },
     {
       "id": "122-000136",
@@ -180,7 +185,8 @@
         "no": 169,
         "abst": 0
       },
-      "result": "Tomada en consideración"
+      "result": "Tomada en consideración",
+      "archive_id": "pl-alquiler-temporada-2024-12"
     },
     {
       "id": "s36-v024",
@@ -207,7 +213,8 @@
         "no": 291,
         "abst": 28
       },
-      "result": "Rechazada"
+      "result": "Rechazada",
+      "archive_id": "s36-v024"
     },
     {
       "id": "s202-v010",
@@ -234,7 +241,8 @@
         "no": 312,
         "abst": 0
       },
-      "result": "Enmienda de devolución rechazada"
+      "result": "Enmienda de devolución rechazada",
+      "archive_id": "s202-v010"
     }
   ]
 }

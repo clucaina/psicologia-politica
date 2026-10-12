@@ -29,8 +29,13 @@ La muestra actual no representa toda la legislatura, pues 6 de 8 casos tratan so
 
     python3 scripts/actualizar_archivo.py --dry-run
     python3 scripts/actualizar_archivo.py
+    python3 -m unittest discover -s tests
 
 El importador usa Python estándar: obtiene los dos CSV de origen, comprueba cabeceras, identificadores, duplicados, referencias cruzadas, fechas, cifras, votos permitidos y SHA-256, y evita regresiones de cobertura sin autorización. Si falla una descarga no sobrescribe datos. El script aún no se ha ejecutado aquí; el primer archivo se elaboró directamente de ambos CSV mediante un procedimiento equivalente y se comprobó su integridad referencial.
+
+Al revisar el CSV original se identificaron 61 filas cuya mayoría viene vacía; la interfaz señala esos casos como sin dato y el importador los normaliza como No consta, no como abstención.
+
+Se añadieron siete pruebas unitarias al repositorio para cubrir importación, recuentos, CSV entrecomillado, duplicados, huérfanos, votos ausentes y valores malformados. Aún no se han ejecutado con Python en este entorno.
 
 Un voto secreto o no nominal puede carecer de detalle de los grupos; ausencia de detalle no significa abstención.
 

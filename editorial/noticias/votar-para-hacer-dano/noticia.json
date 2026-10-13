@@ -1,0 +1,94 @@
+{
+  "schema": "psicologiapolitica.editorial-import.v1",
+  "status": "preparado_en_github_pendiente_de_publicacion_en_CMS",
+  "slug": "votar-para-hacer-dano",
+  "section": "Noticias",
+  "category": "Investigación",
+  "title": "Votar para hacer daño",
+  "subtitle": "Una investigación analiza cuándo perjudicar al adversario se convierte en una motivación electoral y por qué el dato más llamativo necesita contexto.",
+  "summary": "El 37 % de una muestra estadounidense declaró más de un 50 % de probabilidad de votar a un candidato hipotético que proponía perjudicar al partido rival. En otro experimento, ese mensaje redujo en promedio el apoyo, aunque atraía más a las personas con mayor schadenfreude partidista.",
+  "date": "2026-10-13",
+  "country": "Estados Unidos",
+  "reading_minutes": 7,
+  "keywords": [
+    "psicología política",
+    "polarización afectiva",
+    "schadenfreude",
+    "crueldad electoral",
+    "conducta de voto",
+    "investigación"
+  ],
+  "photos": [
+    {
+      "role": "cover",
+      "url": "https://images.unsplash.com/photo-1782998307726-f93ec14eda24?auto=format&fit=crop&fm=jpg&ixid=NHwxMjA3fDA%3D&ixlib=rb-4.1.0&q=60&w=3000",
+      "alt": "Cabinas electorales en Colorado, fotografía documental ilustrativa",
+      "credit": "Jesse Paul / Unsplash",
+      "license": "Unsplash License",
+      "source": "https://unsplash.com/photos/two-voting-booths-with-QpdNe6njPlw"
+    },
+    {
+      "role": "inline",
+      "url": "https://images.unsplash.com/photo-1767158038507-abecdfb27df4?auto=format&fit=crop&fm=jpg&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&ixlib=rb-4.1.0&q=60&w=3000",
+      "alt": "Ciudadanos participando en una concentración política, escena ilustrativa",
+      "credit": "Joaquin Arenas / Unsplash",
+      "license": "Unsplash License",
+      "source": "https://unsplash.com/photos/people-holding-protest-signs-at-a-rally-MSqyK1kKIfs"
+    }
+  ],
+  "study": {
+    "title": "Partisan schadenfreude and candidate cruelty",
+    "authors": [
+      "Steven W. Webster",
+      "Adam N. Glynn",
+      "Matthew P. Motta"
+    ],
+    "year": 2024,
+    "original_publication": "2023-08-23",
+    "journal": "Political Psychology",
+    "volume": 45,
+    "issue": 2,
+    "pages": "259-277",
+    "doi": "10.1111/pops.12922",
+    "doi_url": "https://doi.org/10.1111/pops.12922",
+    "fulltext_url": "https://gwern.net/doc/politics/2023-webster.pdf",
+    "studies": [
+      {
+        "id": 1,
+        "date": "2019-01",
+        "n": 4034,
+        "type": "observacional_encuesta_online_cuotas",
+        "results": {
+          "respondents_above_50_probability_percent": 37,
+          "respondents_above_60_probability_percent": 30,
+          "mean_voting_intention": 48.72
+        }
+      },
+      {
+        "id": 2,
+        "date": "2020-12",
+        "n": 996,
+        "type": "observacional_schadenfreude_pandemia"
+      },
+      {
+        "id": 3,
+        "date": "2022-03",
+        "n": 4051,
+        "type": "experimento_encuesta_4_condiciones",
+        "results": {
+          "cruelty_vs_control_average_intention_points": -21.2,
+          "moderation": "mayor schadenfreude implica mayor aceptación; en extremos puede cambiar el signo"
+        }
+      }
+    ]
+  },
+  "editorial_notes": [
+    "El 37 % procede del estudio 1, no del experimento 3.",
+    "No afirmar que el 37 % votó efectivamente; midieron probabilidad hipotética de voto.",
+    "El efecto medio experimental fue negativo frente a control (-21,2 puntos).",
+    "No extrapolar el resultado a España ni atribuirlo a ningún partido.",
+    "Fotografías ilustrativas, no retratan a participantes del estudio."
+  ],
+  "html_article_path": "editorial/noticias/votar-para-hacer-dano/index.html",
+  "publishing_note": "No existe sincronización ni editor CMS vinculado a este repositorio; NO afirmar que esté publicado en el dominio."
+}

@@ -1,0 +1,25 @@
+{
+  "project": "Psicología Política",
+  "source_evidence": [
+    [
+      "index.php"
+    ],
+    [
+      "conflictometro",
+      "conflictometro.php",
+      "api"
+    ],
+    [
+      "config",
+      "src",
+      "app"
+    ]
+  ],
+  "work": [
+    "Integrar la version canonica de aplicacion sin cambiar Hostinger.",
+    "Reparar home, Conflictometro, mapa de Espana y mundo, filtros, timeline y series.",
+    "Validar publicacion de articulos, autoria y controles de acceso.",
+    "Publicar fuentes de datos, incertidumbre, SEO y accesibilidad visual."
+  ],
+  "guard": "No desplegar en Hostinger ni migrar MariaDB; preservar articulos, autores, ediciones y observaciones."
+}

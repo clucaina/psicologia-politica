@@ -1,0 +1,44 @@
+name: Factory independent shift - politica (NO DEPLOY)
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '11 */6 * * *'
+  push:
+    paths:
+      - '.github/workflows/cloud-factory-shift.yml'
+      - 'cloud_factory/worker.py'
+  issues:
+    types: [edited]
+permissions:
+  contents: read
+concurrency:
+  group: cloud-factory-politica
+  cancel-in-progress: false
+jobs:
+  verify:
+    if: github.event_name != 'issues' || (github.event.issue.number == 15 && github.event.issue.user.login == github.repository_owner)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: factory
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: 'integracion/v78-maestro-sin-despliegue'
+          path: source
+          persist-credentials: false
+      - name: Compile worker and audit the current source without modifying it
+        run: |
+          python3 -m py_compile factory/cloud_factory/worker.py
+          python3 factory/cloud_factory/worker.py --project politica --source source --output cloud-output --run "$GITHUB_RUN_NUMBER"
+      - name: Publish concise visual report in this workflow's Summary
+        run: cat cloud-output/report.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Save local artifact with one independent HTML preview
+        uses: actions/upload-artifact@v4
+        with:
+          name: factory-politica-shift
+          path: cloud-output/
+          retention-days: 14
+          if-no-files-found: error

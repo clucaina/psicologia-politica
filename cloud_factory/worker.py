@@ -83,6 +83,34 @@ def audit(project, root, run_number):
       "warnings":warnings,"next_steps":NEXT[project],
       "NOT_PERFORMED":["AI code generation","browser visual inspection","production deployment","clinical or forensic validation"]
     }
+def focus_metrics(root, focus):
+    """Bounded checks based on an allowlisted direction; only report counts."""
+    out = {"focus": focus, "files_checked": 0, "signals": {}}
+    kinds = {"VISUAL": {".html",".js",".jsx",".tsx",".css",".ts",".mjs"},
+             "CONTENIDO": {".md",".html",".txt"},
+             "DATOS": {".json",".csv"},
+             "SEGURIDAD": {".js",".ts",".py",".php"},
+             "INTEGRACION": {".js",".ts",".py",".php",".tsx"}}
+    if focus not in kinds: return out
+    scans = {"VISUAL": ["WebGLRenderer", "getContext(", "@media"],
+             "CONTENIDO": ["doi.org/", "TODO", "http"],
+             "DATOS": ["schema", "version", "source"],
+             "SEGURIDAD": ["eval(", "http://", "process.env"],
+             "INTEGRACION": ["npl", "conflictometro", "fetch("]}
+    for name in scans[focus]: out["signals"][name] = 0
+    for base, dirs, files in os.walk(root):
+        dirs[:] = [d for d in dirs if d not in IGNORE]
+        for name in files:
+            p = Path(base) / name
+            if p.is_symlink() or p.suffix.lower() not in kinds[focus] or name in (".env",".env.local","credentials.json"): continue
+            try:
+                if p.stat().st_size > 250000: continue
+                t = p.read_text(encoding="utf-8",errors="replace")
+            except OSError: continue
+            out["files_checked"] += 1
+            for marker in scans[focus]: out["signals"][marker] += t.lower().count(marker.lower())
+    out["limitation"] = "Pattern counts only; no runtime, functional or visual certification"
+    return out
 def output(rep, directory):
     directory.mkdir(parents=True,exist_ok=True)
     (directory/"report.json").write_text(json.dumps(rep,ensure_ascii=False,indent=2),encoding="utf-8")
@@ -91,6 +119,7 @@ def output(rep, directory):
        "Fuente verificada: "+rep["source_sha"][:12],"",
        "## Métricas verificadas"]
     m.extend("- "+k.replace("_"," ")+": "+str(v) for k,v in rep["metrics"].items())
+    m+=["","## Evidencia del foco",json.dumps(rep.get("focus_metrics",{}),ensure_ascii=False,sort_keys=True)]
     m+=["","## Advertencias"]
     m.extend("- "+x for x in rep["warnings"])
     m+=["","## Siguiente trabajo"]
@@ -129,6 +158,7 @@ def main():
             rep["chat_focus"]=m.group(1).upper()
             rep["shift"]="Dirección desde ChatGPT: "+rep["chat_focus"]
             rep["warnings"].insert(0,"FOCO cambiado desde issue autorizado; no implica editar código ni publicar")
+    rep["focus_metrics"] = focus_metrics(args.source,rep.get("chat_focus","GENERAL"))
     output(rep,args.output)
     print((args.output/"report.md").read_text(encoding="utf-8"))
 if __name__=="__main__":main()

@@ -118,8 +118,17 @@ def main():
     a.add_argument("--source",type=Path,required=True)
     a.add_argument("--output",type=Path,required=True)
     a.add_argument("--run",type=int,default=0)
+    a.add_argument("--direction",type=Path,default=None)
     args=a.parse_args()
     rep=audit(args.project,args.source,args.run)
+    if args.direction and args.direction.is_file():
+        # Only a validated focus token is accepted. Never execute issue-body text.
+        text=args.direction.read_text(encoding="utf-8",errors="replace")[:16000]
+        m=re.search(r"(?mi)^FOCO:\s*(VISUAL|DATOS|CONTENIDO|INTEGRACION|SEGURIDAD|GENERAL)\s*$",text)
+        if m:
+            rep["chat_focus"]=m.group(1).upper()
+            rep["shift"]="Dirección desde ChatGPT: "+rep["chat_focus"]
+            rep["warnings"].insert(0,"FOCO cambiado desde issue autorizado; no implica editar código ni publicar")
     output(rep,args.output)
     print((args.output/"report.md").read_text(encoding="utf-8"))
 if __name__=="__main__":main()

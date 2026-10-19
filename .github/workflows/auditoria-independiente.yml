@@ -1,0 +1,21 @@
+name: Auditoria independiente - Psicología Política
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '29 5,17 * * *'
+permissions:
+  contents: read
+concurrency:
+  group: auditoria-${{ github.repository }}
+  cancel-in-progress: false
+jobs:
+  inventario:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout sin credenciales persistentes
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Inspeccion local sin red ni acceso a produccion
+        run: python3 .fabrica/auditar.py

@@ -1,0 +1,35 @@
+name: Psicología Política - local source preservation inventory (NO DEPLOY)
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/source-inventory.yml'
+      - '.factory/branch_inventory.py'
+  schedule:
+    - cron: '29 6 * * 1,4'
+permissions:
+  contents: read
+concurrency:
+  group: source-inventory-${{ github.repository }}
+  cancel-in-progress: false
+jobs:
+  evidence:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Read ONLY remote branch trees; no local apps executed
+        run: |
+          git -c protocol.version=2 fetch --no-tags --depth=1 origin '+refs/heads/*:refs/remotes/origin/*'
+          python3 -m py_compile .factory/branch_inventory.py
+          python3 .factory/branch_inventory.py
+      - name: Preserve provenance report as non-production artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: source-tree-inventory-${{ github.run_id }}
+          path: source_inventory.json
+          retention-days: 7
+          if-no-files-found: error

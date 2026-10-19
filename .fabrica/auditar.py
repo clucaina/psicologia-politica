@@ -8,7 +8,7 @@ from pathlib import Path
 
 BASE = Path(__file__).resolve().parents[1]
 CFG = json.loads((Path(__file__).parent / "config.json").read_text("utf-8"))
-IGNORE = {".git", "node_modules", ".venv", "venv", ".next", "dist", "build", "__pycache__"}
+IGNORE = {".git", ".github", ".fabrica", "node_modules", ".venv", "venv", ".next", "dist", "build", "__pycache__"}
 SUFFIX = {".js", ".jsx", ".ts", ".tsx", ".html", ".css", ".php", ".py", ".vue", ".go"}
 SECRET_PATTERNS = [".env", ".env.*", "*.pem", "*.p12", "*.key", "*.sqlite", "*.db", "*.sql"]
 

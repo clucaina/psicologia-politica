@@ -11,6 +11,7 @@ on:
     types: [edited]
 permissions:
   contents: read
+  issues: read
 concurrency:
   group: cloud-factory-politica
   cancel-in-progress: false
@@ -29,10 +30,14 @@ jobs:
           ref: 'integracion/v78-maestro-sin-despliegue'
           path: source
           persist-credentials: false
+      - name: Read an allowlisted priority from this project's ChatGPT control issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api "repos/${{ github.repository }}/issues/15" --jq .body > factory-direction.txt
       - name: Compile worker and audit the current source without modifying it
         run: |
           python3 -m py_compile factory/cloud_factory/worker.py
-          python3 factory/cloud_factory/worker.py --project politica --source source --output cloud-output --run "$GITHUB_RUN_NUMBER"
+          python3 factory/cloud_factory/worker.py --project politica --source source --output cloud-output --run "$GITHUB_RUN_NUMBER" --direction factory-direction.txt
       - name: Publish concise visual report in this workflow's Summary
         run: cat cloud-output/report.md >> "$GITHUB_STEP_SUMMARY"
       - name: Save local artifact with one independent HTML preview

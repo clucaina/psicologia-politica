@@ -1,0 +1,18 @@
+name: Modular evidence lab QA
+on:
+  push:
+    branches:
+      - "feat/observatorio-promesas-auditables-20261012"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  node-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check Node version
+        run: node --version
+      - name: Run isolated tests (no secrets or downloads)
+        run: node --test herramientas/observatorio-promesas/tests/test-promises.mjs

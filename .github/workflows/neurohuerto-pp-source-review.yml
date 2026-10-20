@@ -1,0 +1,66 @@
+name: Neurohuerto PP · Independent Source Review Worker (NO DEPLOY)
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 */6 * * *'
+  push:
+    paths:
+      - '.factory/candidate_consumer.py'
+      - '.factory/test_candidate_consumer.py'
+      - '.github/workflows/neurohuerto-pp-source-review.yml'
+permissions:
+  contents: write
+concurrency:
+  group: pp-neurohuerto-evidence-branch
+  cancel-in-progress: false
+jobs:
+  review:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 1
+      - name: Run independent cross-repo data acceptance tests
+        run: |
+          python3 -m unittest discover -s .factory -p 'test_candidate_consumer.py' -v
+          python3 -m compileall -q .factory/candidate_consumer.py
+      - name: Restore same-project review ledger without touching Hostinger
+        run: |
+          set -euo pipefail
+          git fetch --no-tags --depth=1 origin 'refs/heads/factory/review-inbox:refs/remotes/origin/factory/review-inbox' || true
+          scratch="$(mktemp -d)"
+          if git show-ref --quiet refs/remotes/origin/factory/review-inbox; then
+            git worktree add --detach "$scratch" refs/remotes/origin/factory/review-inbox
+          else
+            git worktree add --detach "$scratch" HEAD
+          fi
+          echo "PP_REVIEW_WORKTREE=$scratch" >> "$GITHUB_ENV"
+      - name: Independently cross-check new NPL candidate contracts against original PP source bytes
+        run: |
+          python3 .factory/candidate_consumer.py \
+            --prior "$PP_REVIEW_WORKTREE/review/source_checks.json" \
+            --out "$PP_REVIEW_WORKTREE/review/source_checks.json"
+      - name: Version only changed research review metadata in this PP repository
+        run: |
+          set -euo pipefail
+          if [[ ! -s "$PP_REVIEW_WORKTREE/review/source_checks.json" ]]; then
+             echo 'No publicly available proposal index; keep previous state.' >> "$GITHUB_STEP_SUMMARY"
+             exit 0
+          fi
+          git -C "$PP_REVIEW_WORKTREE" config user.name 'neurohuerto-pp-review[bot]'
+          git -C "$PP_REVIEW_WORKTREE" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -C "$PP_REVIEW_WORKTREE" add review/source_checks.json
+          if git -C "$PP_REVIEW_WORKTREE" diff --cached --quiet; then
+             echo 'No new PP research candidates.' >> "$GITHUB_STEP_SUMMARY"
+          else
+             git -C "$PP_REVIEW_WORKTREE" commit -m 'data(review): independently revalidate public NPL candidate contracts'
+             git -C "$PP_REVIEW_WORKTREE" push origin HEAD:refs/heads/factory/review-inbox
+          fi
+      - name: Explain no publication and cross-worker validation status
+        run: |
+          echo '### PP worker independently reads NPL discovery results.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Reviews are NOT published in news, tables, database or Hostinger.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Source hash, structure, denominator and human license checks remain distinct.' >> "$GITHUB_STEP_SUMMARY"

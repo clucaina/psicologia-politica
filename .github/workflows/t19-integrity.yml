@@ -1,0 +1,26 @@
+name: Puerta de integridad T19
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - database/seeds/T19_CCAA_BASELINE.json
+      - tools/validar_t19.py
+      - .github/workflows/t19-integrity.yml
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Comprobar estructura y trazabilidad sin importar datos
+        run: python tools/validar_t19.py --input database/seeds/T19_CCAA_BASELINE.json --output qa_t19_report.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: resultado-auditoria-t19
+          path: qa_t19_report.json
+          retention-days: 14

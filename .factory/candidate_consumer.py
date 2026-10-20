@@ -25,6 +25,8 @@ def get_json(url):
     if len(contents)>MAX_BYTES:raise ValueError("Source exceeded safe limit")
     return json.loads(contents.decode("utf-8")),hashlib.sha256(contents).hexdigest()
 def verify_contract(contract,fetch=get_json):
+    if contract.get("candidate_kind")=="DOCUMENT_ONLY" or contract.get("independent_statistical_review_allowed") is False:
+        return {"status":"BLOCK_NON_STATISTICAL_DOCUMENT","release_gate":"NO_DEPLOY_NO_PUBLISH"}
     path=contract.get("source_path","")
     match=PATH.fullmatch(str(path))
     if not match or match.group(1)!=contract.get("id"):
@@ -80,6 +82,7 @@ def review(upstream,prior,fetch=get_json,limit=6):
         raise ValueError("Incompatible proposal schema")
     old={x["id"]:x for x in prior.get("reviews",[]) if isinstance(x,dict) and isinstance(x.get("id"),str)}
     selected=[c for c in source if isinstance(c,dict) and c.get("id") and
+              c.get("candidate_kind")!="DOCUMENT_ONLY" and c.get("independent_statistical_review_allowed") is not False and
               (c.get("id") not in old or old[c["id"]].get("source_blob_sha")!=c.get("source_blob_sha"))][:limit]
     changes={}
     for c in selected:

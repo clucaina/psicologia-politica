@@ -104,6 +104,18 @@ class IndependentReviewTests(unittest.TestCase):
         result=review(u,{},self.fetch)
         self.assertEqual(result["newly_reviewed"],0)
         self.assertEqual(result["reviews"],[])
+    def test_original_public_document_is_not_a_fake_numeric_batch(self):
+        # Reproduces the actual shape of T35-T39 public editorial candidates:
+        # provenance and matching batch ID, but NO numeric observations array.
+        def fetch_document(url):
+            return {"batch_id": "T43_HOUSING_TEST",
+                    "publication_policy": "DRAFT",
+                    "numeric_npl_observations": 0,
+                    "candidates": [{"kind": "editorial"}]}, "b" * 64
+        result = verify_contract(proposal(), fetch_document)
+        self.assertEqual(result["status"], "BLOCK_NON_STATISTICAL_DOCUMENT")
+        self.assertEqual(result["digest_match"], True)
+
     def test_bad_payload_blocks_instead_of_auto_fixing_values(self):
         def f(url):return {"batch_id":"T43_HOUSING_TEST","observations":[dict(row("ES"),value=True)]},"b"*64
         self.assertEqual(verify_contract(proposal(),f)["status"],"NEEDS_STRUCTURAL_REPAIR")

@@ -61,6 +61,41 @@ class IndependentReviewTests(unittest.TestCase):
         changed["source_blob_sha"]="c"*40
         third=review({"schema":"neurohuerto.candidate_ledger.v1","candidates":[changed]},first,self.fetch)
         self.assertEqual(third["newly_reviewed"],1)
+    def test_stale_prior_reviews_keep_queue_nonnegative(self):
+        current = proposal()
+        prior = {"reviews": [
+            {"id": current["id"], "source_blob_sha": current["source_blob_sha"]},
+            {"id": "T99_OLD_HISTORICAL", "source_blob_sha": "9" * 40},
+        ]}
+        result = review({"schema": "neurohuerto.candidate_ledger.v1",
+                         "candidates": [current]}, prior, self.fetch)
+        self.assertEqual(result["newly_reviewed"], 0)
+        self.assertEqual(result["remaining_new"], 0)
+        self.assertEqual(len(result["reviews"]), 2)  # archival continuity
+
+    def test_duplicate_upstream_ids_fail_closed(self):
+        c = proposal()
+        with self.assertRaises(ValueError):
+            review({"schema": "neurohuerto.candidate_ledger.v1",
+                    "candidates": [c, dict(c, source_blob_sha="f" * 40)]},
+                   {}, self.fetch)
+
+    def test_nonstring_upstream_ids_cannot_crash_or_be_silently_cast(self):
+        for invalid in (["T43_HOUSING_TEST"], {"key": 1}, 31, ""):
+            with self.subTest(invalid=invalid):
+                with self.assertRaises(ValueError):
+                    review({"schema": "neurohuerto.candidate_ledger.v1",
+                            "candidates": [dict(proposal(), id=invalid)]},
+                           {}, self.fetch)
+
+    def test_extreme_json_integer_marks_measurement_invalid_without_crashing(self):
+        def fetch_huge(url):
+            return {"batch_id": "T43_HOUSING_TEST",
+                    "observations": [dict(row("ES"), value=10 ** 500)]}, "b" * 64
+        result = verify_contract(proposal(), fetch_huge)
+        self.assertEqual(result["status"], "NEEDS_STRUCTURAL_REPAIR")
+        self.assertIn("invalid_measurement", result["structural_flags"])
+
     def test_non_statistical_json_is_rejected_without_a_redundant_second_scan(self):
         bad={**proposal(),"candidate_kind":"DOCUMENT_ONLY",
              "independent_statistical_review_allowed":False}

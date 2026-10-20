@@ -1,0 +1,24 @@
+name: Neurohuerto PP · Cross-worker review regression QA
+on:
+  push:
+    paths:
+      - '.factory/candidate_consumer.py'
+      - '.factory/test_candidate_consumer.py'
+      - '.github/workflows/neurohuerto-pp-source-review*.yml'
+  pull_request:
+    paths:
+      - '.factory/candidate_consumer.py'
+      - '.factory/test_candidate_consumer.py'
+      - '.github/workflows/neurohuerto-pp-source-review*.yml'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prove data and publication fences
+        run: |
+          python3 -m unittest discover -s .factory -p 'test_candidate_consumer.py' -v
+          python3 -m compileall -q .factory/candidate_consumer.py

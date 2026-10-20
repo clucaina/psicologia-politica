@@ -40,8 +40,13 @@ def verify_contract(contract,fetch=get_json):
         batch,digest=fetch(url)
         if contract.get("raw_sha256")!=digest:
             return {"status":"BLOCK_SOURCE_CHANGED","digest_match":False}
-        if not isinstance(batch,dict) or batch.get("batch_id")!=contract["id"] or not isinstance(batch.get("observations"),list):
+        if not isinstance(batch,dict) or batch.get("batch_id")!=contract["id"]:
             return {"status":"BLOCK_FORMAT_OR_ID","digest_match":True}
+        if not isinstance(batch.get("observations"),list):
+            # Some NPL source references are authentic editorial/document batches,
+            # not numeric series. Preserve traceability without statistical promotion.
+            return {"status":"BLOCK_NON_STATISTICAL_DOCUMENT","digest_match":True,
+                    "release_gate":"NO_DEPLOY_NO_PUBLISH"}
         observations=batch["observations"]
         if not observations or len(observations)>20000:
             return {"status":"BLOCK_ROW_COUNT","digest_match":True}

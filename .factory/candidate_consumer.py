@@ -60,7 +60,12 @@ def verify_contract(contract,fetch=get_json):
                 reasons.add("missing_unit")
             if not row.get("period") or not row.get("source_id"):
                 reasons.add("missing_period_or_source")
-            if isinstance(val,bool) or not isinstance(val,(int,float)) or not math.isfinite(val):
+            try:
+                valid_measurement = (not isinstance(val,bool) and isinstance(val,(int,float))
+                                     and math.isfinite(val))
+            except (OverflowError, ValueError, TypeError):
+                valid_measurement = False
+            if not valid_measurement:
                 reasons.add("invalid_measurement")
             indicator = row.get("indicator_id")
             if not isinstance(indicator, str) or not indicator.strip():
@@ -85,9 +90,23 @@ def review(upstream,prior,fetch=get_json,limit=6):
     if upstream.get("schema")!="neurohuerto.candidate_ledger.v1" or not isinstance(source,list):
         raise ValueError("Incompatible proposal schema")
     old={x["id"]:x for x in prior.get("reviews",[]) if isinstance(x,dict) and isinstance(x.get("id"),str)}
-    selected=[c for c in source if isinstance(c,dict) and c.get("id") and
-              c.get("candidate_kind")!="DOCUMENT_ONLY" and c.get("independent_statistical_review_allowed") is not False and
-              (c.get("id") not in old or old[c["id"]].get("source_blob_sha")!=c.get("source_blob_sha"))][:limit]
+    # Validate upstream identifiers before dictionary lookup or queue selection.
+    # A duplicate ID makes the source ambiguous and must not be silently overwritten.
+    seen=set()
+    eligible=[]
+    for c in source:
+        if not isinstance(c,dict):
+            continue
+        ident=c.get("id")
+        if not isinstance(ident,str) or not ident.strip() or ident in seen:
+            raise ValueError("Malformed or duplicated upstream candidate ID")
+        seen.add(ident)
+        if c.get("candidate_kind")=="DOCUMENT_ONLY" or c.get("independent_statistical_review_allowed") is False:
+            continue
+        eligible.append(c)
+    pending=[c for c in eligible if c["id"] not in old or
+             old[c["id"]].get("source_blob_sha")!=c.get("source_blob_sha")]
+    selected=pending[:limit]
     changes={}
     for c in selected:
         result=verify_contract(c,fetch)
@@ -103,7 +122,7 @@ def review(upstream,prior,fetch=get_json,limit=6):
     return {"schema":"neurohuerto.independent_reviewer.v1",
             "reviews":[merged[k] for k in sorted(merged)],
             "newly_reviewed":len(changes),
-            "remaining_new":len(source)-len(old)-len(changes),
+            "remaining_new":len(pending)-len(changes),
             "ready_for_production":False,
             "principle":"Reading another worker's report does not constitute source validation."}
 def main():

@@ -62,7 +62,11 @@ def verify_contract(contract,fetch=get_json):
                 reasons.add("missing_period_or_source")
             if isinstance(val,bool) or not isinstance(val,(int,float)) or not math.isfinite(val):
                 reasons.add("invalid_measurement")
-            if isinstance(row.get("indicator_id"),str):indicators.add(row["indicator_id"])
+            indicator = row.get("indicator_id")
+            if not isinstance(indicator, str) or not indicator.strip():
+                reasons.add("missing_indicator_id")
+            else:
+                indicators.add(indicator)
         return {
             "status":"NEEDS_SOURCE_AND_LICENSE_REVIEW" if not reasons else "NEEDS_STRUCTURAL_REPAIR",
             "digest_match":True,

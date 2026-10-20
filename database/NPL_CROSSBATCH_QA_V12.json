@@ -1,0 +1,25 @@
+{
+  "release": "V12",
+  "prepared_only": true,
+  "source_rows": 521,
+  "batch_counts": {
+    "T19": 152,
+    "T26_VULNERABILIDAD_SEGURIDAD_2025": 85,
+    "T27_SALARIOS_CCAA_2024": 54,
+    "T28_DERIVADOS_SALARIOS_2024": 36,
+    "T30_ABANDONO_EDUCATIVO_2022_2025": 80,
+    "T31_EMPLEO_PARO_25_64_2015_2025": 108,
+    "T32_PEW_PERCEPCION_DEMOCRACIA_2026": 6
+  },
+  "unique_natural_keys": 521,
+  "derived_observations": 36,
+  "numeric_zeros": 1,
+  "missing_retrieval_dates": 237,
+  "arope_cross_source_equal_values": 19,
+  "quality_notes": [
+    "No values generated in V12",
+    "Cross-source equal values are not independent confirmation",
+    "All staged observations require human verification and MySQL staging QA",
+    "A missing source retrieval date must not be fabricated"
+  ]
+}

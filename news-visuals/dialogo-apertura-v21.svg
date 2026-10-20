@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img">
+  <title>Incentivos de plataforma y diálogo político</title>
+  <desc>Experimento aleatorizado con 1043 personas durante diez minutos. Se compara una insignia de usuario popular con otra de mente abierta y se distinguen los efectos lingüísticos de los cambios de actitud no detectados.</desc>
+  <rect width="1200" height="675" fill="#f3ecdf"/>
+  <text x="60" y="75" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="2" fill="#7d2432">DISEÑO DE PLATAFORMAS</text>
+  <text x="60" y="124" font-family="Georgia, serif" font-size="39" font-weight="700" fill="#101b2d">Lo que una red premia cambia la conversación</text>
+  <line x1="60" y1="153" x2="1140" y2="153" stroke="#101b2d" stroke-width="2"/>
+  <rect x="60" y="190" width="330" height="154" rx="8" fill="#101b2d"/>
+  <text x="90" y="235" font-family="Arial, sans-serif" font-size="21" fill="#e8dbc3">CONTROL</text>
+  <text x="90" y="280" font-family="Georgia, serif" font-size="35" font-weight="700" fill="#fff9ee">Usuario popular</text>
+  <text x="90" y="319" font-family="Arial, sans-serif" font-size="21" fill="#fff9ee">Prestigio por recibir “me gusta”</text>
+  <path d="M410 267H512" stroke="#c9a45c" stroke-width="8"/>
+  <path d="M494 249L518 267L494 285" fill="none" stroke="#c9a45c" stroke-width="8"/>
+  <rect x="535" y="190" width="605" height="154" rx="8" fill="#fff9ee" stroke="#101b2d" stroke-width="2"/>
+  <text x="565" y="235" font-family="Arial, sans-serif" font-size="21" fill="#7d2432">EXPERIMENTO</text>
+  <text x="565" y="280" font-family="Georgia, serif" font-size="35" font-weight="700" fill="#101b2d">Mente abierta</text>
+  <text x="565" y="319" font-family="Arial, sans-serif" font-size="21" fill="#101b2d">Prestigio por responder con respeto</text>
+  <rect x="60" y="388" width="520" height="150" rx="8" fill="#d9e4dc"/>
+  <text x="90" y="428" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#275846">CAMBIO DETECTADO</text>
+  <text x="90" y="470" font-family="Georgia, serif" font-size="30" fill="#101b2d">Más humildad en el lenguaje</text>
+  <text x="90" y="507" font-family="Arial, sans-serif" font-size="21" fill="#101b2d">y emociones más positivas</text>
+  <rect x="620" y="388" width="520" height="150" rx="8" fill="#eadadd"/>
+  <text x="650" y="428" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#7d2432">CAMBIO NO DETECTADO</text>
+  <text x="650" y="470" font-family="Georgia, serif" font-size="28" fill="#101b2d">Polarización y posiciones</text>
+  <text x="650" y="507" font-family="Arial, sans-serif" font-size="21" fill="#101b2d">en autoinformes posteriores</text>
+  <line x1="60" y1="583" x2="1140" y2="583" stroke="#101b2d" stroke-width="2"/>
+  <text x="60" y="626" font-family="Arial, sans-serif" font-size="21" fill="#101b2d">1.043 participantes · 10 minutos · EE. UU. · plataforma simulada con agentes de IA</text>
+</svg>

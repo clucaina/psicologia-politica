@@ -1,0 +1,400 @@
+{
+  "version": "V15",
+  "generated_on": "2026-10-08",
+  "policy": "review_only_no_auto_fill",
+  "observations_with_any_missing": 327,
+  "missing_field_totals": {
+    "retrieved_at": 237,
+    "population": 327,
+    "measurement_type": 237
+  },
+  "review_tasks": 19,
+  "tasks": [
+    {
+      "batch": "T26_VULNERABILIDAD_SEGURIDAD_2025.json",
+      "indicator_id": "ecv_arope_pct",
+      "source_id": "INE",
+      "dataset_code": "ECV2025",
+      "source_url": "https://www.ine.es/dyngs/Prensa/es/ECV2025.htm",
+      "affected_rows": 20,
+      "missing_counts": {
+        "retrieved_at": 20,
+        "population": 20,
+        "measurement_type": 20
+      },
+      "example_natural_keys": [
+        "ecv_arope_pct|2025|ES|total",
+        "ecv_arope_pct|2025|ES61|total",
+        "ecv_arope_pct|2025|ES24|total"
+      ],
+      "review_instructions": "Consultar fuente primaria, documentar evidencia exacta y fecha REAL de consulta; no rellenar por heurística ni inferir población desde el título.",
+      "publish_gate": "PENDING_HUMAN_SOURCE_QA",
+      "priority_score": 120
+    },
+    {
+      "batch": "T26_VULNERABILIDAD_SEGURIDAD_2025.json",
+      "indicator_id": "ecv_baja_intensidad_empleo_pct",
+      "source_id": "INE",
+      "dataset_code": "ECV2025",
+      "source_url": "https://www.ine.es/dyngs/Prensa/es/ECV2025.htm",
+      "affected_rows": 20,
+      "missing_counts": {
+        "retrieved_at": 20,
+        "population": 20,
+        "measurement_type": 20
+      },
+      "example_natural_keys": [
+        "ecv_baja_intensidad_empleo_pct|2025|ES|total",
+        "ecv_baja_intensidad_empleo_pct|2025|ES61|total",
+        "ecv_baja_intensidad_empleo_pct|2025|ES24|total"
+      ],
+      "review_instructions": "Consultar fuente primaria, documentar evidencia exacta y fecha REAL de consulta; no rellenar por heurística ni inferir población desde el título.",
+      "publish_gate": "PENDING_HUMAN_SOURCE_QA",
+      "priority_score": 120
+    },
+    {
+      "batch": "T26_VULNERABILIDAD_SEGURIDAD_2025.json",
+      "indicator_id": "ecv_carencia_material_social_severa_pct",
+      "source_id": "INE",
+      "dataset_code": "ECV2025",
+      "source_url": "https://www.ine.es/dyngs/Prensa/es/ECV2025.htm",
+      "affected_rows": 20,
+      "missing_counts": {
+        "retrieved_at": 20,
+        "population": 20,
+        "measurement_type": 20
+      },
+      "example_natural_keys": [
+        "ecv_carencia_material_social_severa_pct|2025|ES|total",
+        "ecv_carencia_material_social_severa_pct|2025|ES61|total",
+        "ecv_carencia_material_social_severa_pct|2025|ES24|total"
+      ],
+      "review_instructions": "Consultar fuente primaria, documentar evidencia exacta y fecha REAL de consulta; no rellenar por heurística ni inferir población desde el título.",
+      "publish_gate": "PENDING_HUMAN_SOURCE_QA",
+      "priority_score": 120
+    },
+    {
+      "batch": "T26_VULNERABILIDAD_SEGURIDAD_2025.json",
+      "indicator_id": "ecv_riesgo_pobreza_pct",
+      "source_id": "INE",
+      "dataset_code": "ECV2025",
+      "source_url": "https://www.ine.es/dyngs/Prensa/es/ECV2025.htm",
+      "affected_rows": 20,
+      "missing_counts": {
+        "retrieved_at": 20,
+        "population": 20,
+        "measurement_type": 20
+      },
+      "example_natural_keys": [
+        "ecv_riesgo_pobreza_pct|2025|ES|total",
+        "ecv_riesgo_pobreza_pct|2025|ES61|total",
+        "ecv_riesgo_pobreza_pct|2025|ES24|total"
+      ],
+      "review_instructions": "Consultar fuente primaria, documentar evidencia exacta y fecha REAL de consulta; no rellenar por heurística ni inferir población desde el título.",
+      "publish_gate": "PENDING_HUMAN_SOURCE_QA",
+      "priority_score": 120
+    },
+    {
+      "batch": "T19_CCAA_BASELINE.json",
+      "indicator_id": "DEM_MEDIAN_AGE",
+      "source_id": "EUROSTAT_DEMO",
+      "dataset_code": "demo_r_pjanind2",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/demo_r_pjanind2?format=JSON&lang=EN",
+      "affected_rows": 19,
+      "missing_counts": {
+        "retrieved_at": 19,
+        "population": 19,
+        "measurement_type": 19
+      },
+      "example_natural_keys": [
+        "DEM_MEDIAN_AGE|2025|ES11|Total",
+        "DEM_MEDIAN_AGE|2025|ES12|Total",
+        "DEM_MEDIAN_AGE|2025|ES13|Total"
+      ],
+      "review_instructions": "Consultar fuente primaria, documentar evidencia exacta y fecha REAL de consulta; no rellenar por heurística ni inferir población desde el título.",
+      "publish_gate": "PENDING_HUMAN_SOURCE_QA",
+      "priority_score": 114
+    },
+    {
+      "batch": "T19_CCAA_BASELINE.json",
+      "indicator_id": "DEM_POP",
+      "source_id": "EUROSTAT_REG",
+      "dataset_code": "demo_r_d2jan",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/demo_r_d2jan?format=JSON&lang=EN",
+      "affected_rows": 19,
+      "missing_counts": {
+        "retrieved_at": 19,
+        "population": 19,
+        "measurement_type": 19
+      },
+      "example_natural_keys": [
+        "DEM_POP|2025|ES11|Total; fecha de referencia=1 de enero",
+        "DEM_POP|2025|ES12|Total; fecha de referencia=1 de enero",
+        "DEM_POP|2025|ES13|Total; fecha de referencia=1 de enero"
+      ],
+      "review_instructions": "Consultar fuente primaria, documentar evidencia exacta y fecha REAL de consulta; no rellenar por heurística ni inferir población desde el título.",
+      "publish_gate": "PENDING_HUMAN_SOURCE_QA",
+      "priority_score": 114
+    },
+    {
+      "batch": "T19_CCAA_BASELINE.json",
+      "indicator_id": "ESTAT_DISP_INC_PC_NUTS2",
+      "source_id": "EUROSTAT_REG",
+      "dataset_code": "nama_10r_2hhinc",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10r_2hhinc?format=JSON&lang=EN",
+      "affected_rows": 19,
+      "missing_counts": {
+        "retrieved_at": 19,
+        "population": 19,
+        "measurement_type": 19
+      },
+      "example_natural_keys": [
+        "ESTAT_DISP_INC_PC_NUTS2|2023|ES11|Hogares; direct=BAL; na_item=B6N",
+        "ESTAT_DISP_INC_PC_NUTS2|2023|ES12|Hogares; direct=BAL; na_item=B6N",
+        "ESTAT_DISP_INC_PC_NUTS2|2023|ES13|Hogares; direct=BAL; na_item=B6N"
+      ],
+      "review_instructions": "Consultar fuente primaria, documentar evidencia exacta y fecha REAL de consulta; no rellenar por heurística ni inferir población desde el título.",
+      "publish_gate": "PENDING_HUMAN_SOURCE_QA",
+      "priority_score": 114
+    },
+    {
+      "batch": "T19_CCAA_BASELINE.json",
+      "indicator_id": "ESTAT_EMP_RATE_NUTS2",
+      "source_id": "EUROSTAT_REG",
+      "dataset_code": "lfst_r_lfe2emprt",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/lfst_r_lfe2emprt?format=JSON&lang=EN",
+      "affected_rows": 19,
+      "missing_counts": {
+        "retrieved_at": 19,
+        "population": 19,
+        "measurement_type": 19
+      },
+      "example_natural_keys": [
+        "ESTAT_EMP_RATE_NUTS2|2025|ES11|Edad=15-64; Sexo=Total",
+        "ESTAT_EMP_RATE_NUTS2|2025|ES12|Edad=15-64; Sexo=Total",
+        "ESTAT_EMP_RATE_NUTS2|2025|ES13|Edad=15-64; Sexo=Total"
+      ],
+      "review_instructions": "Consultar fuente primaria, documentar evidencia exacta y fecha REAL de consulta; no rellenar por heurística ni inferir población desde el título.",
+      "publish_gate": "PENDING_HUMAN_SOURCE_QA",
+      "priority_score": 114
+    },
+    {
+      "batch": "T19_CCAA_BASELINE.json",
+      "indicator_id": "ESTAT_GDP_PC_NUTS2",
+      "source_id": "EUROSTAT_REG",
+      "dataset_code": "nama_10r_2gdp",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10r_2gdp?format=JSON&lang=EN",
+      "affected_rows": 19,
+      "missing_counts": {
+        "retrieved_at": 19,
+        "population": 19,
+        "measurement_type": 19
+      },
+      "example_natural_keys": [
+        "ESTAT_GDP_PC_NUTS2|2024|ES11|Total",
+        "ESTAT_GDP_PC_NUTS2|2024|ES12|Total",
+        "ESTAT_GDP_PC_NUTS2|2024|ES13|Total"
+      ],
+      "review_instructions": "Consultar fuente primaria, documentar evidencia exacta y fecha REAL de consulta; no rellenar por heurística ni inferir población desde el título.",
+      "publish_gate": "PENDING_HUMAN_SOURCE_QA",
+      "priority_score": 114
+    },
+    {
+      "batch": "T19_CCAA_BASELINE.json",
+      "indicator_id": "ESTAT_LIFEEXP_BIRTH_NUTS2",
+      "source_id": "EUROSTAT_REG",
+      "dataset_code": "demo_r_mlifexp",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/demo_r_mlifexp?format=JSON&lang=EN",
+      "affected_rows": 19,
+      "missing_counts": {
+        "retrieved_at": 19,
+        "population": 19,
+        "measurement_type": 19
+      },
+      "example_natural_keys": [
+        "ESTAT_LIFEEXP_BIRTH_NUTS2|2024|ES11|Sexo=Total; Edad=al nacer",
+        "ESTAT_LIFEEXP_BIRTH_NUTS2|2024|ES12|Sexo=Total; Edad=al nacer",
+        "ESTAT_LIFEEXP_BIRTH_NUTS2|2024|ES13|Sexo=Total; Edad=al nacer"
+      ],
+      "review_instructions": "Consultar fuente primaria, documentar evidencia exacta y fecha REAL de consulta; no rellenar por heurística ni inferir población desde el título.",
+      "publish_gate": "PENDING_HUMAN_SOURCE_QA",
+      "priority_score": 114
+    },
+    {
+      "batch": "T19_CCAA_BASELINE.json",
+      "indicator_id": "ESTAT_UNEMP_RATE",
+      "source_id": "EUROSTAT_REG",
+      "dataset_code": "lfst_r_lfu3rt",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/lfst_r_lfu3rt?format=JSON&lang=EN",
+      "affected_rows": 19,
+      "missing_counts": {
+        "retrieved_at": 19,
+        "population": 19,
+        "measurement_type": 19
+      },
+      "example_natural_keys": [
+        "ESTAT_UNEMP_RATE|2025|ES11|Edad=15-74; Sexo=Total; Educación=Total",
+        "ESTAT_UNEMP_RATE|2025|ES12|Edad=15-74; Sexo=Total; Educación=Total",
+        "ESTAT_UNEMP_RATE|2025|ES13|Edad=15-74; Sexo=Total; Educación=Total"
+      ],
+      "review_instructions": "Consultar fuente primaria, documentar evidencia exacta y fecha REAL de consulta; no rellenar por heurística ni inferir población desde el título.",
+      "publish_gate": "PENDING_HUMAN_SOURCE_QA",
+      "priority_score": 114
+    },
+    {
+      "batch": "T19_CCAA_BASELINE.json",
+      "indicator_id": "POV_AROPE",
+      "source_id": "EUROSTAT_REG",
+      "dataset_code": "ilc_peps11n",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/ilc_peps11n?format=JSON&lang=EN",
+      "affected_rows": 19,
+      "missing_counts": {
+        "retrieved_at": 19,
+        "population": 19,
+        "measurement_type": 19
+      },
+      "example_natural_keys": [
+        "POV_AROPE|2025|ES11|Total",
+        "POV_AROPE|2025|ES12|Total",
+        "POV_AROPE|2025|ES13|Total"
+      ],
+      "review_instructions": "Consultar fuente primaria, documentar evidencia exacta y fecha REAL de consulta; no rellenar por heurística ni inferir población desde el título.",
+      "publish_gate": "PENDING_HUMAN_SOURCE_QA",
+      "priority_score": 114
+    },
+    {
+      "batch": "T27_SALARIOS_CCAA_2024.json",
+      "indicator_id": "EAES_SALARIO_ANUAL_BRUTO",
+      "source_id": "INE",
+      "dataset_code": "EAES2024",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "affected_rows": 54,
+      "missing_counts": {
+        "population": 54
+      },
+      "example_natural_keys": [
+        "EAES_SALARIO_ANUAL_BRUTO|2024|ES|Ambos sexos",
+        "EAES_SALARIO_ANUAL_BRUTO|2024|ES|Mujeres",
+        "EAES_SALARIO_ANUAL_BRUTO|2024|ES|Hombres"
+      ],
+      "review_instructions": "Consultar fuente primaria, documentar evidencia exacta y fecha REAL de consulta; no rellenar por heurística ni inferir población desde el título.",
+      "publish_gate": "PENDING_HUMAN_SOURCE_QA",
+      "priority_score": 54
+    },
+    {
+      "batch": "T28_DERIVADOS_SALARIOS_2024.json",
+      "indicator_id": "EAES2024_DIFF_MEDIA_NACIONAL_PCT",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "affected_rows": 18,
+      "missing_counts": {
+        "population": 18
+      },
+      "example_natural_keys": [
+        "EAES2024_DIFF_MEDIA_NACIONAL_PCT|2024|ES|Ambos sexos",
+        "EAES2024_DIFF_MEDIA_NACIONAL_PCT|2024|ES11|Ambos sexos",
+        "EAES2024_DIFF_MEDIA_NACIONAL_PCT|2024|ES12|Ambos sexos"
+      ],
+      "review_instructions": "Consultar fuente primaria, documentar evidencia exacta y fecha REAL de consulta; no rellenar por heurística ni inferir población desde el título.",
+      "publish_gate": "PENDING_HUMAN_SOURCE_QA",
+      "priority_score": 18
+    },
+    {
+      "batch": "T28_DERIVADOS_SALARIOS_2024.json",
+      "indicator_id": "EAES2024_GAP_MEDIA_ANUAL_PCT",
+      "source_id": "NPL_DERIVED_INE",
+      "dataset_code": "EAES2024_NPL_DERIVED",
+      "source_url": "https://www.ine.es/dyngs/Prensa/en/EAES2024.pdf",
+      "affected_rows": 18,
+      "missing_counts": {
+        "population": 18
+      },
+      "example_natural_keys": [
+        "EAES2024_GAP_MEDIA_ANUAL_PCT|2024|ES|Hombres vs Mujeres",
+        "EAES2024_GAP_MEDIA_ANUAL_PCT|2024|ES11|Hombres vs Mujeres",
+        "EAES2024_GAP_MEDIA_ANUAL_PCT|2024|ES12|Hombres vs Mujeres"
+      ],
+      "review_instructions": "Consultar fuente primaria, documentar evidencia exacta y fecha REAL de consulta; no rellenar por heurística ni inferir población desde el título.",
+      "publish_gate": "PENDING_HUMAN_SOURCE_QA",
+      "priority_score": 18
+    },
+    {
+      "batch": "T26_VULNERABILIDAD_SEGURIDAD_2025.json",
+      "indicator_id": "interior_ciberdelitos_registrados",
+      "source_id": "MIR",
+      "dataset_code": "CIBERCRIMINALIDAD",
+      "source_url": "https://www.interior.gob.es/opencms/ca/detalle/articulo/Los-ciberdelitos-representaron-en-2025-casi-el-20-por-ciento-de-la-criminalidad-total-en-Espana/",
+      "affected_rows": 2,
+      "missing_counts": {
+        "retrieved_at": 2,
+        "population": 2,
+        "measurement_type": 2
+      },
+      "example_natural_keys": [
+        "interior_ciberdelitos_registrados|2024|ES|total",
+        "interior_ciberdelitos_registrados|2025|ES|total"
+      ],
+      "review_instructions": "Consultar fuente primaria, documentar evidencia exacta y fecha REAL de consulta; no rellenar por heurística ni inferir población desde el título.",
+      "publish_gate": "PENDING_HUMAN_SOURCE_QA",
+      "priority_score": 12
+    },
+    {
+      "batch": "T26_VULNERABILIDAD_SEGURIDAD_2025.json",
+      "indicator_id": "interior_ciberdelitos_pct_criminalidad",
+      "source_id": "MIR",
+      "dataset_code": "CIBERCRIMINALIDAD",
+      "source_url": "https://www.interior.gob.es/opencms/ca/detalle/articulo/Los-ciberdelitos-representaron-en-2025-casi-el-20-por-ciento-de-la-criminalidad-total-en-Espana/",
+      "affected_rows": 1,
+      "missing_counts": {
+        "retrieved_at": 1,
+        "population": 1,
+        "measurement_type": 1
+      },
+      "example_natural_keys": [
+        "interior_ciberdelitos_pct_criminalidad|2025|ES|total"
+      ],
+      "review_instructions": "Consultar fuente primaria, documentar evidencia exacta y fecha REAL de consulta; no rellenar por heurística ni inferir población desde el título.",
+      "publish_gate": "PENDING_HUMAN_SOURCE_QA",
+      "priority_score": 6
+    },
+    {
+      "batch": "T26_VULNERABILIDAD_SEGURIDAD_2025.json",
+      "indicator_id": "interior_odio_hechos_registrados",
+      "source_id": "MIR",
+      "dataset_code": "ODIO2025",
+      "source_url": "https://www.interior.gob.es/opencms/gl/detalle/articulo/Los-delitos-e-incidentes-de-odio-aumentaron-un-236-por-ciento-en-2025-y-registraron-la-mayor-cifra-de-la-serie-historica/",
+      "affected_rows": 1,
+      "missing_counts": {
+        "retrieved_at": 1,
+        "population": 1,
+        "measurement_type": 1
+      },
+      "example_natural_keys": [
+        "interior_odio_hechos_registrados|2025|ES|total"
+      ],
+      "review_instructions": "Consultar fuente primaria, documentar evidencia exacta y fecha REAL de consulta; no rellenar por heurística ni inferir población desde el título.",
+      "publish_gate": "PENDING_HUMAN_SOURCE_QA",
+      "priority_score": 6
+    },
+    {
+      "batch": "T26_VULNERABILIDAD_SEGURIDAD_2025.json",
+      "indicator_id": "interior_trata_explotacion_victimas_liberadas",
+      "source_id": "MIR",
+      "dataset_code": "TRATA2025",
+      "source_url": "https://www.interior.gob.es/opencms/es/detalle/articulo/Las-Fuerzas-y-Cuerpos-de-Seguridad-del-Estado-liberaron-a-1.869-victimas-de-trata-y-explotacion-en-2025-un-4-por-ciento-mas-que-en-2024/",
+      "affected_rows": 1,
+      "missing_counts": {
+        "retrieved_at": 1,
+        "population": 1,
+        "measurement_type": 1
+      },
+      "example_natural_keys": [
+        "interior_trata_explotacion_victimas_liberadas|2025|ES|total"
+      ],
+      "review_instructions": "Consultar fuente primaria, documentar evidencia exacta y fecha REAL de consulta; no rellenar por heurística ni inferir población desde el título.",
+      "publish_gate": "PENDING_HUMAN_SOURCE_QA",
+      "priority_score": 6
+    }
+  ]
+}

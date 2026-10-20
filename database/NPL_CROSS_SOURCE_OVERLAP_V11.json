@@ -1,0 +1,41 @@
+{
+  "version": "V11",
+  "status": "candidate_semantic_overlap_requires_human_methodology_review",
+  "concept": "AROPE 2025, CCAA",
+  "indicator_a": "POV_AROPE",
+  "indicator_b": "ecv_arope_pct",
+  "source_a": "EUROSTAT_REG ilc_peps11n",
+  "source_b": "INE ECV2025",
+  "overlap_territories": 19,
+  "equal_values": 19,
+  "unequal_values": 0,
+  "shared_geocodes": [
+    "ES11",
+    "ES12",
+    "ES13",
+    "ES21",
+    "ES22",
+    "ES23",
+    "ES24",
+    "ES30",
+    "ES41",
+    "ES42",
+    "ES43",
+    "ES51",
+    "ES52",
+    "ES53",
+    "ES61",
+    "ES62",
+    "ES63",
+    "ES64",
+    "ES70"
+  ],
+  "non_overlapping_b": [
+    "ES"
+  ],
+  "notes": [
+    "Numerical equality does not establish identical definition, revision, reference population or source lineage.",
+    "Do not automatically merge, double-count as independent evidence, or present as two independent AROPE phenomena.",
+    "Retain both source links and show a semantic equivalence warning until a human reviewer confirms harmonization."
+  ]
+}

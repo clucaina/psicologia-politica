@@ -1,0 +1,9 @@
+AUDITORIA_PREPRODUCCION_2026-10-08
+
+VERSION: V16 (incluye GA4 G-D7KPSFPMM5 + QA fixture de comparabilidad + hardening SQL).
+RAMA DESTINO: preproduccion/auditoria-2026-10-08.
+PROHIBIDO sustituir MySQL actual por SQL historico.
+ARTICULO PROTEGIDO: Decreto Mari Carmen, ver GitHub rama auditoria.
+NO DESPLEGAR: verificar previamente articulo editable en MySQL, GA4 actual, respaldo real y staging MariaDB.
+
+No contiene secretos de Hostinger, usuarios ni copias de la base de datos.

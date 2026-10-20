@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img">
+  <title>Confianza, evitación y uso de inteligencia artificial para noticias en 2026</title>
+  <desc>Tres preguntas distintas del Digital News Report 2026: 37 por ciento confía en las noticias, 42 por ciento las evita a veces o a menudo y 10 por ciento usa semanalmente chatbots para noticias.</desc>
+  <rect width="1200" height="675" fill="#f3ecdf"/>
+  <text x="60" y="72" font-family="Arial, sans-serif" font-size="23" font-weight="700" letter-spacing="2" fill="#7d2432">DIGITAL NEWS REPORT 2026 · 48 MERCADOS</text>
+  <text x="60" y="123" font-family="Georgia, serif" font-size="40" font-weight="700" fill="#101b2d">Una relación más frágil con las noticias</text>
+  <line x1="60" y1="153" x2="1140" y2="153" stroke="#101b2d" stroke-width="2"/>
+  <g transform="translate(60 205)">
+    <rect width="330" height="250" rx="8" fill="#101b2d"/>
+    <text x="28" y="48" font-family="Arial, sans-serif" font-size="20" fill="#e8dbc3">CONFÍA EN LAS NOTICIAS</text>
+    <text x="28" y="137" font-family="Georgia, serif" font-size="78" font-weight="700" fill="#fff9ee">37 %</text>
+    <text x="28" y="188" font-family="Arial, sans-serif" font-size="20" fill="#fff9ee">−3 puntos en un año</text>
+    <rect x="28" y="213" width="274" height="10" fill="#465064"/><rect x="28" y="213" width="101" height="10" fill="#c9a45c"/>
+  </g>
+  <g transform="translate(435 205)">
+    <rect width="330" height="250" rx="8" fill="#eadadd" stroke="#7d2432" stroke-width="2"/>
+    <text x="28" y="48" font-family="Arial, sans-serif" font-size="20" fill="#7d2432">EVITA LAS NOTICIAS</text>
+    <text x="28" y="137" font-family="Georgia, serif" font-size="78" font-weight="700" fill="#101b2d">42 %</text>
+    <text x="28" y="188" font-family="Arial, sans-serif" font-size="20" fill="#101b2d">a veces o a menudo</text>
+    <rect x="28" y="213" width="274" height="10" fill="#d3c5b5"/><rect x="28" y="213" width="115" height="10" fill="#7d2432"/>
+  </g>
+  <g transform="translate(810 205)">
+    <rect width="330" height="250" rx="8" fill="#d9e4dc" stroke="#275846" stroke-width="2"/>
+    <text x="28" y="48" font-family="Arial, sans-serif" font-size="20" fill="#275846">USA IA PARA NOTICIAS</text>
+    <text x="28" y="137" font-family="Georgia, serif" font-size="78" font-weight="700" fill="#101b2d">10 %</text>
+    <text x="28" y="188" font-family="Arial, sans-serif" font-size="20" fill="#101b2d">al menos cada semana</text>
+    <rect x="28" y="213" width="274" height="10" fill="#c4d2c8"/><rect x="28" y="213" width="27" height="10" fill="#275846"/>
+  </g>
+  <rect x="60" y="500" width="1080" height="92" rx="8" fill="#fff9ee" stroke="#101b2d" stroke-width="2"/>
+  <text x="88" y="538" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#101b2d">TRES PREGUNTAS DISTINTAS; NINGUNA EXPLICA POR SÍ SOLA LA OTRA</text>
+  <text x="88" y="571" font-family="Arial, sans-serif" font-size="19" fill="#626875">Encuesta online no probabilística · 97.520 respuestas · muestras y cobertura desiguales</text>
+  <text x="60" y="637" font-family="Arial, sans-serif" font-size="20" fill="#615b52">Fuente: Reuters Institute · promedios agregados entre mercados</text>
+</svg>

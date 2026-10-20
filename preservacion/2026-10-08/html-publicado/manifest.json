@@ -1,0 +1,62 @@
+{
+  "captured_utc": "2026-10-08T10:00:41.293486+00:00",
+  "purpose": "copia pública de consulta, no exportación de filas MySQL",
+  "pages": [
+    {
+      "slug": "blog",
+      "url": "https://psicologiapolitica.es/blog",
+      "path": "preservacion/2026-10-08/html-publicado/blog.html",
+      "bytes": 226986,
+      "sha256": "3d139b108a16ae3c707df0f4a571c46609909409324819b05c2adcc4448cd459"
+    },
+    {
+      "slug": "decreto-mari-carmen-0071e38b",
+      "url": "https://psicologiapolitica.es/blog/decreto-mari-carmen-0071e38b",
+      "path": "preservacion/2026-10-08/html-publicado/decreto-mari-carmen-0071e38b.html",
+      "bytes": 248724,
+      "sha256": "f5ea85a4a94bcaa467dd1d8b56a754dadc84f530cc55464e418e1f37dbd18745"
+    },
+    {
+      "slug": "defiende-lo-contrario-sin-renunciar-a-tu-criterio",
+      "url": "https://psicologiapolitica.es/blog/defiende-lo-contrario-sin-renunciar-a-tu-criterio",
+      "path": "preservacion/2026-10-08/html-publicado/defiende-lo-contrario-sin-renunciar-a-tu-criterio.html",
+      "bytes": 230285,
+      "sha256": "deef632ec54e7cfcbb73a84de7e779ebfd4cc26ee92695ff5b541fcfb806e4a1"
+    },
+    {
+      "slug": "analizar-un-discurso-sin-diagnosticar-a-su-autor",
+      "url": "https://psicologiapolitica.es/blog/analizar-un-discurso-sin-diagnosticar-a-su-autor",
+      "path": "preservacion/2026-10-08/html-publicado/analizar-un-discurso-sin-diagnosticar-a-su-autor.html",
+      "bytes": 230192,
+      "sha256": "f5350d0c01d710d7fbae1000a730111c519cc725880542083c590651296ea375"
+    },
+    {
+      "slug": "antes-de-compartir-un-mensaje-politico",
+      "url": "https://psicologiapolitica.es/blog/antes-de-compartir-un-mensaje-politico",
+      "path": "preservacion/2026-10-08/html-publicado/antes-de-compartir-un-mensaje-politico.html",
+      "bytes": 229912,
+      "sha256": "140648dd7ce974a7808791ff287c83ea7e8237c4c0f94712acf6f430af522270"
+    },
+    {
+      "slug": "una-politica-no-se-evalua-por-lo-bien-que-suena",
+      "url": "https://psicologiapolitica.es/blog/una-politica-no-se-evalua-por-lo-bien-que-suena",
+      "path": "preservacion/2026-10-08/html-publicado/una-politica-no-se-evalua-por-lo-bien-que-suena.html",
+      "bytes": 232815,
+      "sha256": "2284ca130fc3c2d67b3e14e31cc8a64a9249530894d5a1765b0a01204b56b681"
+    },
+    {
+      "slug": "la-obediencia-no-siempre-parece-obediencia",
+      "url": "https://psicologiapolitica.es/blog/la-obediencia-no-siempre-parece-obediencia",
+      "path": "preservacion/2026-10-08/html-publicado/la-obediencia-no-siempre-parece-obediencia.html",
+      "bytes": 228198,
+      "sha256": "e745f1fc897e6360ba38bbff061333bb34c76098ee24fabd003773e3c8e17128"
+    },
+    {
+      "slug": "los-silencios-tambien-se-heredan",
+      "url": "https://psicologiapolitica.es/blog/los-silencios-tambien-se-heredan",
+      "path": "preservacion/2026-10-08/html-publicado/los-silencios-tambien-se-heredan.html",
+      "bytes": 228111,
+      "sha256": "81869808de90a14284a1cda7b04c2482aebc1dae028d30e10bcaa55d6860a14b"
+    }
+  ]
+}

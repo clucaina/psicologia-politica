@@ -1,0 +1,928 @@
+{
+  "schema": "pp-programas-preguntas-candidatas/1",
+  "revision": "2026-10-12",
+  "scope": "Banco editorial original para futuras comparaciones de programas electorales, no es una matriz de posiciones de partidos ni un test validado.",
+  "notes": "Ninguna posición asignada; requiere actualización a programas de 2026, fuente concreta por celda y revisión de neutralidad. No inferir posiciones a partir de un voto.",
+  "questions": [
+    {
+      "id": "P001",
+      "topic": "vivienda",
+      "prompt": "¿Debería incrementarse la oferta de vivienda pública destinada al alquiler?",
+      "subtopic": "Oferta pública de alquiler",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P002",
+      "topic": "vivienda",
+      "prompt": "¿Deberían limitarse temporalmente los precios del alquiler en zonas declaradas tensionadas?",
+      "subtopic": "Intervención de precios",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P003",
+      "topic": "vivienda",
+      "prompt": "¿Debería acortarse el tiempo administrativo necesario para construir viviendas con las garantías urbanísticas vigentes?",
+      "subtopic": "Tramitación urbanística",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P004",
+      "topic": "vivienda",
+      "prompt": "¿Deberían reforzarse los incentivos fiscales para rehabilitar viviendas vacías destinadas a alquiler estable?",
+      "subtopic": "Rehabilitación",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P005",
+      "topic": "vivienda",
+      "prompt": "¿Deberían establecerse límites adicionales a la compra de vivienda por grandes tenedores?",
+      "subtopic": "Grandes tenedores",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P006",
+      "topic": "sanidad",
+      "prompt": "¿Debería aumentarse la financiación estructural de atención primaria?",
+      "subtopic": "Atención primaria",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P007",
+      "topic": "sanidad",
+      "prompt": "¿Deberían establecerse plazos máximos garantizados de espera para determinadas prestaciones sanitarias?",
+      "subtopic": "Listas de espera",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P008",
+      "topic": "sanidad",
+      "prompt": "¿Debería ampliarse la financiación pública de atención psicológica en el sistema sanitario?",
+      "subtopic": "Salud mental",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P009",
+      "topic": "sanidad",
+      "prompt": "¿Deberían publicarse datos comparables de demoras sanitarias desagregados por territorio?",
+      "subtopic": "Transparencia sanitaria",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P010",
+      "topic": "educacion",
+      "prompt": "¿Debería incrementarse la oferta pública de plazas de educación infantil de 0 a 3 años?",
+      "subtopic": "Infancia y conciliación",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P011",
+      "topic": "educacion",
+      "prompt": "¿Deberían revisarse los criterios de financiación de universidades públicas para reducir diferencias territoriales?",
+      "subtopic": "Universidad",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P012",
+      "topic": "educacion",
+      "prompt": "¿Debería reforzarse la formación profesional dual en colaboración con empresas?",
+      "subtopic": "Formación profesional",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P013",
+      "topic": "trabajo",
+      "prompt": "¿Debería reducirse la jornada laboral máxima ordinaria sin reducción proporcional del salario?",
+      "subtopic": "Jornada",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P014",
+      "topic": "trabajo",
+      "prompt": "¿Debería flexibilizarse la contratación temporal en sectores con actividad estacional?",
+      "subtopic": "Contratación",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P015",
+      "topic": "trabajo",
+      "prompt": "¿Debería vincularse parte de las ayudas empresariales a indicadores verificables de empleo de calidad?",
+      "subtopic": "Incentivos",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P016",
+      "topic": "economia",
+      "prompt": "¿Debería aumentar la progresividad de la tributación sobre rentas muy altas?",
+      "subtopic": "Tributación",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P017",
+      "topic": "economia",
+      "prompt": "¿Deberían reducirse cotizaciones para los salarios más bajos?",
+      "subtopic": "Cotizaciones",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P018",
+      "topic": "economia",
+      "prompt": "¿Deberían condicionarse nuevas deducciones fiscales a una evaluación pública de su efectividad?",
+      "subtopic": "Evaluación fiscal",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P019",
+      "topic": "pensiones",
+      "prompt": "¿Debería financiarse mediante impuestos una mayor proporción de prestaciones no contributivas?",
+      "subtopic": "Prestaciones",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P020",
+      "topic": "pensiones",
+      "prompt": "¿Debería mantenerse la revalorización general de pensiones vinculada al IPC?",
+      "subtopic": "Revalorización",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P021",
+      "topic": "migracion",
+      "prompt": "¿Deberían ampliarse programas de regularización vinculados a empleo y arraigo verificables?",
+      "subtopic": "Regularización",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P022",
+      "topic": "migracion",
+      "prompt": "¿Deberían agilizarse los procedimientos de protección internacional manteniendo revisión individual?",
+      "subtopic": "Asilo",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P023",
+      "topic": "migracion",
+      "prompt": "¿Debería incrementarse la financiación de recursos de acogida para menores no acompañados?",
+      "subtopic": "Protección de infancia",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P024",
+      "topic": "justicia",
+      "prompt": "¿Deberían ampliarse los servicios de asistencia jurídica gratuita para determinados colectivos?",
+      "subtopic": "Acceso a justicia",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P025",
+      "topic": "justicia",
+      "prompt": "¿Deberían publicarse indicadores anuales de tiempos procesales desagregados por jurisdicción?",
+      "subtopic": "Eficiencia judicial",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P026",
+      "topic": "justicia",
+      "prompt": "¿Debería exigirse una evaluación independiente del impacto de reformas penales antes de nuevas ampliaciones?",
+      "subtopic": "Reformas penales",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P027",
+      "topic": "democracia",
+      "prompt": "¿Deberían publicarse de forma reutilizable todas las votaciones nominales del Congreso y parlamentos autonómicos?",
+      "subtopic": "Votaciones abiertas",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P028",
+      "topic": "democracia",
+      "prompt": "¿Deberían reforzarse obligaciones de transparencia sobre reuniones de representantes públicos con grupos de interés?",
+      "subtopic": "Lobbies",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P029",
+      "topic": "democracia",
+      "prompt": "¿Deberían limitarse legalmente los mandatos consecutivos de determinados cargos ejecutivos?",
+      "subtopic": "Mandatos",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P030",
+      "topic": "territorio",
+      "prompt": "¿Deberían ampliarse las competencias fiscales de las comunidades autónomas?",
+      "subtopic": "Autonomía fiscal",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P031",
+      "topic": "territorio",
+      "prompt": "¿Debería armonizarse la cartera esencial de servicios públicos para reducir desigualdades territoriales?",
+      "subtopic": "Cohesión",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P032",
+      "topic": "clima",
+      "prompt": "¿Deberían acelerarse autorizaciones de renovables manteniendo evaluaciones ambientales?",
+      "subtopic": "Renovables",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P033",
+      "topic": "clima",
+      "prompt": "¿Deberían aumentar los incentivos para mejorar la eficiencia energética de edificios?",
+      "subtopic": "Eficiencia",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P034",
+      "topic": "tecnologia",
+      "prompt": "¿Debería obligarse a identificar claramente los contenidos políticos sintéticos generados con IA?",
+      "subtopic": "Transparencia IA",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P035",
+      "topic": "tecnologia",
+      "prompt": "¿Deberían limitarse los perfiles publicitarios elaborados a partir de características políticas inferidas?",
+      "subtopic": "Privacidad",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P036",
+      "topic": "tecnologia",
+      "prompt": "¿Debería exigirse auditoría externa de algoritmos públicos que afecten a derechos o prestaciones?",
+      "subtopic": "Auditoría algorítmica",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P037",
+      "topic": "infancia",
+      "prompt": "¿Debería ampliarse el apoyo público a programas de prevención de violencia contra la infancia basados en evidencia?",
+      "subtopic": "Prevención",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P038",
+      "topic": "infancia",
+      "prompt": "¿Deberían reforzarse garantías de evaluación individual en decisiones de protección de menores?",
+      "subtopic": "Garantías",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P039",
+      "topic": "exterior",
+      "prompt": "¿Debería condicionarse la exportación de material militar a verificaciones adicionales del riesgo de violaciones de derechos humanos?",
+      "subtopic": "Comercio de armas",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    },
+    {
+      "id": "P040",
+      "topic": "exterior",
+      "prompt": "¿Deberían ampliarse programas de cooperación internacional que rindan cuentas sobre resultados medibles?",
+      "subtopic": "Cooperación",
+      "response_scale": [
+        "muy en desacuerdo",
+        "en desacuerdo",
+        "indiferente/no sabe",
+        "de acuerdo",
+        "muy de acuerdo"
+      ],
+      "parties_scored": false,
+      "position_source": null,
+      "validation_status": "NO_ASIGNAR_PARTIDOS_SIN_FUENTE",
+      "required_evidence": [
+        "documento original del partido o acto público verificable",
+        "fecha de publicación y vigencia",
+        "URL, sección y pasaje",
+        "distinción entre propuesta, voto y declaración",
+        "segundo revisor si es inferencia"
+      ]
+    }
+  ]
+}

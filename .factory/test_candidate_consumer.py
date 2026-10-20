@@ -41,6 +41,14 @@ class IndependentReviewTests(unittest.TestCase):
         changed["source_blob_sha"]="c"*40
         third=review({"schema":"neurohuerto.candidate_ledger.v1","candidates":[changed]},first,self.fetch)
         self.assertEqual(third["newly_reviewed"],1)
+    def test_non_statistical_json_is_rejected_without_a_redundant_second_scan(self):
+        bad={**proposal(),"candidate_kind":"DOCUMENT_ONLY",
+             "independent_statistical_review_allowed":False}
+        u={"schema":"neurohuerto.candidate_ledger.v1","candidates":[bad]}
+        self.assertEqual(verify_contract(bad,self.fetch)["status"],"BLOCK_NON_STATISTICAL_DOCUMENT")
+        result=review(u,{},self.fetch)
+        self.assertEqual(result["newly_reviewed"],0)
+        self.assertEqual(result["reviews"],[])
     def test_bad_payload_blocks_instead_of_auto_fixing_values(self):
         def f(url):return {"batch_id":"T43_HOUSING_TEST","observations":[dict(row("ES"),value=True)]},"b"*64
         self.assertEqual(verify_contract(proposal(),f)["status"],"NEEDS_STRUCTURAL_REPAIR")

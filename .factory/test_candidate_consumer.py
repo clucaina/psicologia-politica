@@ -28,6 +28,26 @@ class IndependentReviewTests(unittest.TestCase):
         self.assertEqual(verify_contract({**c,"source_path":"database/../users.json"},self.fetch)["status"],"BLOCK_BAD_ID_OR_PATH")
         self.assertEqual(verify_contract({**c,"release_gate":"AUTO_DEPLOY"},self.fetch)["status"],"BLOCK_UNTRUSTED_PUBLICATION_OR_PRIVACY")
         self.assertEqual(verify_contract({**c,"source_repository":"private/org"},self.fetch)["status"],"BLOCK_UNTRUSTED_REPOSITORY")
+    def test_missing_or_blank_indicator_is_structural_error(self):
+        for invalid in (None, "", "   ", 42, True):
+            with self.subTest(invalid=invalid):
+                broken = row("ES")
+                if invalid is None:
+                    del broken["indicator_id"]
+                else:
+                    broken["indicator_id"] = invalid
+                def f(url, broken=broken):
+                    return {"batch_id": "T43_HOUSING_TEST", "observations": [broken]}, "b" * 64
+                result = verify_contract(proposal(), f)
+                self.assertEqual(result["status"], "NEEDS_STRUCTURAL_REPAIR")
+                self.assertIn("missing_indicator_id", result["structural_flags"])
+                self.assertEqual(result["indicators"], 0)
+
+    def test_named_indicator_does_not_trigger_false_alarm(self):
+        result = verify_contract(proposal(), self.fetch)
+        self.assertEqual(result["status"], "NEEDS_SOURCE_AND_LICENSE_REVIEW")
+        self.assertEqual(result["indicators"], 1)
+
     def test_queue_is_idempotent_and_preserves_prior_reviews(self):
         c=proposal()
         u={"schema":"neurohuerto.candidate_ledger.v1","candidates":[c]}

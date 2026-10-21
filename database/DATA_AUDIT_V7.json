@@ -1,0 +1,67 @@
+{
+  "audit_date": "2026-10-07",
+  "scope": "Prepared local JSON batches only; NOT production database",
+  "total_prepared_observations": 291,
+  "batch_reports": [
+    {
+      "batch_id": "T19",
+      "observations": 152,
+      "indicators_referenced": 8,
+      "new_indicators": 4,
+      "sources": [
+        "EUROSTAT_DEMO",
+        "EUROSTAT_REG"
+      ],
+      "geographies": 19,
+      "periods": [
+        "2023",
+        "2024",
+        "2025"
+      ],
+      "missing_retrieved_at": 152,
+      "duplicate_natural_keys": 0,
+      "existing_indicator_dependencies": [
+        "DEM_MEDIAN_AGE",
+        "DEM_POP",
+        "ESTAT_UNEMP_RATE",
+        "POV_AROPE"
+      ]
+    },
+    {
+      "batch_id": "T26_VULNERABILIDAD_SEGURIDAD_2025",
+      "observations": 85,
+      "indicators_referenced": 8,
+      "new_indicators": 8,
+      "sources": [
+        "INE",
+        "MIR"
+      ],
+      "geographies": 20,
+      "periods": [
+        "2024",
+        "2025"
+      ],
+      "missing_retrieved_at": 85,
+      "duplicate_natural_keys": 0,
+      "existing_indicator_dependencies": []
+    },
+    {
+      "batch_id": "T27_SALARIOS_CCAA_2024",
+      "observations": 54,
+      "indicators_referenced": 1,
+      "new_indicators": 1,
+      "sources": [
+        "INE"
+      ],
+      "geographies": 18,
+      "periods": [
+        "2024"
+      ],
+      "missing_retrieved_at": 0,
+      "duplicate_natural_keys": 0,
+      "existing_indicator_dependencies": []
+    }
+  ],
+  "live_database_verified": false,
+  "warning": "The 50,031/318/41 historical checkpoint remains unverified against Hostinger MySQL. No staged row is automatically published."
+}

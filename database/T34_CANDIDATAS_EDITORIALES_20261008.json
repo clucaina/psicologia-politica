@@ -1,0 +1,62 @@
+{
+  "batch_id": "T34_EDITORIAL_20261008",
+  "created_at": "2026-10-08",
+  "publication_policy": "human_approval_required",
+  "status": "review_only",
+  "items": [
+    {
+      "id": "t34-reducir-polarizacion-no-basta-para-frenar-bulos",
+      "title": "Reducir la hostilidad partidista no bastó para mejorar la discriminación de noticias falsas",
+      "slug_proposal": "experimento-polarizacion-discernimiento-bulos-2026",
+      "published_study": "2026-01-11",
+      "source_type": "peer_reviewed_primary_experiment",
+      "source_title": "Reducing affective polarization does not affect false news sharing or truth discernment",
+      "source_url": "https://journals.sagepub.com/doi/10.1177/20531680251413944",
+      "doi": "10.1177/20531680251413944",
+      "what_happened": "Un experimento que manipuló la polarización afectiva y la atención a la exactitud no detectó que reducir la primera cambiara la intención de compartir noticias falsas. Un recordatorio de precisión mostró indicios de mejorar el discernimiento.",
+      "evidence": "Estudio experimental 2×2 con titulares verdaderos y falsos vinculados a las elecciones estadounidenses de 2020; medición de intenciones de compartir y de discernimiento.",
+      "methodology": "Manipulación experimental de actitudes hacia partidarios rivales y saliencia de exactitud. Comparación de condiciones en una tarea hipotética de difusión de titulares.",
+      "limits": "Muestra no representativa de Estados Unidos, intención hipotética y estímulos de 2020; ausencia de efecto detectable no prueba efecto exactamente nulo ni generaliza a conducta real.",
+      "importance": "Separa tres constructos que suelen confundirse en el debate público: polarización afectiva, discernimiento de veracidad y decisión de compartir.",
+      "original_image_brief": "Imagen editorial original: dos flujos de titulares abstractos, uno etiquetado con un símbolo de lupa de precisión y otro con iconos de diálogo partidista; sin logos, rostros ni textos de artículos.",
+      "image_alt": "Comparación conceptual entre revisar la exactitud de un titular y las actitudes hacia grupos políticos rivales.",
+      "status": "review_only"
+    },
+    {
+      "id": "t34-reflexion-cognitiva-noticias-duras-blandas",
+      "title": "La reflexión cognitiva no protege igual ante todos los tipos de desinformación política",
+      "slug_proposal": "reflexion-cognitiva-desinformacion-politica-noticias-2026",
+      "published_study": "2026-02-02",
+      "source_type": "peer_reviewed_integrative_analysis_experiments",
+      "source_title": "Rethinking the link between cognitive reflection and susceptibility to political misinformation: Distinguishing hard from soft news",
+      "source_url": "https://onlinelibrary.wiley.com/doi/10.1111/pops.70109",
+      "doi": "10.1111/pops.70109",
+      "what_happened": "Un análisis integrador de 18 estudios y dos experimentos distingue noticias políticas sobre políticas públicas de contenidos más blandos: la reflexión cognitiva se relacionó con mayor sesgo partidista en noticias duras.",
+      "evidence": "Análisis integrador de 18 estudios (N=41.289) y dos experimentos (N=666) en Estados Unidos y Grecia, según el resumen de la revista.",
+      "methodology": "Combinación de conjuntos de datos previos, valoración independiente de la distinción hard/soft y experimentos con exposición a tipos de noticias.",
+      "limits": "Los resultados sobre discernimiento no fueron uniformes entre análisis integrador y experimentos. No equivale a que razonar más produzca necesariamente desinformación.",
+      "importance": "Informa el diseño del Analizador V2: detectar estilo de razonamiento no debe transformarse en un marcador de veracidad o de ideología.",
+      "original_image_brief": "Ilustración original de dos documentos abstractos, uno de política pública y otro de noticia general, atravesados por una lupa y un diagrama de decisiones; sin marcas ni personas.",
+      "image_alt": "Dos clases de noticias sometidas a un proceso de reflexión y evaluación crítica.",
+      "status": "review_only"
+    },
+    {
+      "id": "t34-ia-deliberacion-agencia-epistemica",
+      "title": "La IA y los algoritmos de interacción abren un debate sobre la autonomía para deliberar",
+      "slug_proposal": "ia-algoritmos-deliberacion-agencia-epistemica-2026",
+      "published_study": "2026-09-22",
+      "source_type": "peer_reviewed_philosophical_argument",
+      "source_title": "Does AI undermine democratic deliberation? How engagement algorithms hijack epistemic agency",
+      "source_url": "https://link.springer.com/article/10.1007/s11229-026-05820-6",
+      "doi": "10.1007/s11229-026-05820-6",
+      "what_happened": "Un artículo de filosofía de la ciencia sostiene que los sistemas de recomendación orientados a la interacción pueden influir en las capacidades con las que las personas evalúan creencias y participan en deliberación democrática.",
+      "evidence": "Argumento teórico revisado por pares publicado en Synthese el 22 de septiembre de 2026. No se presenta como experimento ni como estimación cuantitativa del efecto.",
+      "methodology": "Análisis conceptual sobre agencia epistémica, deliberación y algoritmos de interacción, contrastando la tesis con la explicación simple de burbujas de filtro.",
+      "limits": "Una argumentación filosófica no mide prevalencia ni prueba por sí sola efectos causales de una plataforma determinada; exige contrastación empírica independiente.",
+      "importance": "Permite introducir una sección de psicología política sobre autonomía cognitiva sin convertir un marco teórico en evidencia experimental.",
+      "original_image_brief": "Ilustración editorial original de una mesa deliberativa circular y flujos algorítmicos abstractos que se interponen entre fuentes y participantes, sin interfaces de plataformas ni logotipos.",
+      "image_alt": "Personas esquemáticas deliberando alrededor de una mesa con flujos algorítmicos de información.",
+      "status": "review_only"
+    }
+  ]
+}

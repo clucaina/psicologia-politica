@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-08",
+  "scope": "Read-only extraction of public site; not an authenticated browser test",
+  "production_modified": false,
+  "observed": [
+    {"route": "/", "seo_title": "Entender la política desde la conducta humana.", "generic_news_in_extracted_html": true},
+    {"route": "/conflictometro", "seo_title": "Conflictómetro", "generic_news_in_extracted_html": true, "description_generic": true},
+    {"route": "/herramientas/datos-espana", "seo_title": "Datos de España", "generic_news_in_extracted_html": true, "description_generic": true},
+    {"route": "/herramientas/analizar-texto", "seo_title": "Analizar un texto", "generic_news_in_extracted_html": true, "description_generic": true},
+    {"route": "/herramientas", "seo_title": "Herramientas", "generic_news_in_extracted_html": true, "description_generic": true},
+    {"route": "/contacto", "seo_title": "Contacto", "generic_news_in_extracted_html": true, "description_generic": true},
+    {"route": "/noticias", "seo_title": "Noticias", "generic_news_in_extracted_html": true, "note": "News excerpts are appropriate for a news index, not evidence of a bug alone"},
+    {"route": "/blog", "seo_title": "Blog", "generic_news_in_extracted_html": false},
+    {"route": "/actividades", "seo_title": "Actividades", "generic_news_in_extracted_html": false},
+    {"route": "/quienes-somos", "seo_title": "Quiénes somos", "generic_news_in_extracted_html": false, "team_names_present": 5},
+    {"route": "/acceso", "seo_title": "Acceso seguro", "robots": "noindex,nofollow"},
+    {"route": "/blog/decreto-mari-carmen-0071e38b", "seo_title": "Decreto Mari Carmen", "escaped_markdown_exposed": true}
+  ],
+  "conclusions": [
+    "Tool/contact HTML extracted from production remains generic; local SSR corrections are not deployed",
+    "The public blog article still exposes escaped Markdown in the extracted content",
+    "This read-only audit does not prove that client-side interactions are broken",
+    "Do not deploy V12 without isolated staging and authenticated functional QA"
+  ]
+}

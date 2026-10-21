@@ -1,0 +1,69 @@
+name: PP V76 historical-baseline delta audit (NO DEPLOY)
+on:
+  push:
+    branches:
+      - 'integracion/**'
+      - 'preproduccion/**'
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  safety:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, pdo_mysql
+          coverage: none
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate entrypoint and protected runtime
+        run: python3 scripts/predeploy_guard_v70.py --root . --target isolated-staging
+      - name: Guard regressions
+        run: |
+          python3 tests/qa_predeploy_guard_v70.py
+          python3 tests/qa_public_readonly_v70.py
+          python3 tests/qa_v73_npl_semantics.py
+          php tests/qa_v73_author_markdown.php
+          node tests/qa_v73_correlation_integrity.mjs
+          php tests/qa_v74_public_privacy.php
+          php tests/qa_v72_author_identity.php
+          php tests/qa_v71_markdown.php
+          node tests/qa_v72_correlation_parity.mjs
+          python3 tests/qa_v72_npl_temporal.py
+          python3 tests/qa_v72_editorial_dedup.py
+          python3 scripts/qa_v74_cartography.py
+          python3 tests/qa_v74_cartography_mutations.py
+          node tests/qa_v74_csv_semantics.mjs
+          php tests/qa_v75_public_author_query.php
+          php tests/qa_v75_map_entry.php
+          php tests/qa_v75_ssr_routes.php
+          node tests/qa_v75_sensitivity.mjs
+      - name: Syntax checks
+        run: |
+          set -euo pipefail
+          find . -name '*.php' -type f -print0 | while IFS= read -r -d '' f; do php -l "$f" >/dev/null; done
+          find assets -name '*.js' -type f -print0 | while IFS= read -r -d '' f; do node --check "$f" >/dev/null; done
+          python3 - <<'PY'
+          import json,pathlib
+          for p in pathlib.Path('.').rglob('*.json'): json.loads(p.read_text(encoding='utf-8'))
+          print('PASS: syntax')
+          PY
+      - name: Verify 130 unchanged V75 hashes and three enumerated V76 deltas
+        run: python3 scripts/qa_v76_delta_manifest.py
+      - name: Recheck staging guard rejects production and unsafe manifests
+        run: python3 tests/qa_predeploy_guard_v70.py
+      - name: Build auditable SHA256 inventory (read-only, no deploy)
+        run: python3 scripts/qa_v75_git_tree.py --output build/qa_v75_git_inventory.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pp-v76-historical-inventory-not-release
+          path: build/qa_v75_git_inventory.json
+          if-no-files-found: error
+          retention-days: 7
+      - name: Explicit NO-GO for production
+        run: echo 'This workflow NEVER publishes to Hostinger or updates MariaDB.'

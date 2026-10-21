@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "publication_policy": "ingest_to_review_queue_only",
+  "feeds": [
+    {
+      "id": "eu_commission_press_en",
+      "name": "Comisión Europea · Press Corner",
+      "publisher": "European Commission",
+      "url": "https://ec.europa.eu/commission/presscorner/api/rss?language=en",
+      "host": "ec.europa.eu",
+      "language": "en",
+      "max_items_per_run": 25,
+      "verified_reference": "https://commission.europa.eu/about/contact/press-services/press-releases-and-notifications_en",
+      "status": "needs_runtime_http_validation"
+    },
+    {
+      "id": "eurostat_updates_en",
+      "name": "Eurostat · actualizaciones estadísticas",
+      "publisher": "Eurostat",
+      "url": "https://ec.europa.eu/eurostat/api/dissemination/catalogue/rss/en/statistics-update.rss",
+      "host": "ec.europa.eu",
+      "language": "en",
+      "max_items_per_run": 25,
+      "verified_reference": "https://ec.europa.eu/eurostat/web/user-guides/data-browser/api-data-access/api-detailed-guidelines/catalogue-api/rss",
+      "status": "official_documented_needs_runtime_http_validation"
+    }
+  ],
+  "editorial_gates": [
+    "primary_source_verified",
+    "methodology_and_limits",
+    "duplicate_check",
+    "image_rights_or_original",
+    "human_editor_approval"
+  ]
+}

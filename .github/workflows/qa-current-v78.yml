@@ -1,0 +1,28 @@
+name: PP V78 safe gate (NO DEPLOY)
+on:
+  push:
+    branches: ['integracion/v78-maestro-sin-despliegue']
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax
+        run: |
+          set -eu
+          find . -name '*.php' -type f -exec php -l {} \;
+          find assets -name '*.js' -type f -exec node --check {} \;
+      - name: Require complete V78 staging source and SHA256 hashes
+        run: python3 scripts/qa_v78_remote_completeness.py
+      - name: No deployment
+        run: echo 'Preproduction NO-GO; never deploy to Hostinger automatically.'

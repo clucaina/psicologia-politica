@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-08",
+  "method": "public_web_text_extraction_only",
+  "production_changed": false,
+  "observations": [
+    {
+      "path": "/conflictometro",
+      "status": "accessible",
+      "finding": "SSR textual contiene listado de noticias bajo encabezado Conflictómetro; no evidencia de mapa en HTML extraído",
+      "confidence": "high_for_extracted_html_only"
+    },
+    {
+      "path": "/herramientas",
+      "status": "accessible",
+      "finding": "SSR textual contiene listado de noticias genérico, no listado específico de herramientas",
+      "confidence": "high_for_extracted_html_only"
+    },
+    {
+      "path": "/contacto",
+      "status": "accessible",
+      "finding": "SSR textual contiene listado de noticias genérico, no contenido específico de contacto",
+      "confidence": "high_for_extracted_html_only"
+    },
+    {
+      "path": "/blog",
+      "status": "accessible",
+      "finding": "SSR específico con listado de artículos de Blog",
+      "confidence": "high_for_extracted_html_only"
+    },
+    {
+      "path": "/",
+      "status": "inaccessible_in_web_open",
+      "finding": "No se puede determinar estado por fallo de herramienta",
+      "confidence": "none"
+    }
+  ],
+  "limitations": [
+    "No se ejecutó JavaScript ni sesión autenticada sobre producción",
+    "No inferir que los controles interactivos fallan solo porque el SSR es genérico",
+    "No se accedió a staging o MariaDB",
+    "Los cambios V16 no están desplegados"
+  ],
+  "release_gate": "NO-GO"
+}

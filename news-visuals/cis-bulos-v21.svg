@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img">
+  <title>Percepción de la desinformación en España</title>
+  <desc>Encuesta del CIS a 3493 personas. El 90,1 por ciento cree que circulan muchos o bastantes bulos y el 6,5 por ciento cree que pocos o ninguno. La figura recalca que es percepción declarada.</desc>
+  <rect width="1200" height="675" fill="#f3ecdf"/>
+  <text x="60" y="75" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="2" fill="#7d2432">ESPAÑA · ESTUDIO CIS 3563</text>
+  <text x="60" y="125" font-family="Georgia, serif" font-size="39" font-weight="700" fill="#101b2d">¿Cuántos bulos cree la gente que circulan?</text>
+  <line x1="60" y1="154" x2="1140" y2="154" stroke="#101b2d" stroke-width="2"/>
+  <text x="60" y="205" font-family="Arial, sans-serif" font-size="23" fill="#101b2d">MUCHOS O BASTANTES</text>
+  <rect x="60" y="226" width="990" height="76" rx="5" fill="#ded5c7"/>
+  <rect x="60" y="226" width="892" height="76" rx="5" fill="#7d2432"/>
+  <text x="84" y="279" font-family="Arial, sans-serif" font-size="43" font-weight="700" fill="#fff9ee">90,1 %</text>
+  <text x="60" y="360" font-family="Arial, sans-serif" font-size="23" fill="#101b2d">POCOS O NINGUNO</text>
+  <rect x="60" y="381" width="990" height="76" rx="5" fill="#ded5c7"/>
+  <rect x="60" y="381" width="64" height="76" rx="5" fill="#c9a45c"/>
+  <text x="140" y="434" font-family="Arial, sans-serif" font-size="43" font-weight="700" fill="#101b2d">6,5 %</text>
+  <rect x="60" y="500" width="1080" height="92" rx="8" fill="#101b2d"/>
+  <text x="88" y="540" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#fff9ee">ESTO MIDE PERCEPCIÓN, NO UN RECUENTO DE FALSEDADES</text>
+  <text x="88" y="572" font-family="Arial, sans-serif" font-size="20" fill="#e8dbc3">3.493 entrevistas · trabajo de campo: 4–19 mayo 2026</text>
+  <text x="60" y="637" font-family="Arial, sans-serif" font-size="20" fill="#615b52">Fuente: CIS · porcentajes redondeados tal como los publica la institución</text>
+</svg>

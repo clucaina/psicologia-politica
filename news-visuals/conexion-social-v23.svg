@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img">
+  <title>Estimaciones mundiales de soledad por grupo de edad</title>
+  <desc>La OMS estima soledad declarada en 20,9 por ciento de adolescentes, 17,4 por ciento de jóvenes, 15,1 por ciento de adultos y 11,8 por ciento de mayores; el promedio mundial es 16 por ciento.</desc>
+  <rect width="1200" height="675" fill="#f3ecdf"/>
+  <text x="60" y="72" font-family="Arial, sans-serif" font-size="23" font-weight="700" letter-spacing="2" fill="#7d2432">OMS · CONEXIÓN SOCIAL · ESTIMACIONES 2014–2023</text>
+  <text x="60" y="123" font-family="Georgia, serif" font-size="40" font-weight="700" fill="#101b2d">La soledad declarada cambia con la edad</text>
+  <line x1="60" y1="153" x2="1140" y2="153" stroke="#101b2d" stroke-width="2"/>
+  <line x1="120" y1="500" x2="930" y2="500" stroke="#101b2d" stroke-width="2"/>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <rect x="145" y="220" width="130" height="280" rx="5" fill="#7d2432"/><text x="210" y="205" font-size="32" font-weight="700" fill="#101b2d">20,9 %</text><text x="210" y="540" font-size="20" fill="#101b2d">13–17</text><text x="210" y="566" font-size="17" fill="#626875">años</text>
+    <rect x="345" y="267" width="130" height="233" rx="5" fill="#b86f4c"/><text x="410" y="252" font-size="32" font-weight="700" fill="#101b2d">17,4 %</text><text x="410" y="540" font-size="20" fill="#101b2d">18–29</text><text x="410" y="566" font-size="17" fill="#626875">años</text>
+    <rect x="545" y="298" width="130" height="202" rx="5" fill="#c9a45c"/><text x="610" y="283" font-size="32" font-weight="700" fill="#101b2d">15,1 %</text><text x="610" y="540" font-size="20" fill="#101b2d">30–59</text><text x="610" y="566" font-size="17" fill="#626875">años</text>
+    <rect x="745" y="342" width="130" height="158" rx="5" fill="#275846"/><text x="810" y="327" font-size="32" font-weight="700" fill="#101b2d">11,8 %</text><text x="810" y="540" font-size="20" fill="#101b2d">60+</text><text x="810" y="566" font-size="17" fill="#626875">años</text>
+  </g>
+  <circle cx="1035" cy="337" r="108" fill="#101b2d"/>
+  <text x="1035" y="315" text-anchor="middle" font-family="Georgia, serif" font-size="58" font-weight="700" fill="#fff9ee">16 %</text>
+  <text x="1035" y="354" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#e8dbc3">promedio</text>
+  <text x="1035" y="380" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#e8dbc3">mundial</text>
+  <text x="60" y="620" font-family="Arial, sans-serif" font-size="20" fill="#101b2d">Soledad subjetiva ≠ aislamiento objetivo ≠ diagnóstico clínico</text>
+  <text x="60" y="650" font-family="Arial, sans-serif" font-size="18" fill="#615b52">Fuente: Comisión de la OMS sobre Conexión Social · síntesis de evidencia heterogénea</text>
+</svg>

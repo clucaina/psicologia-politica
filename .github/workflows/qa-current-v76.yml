@@ -1,0 +1,53 @@
+name: PP V76 candidate safety and syntax (NO DEPLOY)
+on:
+  push:
+    branches:
+      - 'integracion/**'
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  staging-only:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, pdo_mysql
+          coverage: none
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Forbid production deployment
+        run: |
+          test ! -e _private/config.php
+          test ! -e .env
+          test ! -e uploads/private
+          test -f index.php
+          test -f assets/site.css
+          echo 'NO DEPLOY: only validating an isolated GitHub branch'
+      - name: Public URL security and NPL candidate contract
+        run: |
+          php tests/qa_v76_url_guard.php
+          php tests/qa_v76_editorial_https.php
+          php tests/qa_v76_ine_candidates.php
+          php tests/qa_v76_text_mobility.php
+          php tests/qa_v76_editorial_index.php
+      - name: All PHP, JavaScript and JSON syntax
+        run: |
+          set -euo pipefail
+          find . -name '*.php' -type f -print0 | while IFS= read -r -d '' f; do php -l "$f" >/dev/null; done
+          find assets -name '*.js' -type f -print0 | while IFS= read -r -d '' f; do node --check "$f" >/dev/null; done
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          count=0
+          for p in Path('.').rglob('*.json'):
+              json.loads(p.read_text(encoding='utf-8'))
+              count+=1
+          print('PASS JSON',count)
+          PY
+      - name: Explicit release gate
+        run: echo 'Publication remains NO-GO; no connection to Hostinger or MariaDB.'

@@ -34,6 +34,10 @@ jobs:
               ("AWS credential", re.compile(rb"AKIA[0-9A-Z]{16}")),
               ("API credential", re.compile(rb"sk-[A-Za-z0-9_-]{30,}")),
               ("Slack credential", re.compile(rb"xox[baprs]-[0-9A-Za-z-]{25,}")),
+              ("Google API credential", re.compile(rb"AIza[0-9A-Za-z_-]{35}")),
+              ("Stripe live credential", re.compile(rb"sk_live_[0-9a-zA-Z]{24,}")),
+              ("npm credential", re.compile(rb"npm_[A-Za-z0-9]{36}")),
+              ("SendGrid credential", re.compile(rb"SG\.[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}")),
           ]
           pii = [
               re.compile(rb"(?<![0-9])(?:\+34[\s.-]?)?[67][0-9]{8}(?![0-9])"),
@@ -63,23 +67,23 @@ jobs:
                   if path.suffix.lower() == ".zip":
                       archives += 1
                       with zipfile.ZipFile(path) as zf:
-                          budget = 32 * 1024 * 1024
+                          budget = 256 * 1024 * 1024
                           for member in zf.infolist()[:1000]:
                               if member.is_dir():
                                   continue
-                              if member.file_size > 2 * 1024 * 1024 or member.file_size > budget:
+                              if member.file_size > 64 * 1024 * 1024 or member.file_size > budget:
                                   unexamined += 1
                                   continue
                               with zf.open(member) as stream:
-                                  data = stream.read(2 * 1024 * 1024 + 1)
-                              if len(data) > 2 * 1024 * 1024:
+                                  data = stream.read(64 * 1024 * 1024 + 1)
+                              if len(data) > 64 * 1024 * 1024:
                                   unexamined += 1
                                   continue
                               inspect(data)
                               budget -= len(data)
                           if len(zf.infolist()) > 1000:
                               unexamined += len(zf.infolist()) - 1000
-                  elif size <= 2 * 1024 * 1024:
+                  elif size <= 64 * 1024 * 1024:
                       inspect(path.read_bytes())
                   else:
                       unexamined += 1

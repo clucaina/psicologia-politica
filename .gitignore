@@ -1,0 +1,60 @@
+# PRIVACIDAD: no incorporar secretos ni documentación identificable al repositorio.
+# Este archivo reduce errores accidentales, pero no protege archivos ya versionados ni sustituye una revisión antes del push.
+
+# Secretos y autenticación
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+id_rsa
+id_ed25519
+*.kdbx
+*service-account*.json
+*credentials*.json
+*secrets*.json
+
+# Expedientes y datos personales de terceros
+expedientes/
+periciales/
+pacientes/
+clientes/
+historias_clinicas/
+datos_personales/
+material_confidencial/
+private_data/
+case_data/
+
+# Bases de datos, exportaciones y copias de seguridad locales
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+*.sql
+*.dump
+*.bak
+*.backup
+*.log
+*.csv
+*.tsv
+*.xlsx
+*.xls
+*.docx
+*.doc
+*.pdf
+*.zip
+*.7z
+*.rar
+
+# Entornos locales
+__pycache__/
+.pytest_cache/
+.venv/
+venv/
+node_modules/
+.DS_Store
+Thumbs.db

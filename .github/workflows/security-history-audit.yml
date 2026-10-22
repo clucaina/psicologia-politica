@@ -62,6 +62,12 @@ jobs:
               parts = line.split()
               if len(parts) == 3 and parts[1] == "blob":
                   objects.append((parts[0], int(parts[2])))
+          head_blob_ids = {
+              row.split()[2].decode("ascii") for row in
+              subprocess.check_output(["git", "ls-tree", "-r", "HEAD"]).splitlines()
+              if len(row.split()) >= 3 and row.split()[1] == b"blob"
+          }
+          key_triage = {"current": 0, "history_or_other_branch": 0, "placeholder_like": 0, "other": 0}
           scanned = 0
           skipped = 0
           archives = 0
@@ -69,14 +75,24 @@ jobs:
           kinds = set()
           budget = 512 * 1024 * 1024
 
-          def inspect(raw):
+          def inspect(raw, source_oid=None):
               global scanned, possible_identifiers
               scanned += 1
               if phone_like.search(raw) or dni_like.search(raw):
                   possible_identifiers += 1
               for label, pat in secret_rules:
-                  if pat.search(raw):
+                  matches = list(pat.finditer(raw))
+                  if matches:
                       kinds.add(label)
+                  if label == "openai-key":
+                      for match in matches:
+                          token_body = match.group(0)[3:]
+                          is_placeholder = (
+                              len(set(token_body)) < 10 or
+                              token_body.lower().startswith((b"test", b"fake", b"example", b"demo", b"placeholder"))
+                          )
+                          key_triage["placeholder_like" if is_placeholder else "other"] += 1
+                          key_triage["current" if source_oid in head_blob_ids else "history_or_other_branch"] += 1
 
           for oid, size in objects:
               if size > 64 * 1024 * 1024 or size > budget:
@@ -106,12 +122,12 @@ jobs:
                                   skipped += 1
                                   continue
                               quota -= len(raw)
-                              inspect(raw)
+                              inspect(raw, oid)
                           skipped += max(0, len(members) - 1000)
                   except (OSError, ValueError, RuntimeError, zipfile.BadZipFile):
                       skipped += 1
               else:
-                  inspect(blob)
+                  inspect(blob, oid)
               if budget <= 0:
                   partial = True
                   break
@@ -120,6 +136,7 @@ jobs:
           print(f"Potential secret pattern categories={len(kinds)}.")
           if kinds:
               print("Possible credential categories (NO VALUES): " + ", ".join(sorted(kinds)))
+              print("OpenAI-key shape triage (NO VALUES): " + ", ".join(f"{k}={v}" for k,v in key_triage.items()))
           if kinds:
               print("SECURITY ALERT: Potential historical credentials. Rotate first; then investigate history removal.")
               sys.exit(1)

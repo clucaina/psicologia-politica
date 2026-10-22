@@ -1,0 +1,98 @@
+name: Auditoría de privacidad (lectura)
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '21 5 * * *'
+permissions:
+  contents: read
+jobs:
+  confidential-data-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout without persistent credentials
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Inspect tracked content without sending it to external services
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import io
+          import os
+          import re
+          import subprocess
+          import sys
+          import zipfile
+          from pathlib import Path
+
+          rules = [
+              ("private key", re.compile(rb"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----")),
+              ("GitHub credential", re.compile(rb"(?:gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,})")),
+              ("AWS credential", re.compile(rb"AKIA[0-9A-Z]{16}")),
+              ("API credential", re.compile(rb"sk-[A-Za-z0-9_-]{30,}")),
+              ("Slack credential", re.compile(rb"xox[baprs]-[0-9A-Za-z-]{25,}")),
+          ]
+          pii = [
+              re.compile(rb"(?<![0-9])(?:\+34[\s.-]?)?[67][0-9]{8}(?![0-9])"),
+              re.compile(rb"(?<![A-Za-z0-9])[0-9]{8}[A-Z](?![A-Za-z0-9])"),
+          ]
+          secret_types, suspected_pii, unexamined = set(), 0, 0
+          inspected, archives = 0, 0
+
+          def inspect(data):
+              global inspected, suspected_pii
+              inspected += 1
+              for kind, pattern in rules:
+                  if pattern.search(data):
+                      secret_types.add(kind)
+              if any(pattern.search(data) for pattern in pii):
+                  suspected_pii += 1
+
+          paths = subprocess.check_output(["git", "ls-files", "-z"]).split(b"\0")
+          for raw_path in paths:
+              if not raw_path:
+                  continue
+              path = Path(os.fsdecode(raw_path))
+              if not path.is_file():
+                  continue
+              try:
+                  size = path.stat().st_size
+                  if path.suffix.lower() == ".zip":
+                      archives += 1
+                      with zipfile.ZipFile(path) as zf:
+                          budget = 32 * 1024 * 1024
+                          for member in zf.infolist()[:1000]:
+                              if member.is_dir():
+                                  continue
+                              if member.file_size > 2 * 1024 * 1024 or member.file_size > budget:
+                                  unexamined += 1
+                                  continue
+                              with zf.open(member) as stream:
+                                  data = stream.read(2 * 1024 * 1024 + 1)
+                              if len(data) > 2 * 1024 * 1024:
+                                  unexamined += 1
+                                  continue
+                              inspect(data)
+                              budget -= len(data)
+                          if len(zf.infolist()) > 1000:
+                              unexamined += len(zf.infolist()) - 1000
+                  elif size <= 2 * 1024 * 1024:
+                      inspect(path.read_bytes())
+                  else:
+                      unexamined += 1
+              except (OSError, ValueError, RuntimeError, zipfile.BadZipFile):
+                  unexamined += 1
+
+          print("Auditoría local dentro de GitHub Actions: no se enviaron archivos ni valores a servicios de análisis externos.")
+          print(f"Entradas analizadas: {inspected}; archivos ZIP: {archives}; entradas no inspeccionadas: {unexamined}.")
+          print(f"Entradas con posibles identificadores personales (requieren revisión humana): {suspected_pii}.")
+          print(f"Tipos de indicadores de credenciales: {len(secret_types)}.")
+          if unexamined:
+              print("ADVERTENCIA: existen archivos sin inspección completa; no puede garantizarse ausencia de datos sensibles.")
+          if secret_types:
+              print("ALERTA: posibles credenciales en el repositorio. Revoca y rota las claves; borrar el último commit NO basta.")
+              sys.exit(1)
+          PY

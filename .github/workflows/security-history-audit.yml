@@ -1,5 +1,8 @@
 name: Historical secret and privacy audit
 on:
+  push:
+    paths:
+      - '.github/workflows/security-history-audit.yml'
   workflow_dispatch:
   schedule:
     - cron: '43 4 * * *'

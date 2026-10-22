@@ -119,6 +119,8 @@ jobs:
           print(f"Possible personal identifiers (not confirmed leaks)={possible_identifiers}.")
           print(f"Potential secret pattern categories={len(kinds)}.")
           if kinds:
+              print("Possible credential categories (NO VALUES): " + ", ".join(sorted(kinds)))
+          if kinds:
               print("SECURITY ALERT: Potential historical credentials. Rotate first; then investigate history removal.")
               sys.exit(1)
           if partial or skipped:

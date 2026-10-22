@@ -1,0 +1,123 @@
+name: Historical secret and privacy audit
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '43 4 * * *'
+permissions:
+  contents: read
+jobs:
+  review-history:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Read repository history without persistent tokens
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 100
+          persist-credentials: false
+      - name: Analyze recent Git objects without disclosing matching values
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import io
+          import re
+          import subprocess
+          import sys
+          import zipfile
+
+          secret_rules = [
+              ("private-key", rb"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"),
+              ("github-token", rb"(?:gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,})"),
+              ("aws-access-key", rb"AKIA[0-9A-Z]{16}"),
+              ("openai-key", rb"sk-[A-Za-z0-9_-]{30,}"),
+              ("google-api-key", rb"AIza[0-9A-Za-z_-]{35}"),
+              ("stripe-live-key", rb"sk_live_[0-9A-Za-z]{24,}"),
+              ("npm-token", rb"npm_[A-Za-z0-9]{36}"),
+              ("sendgrid-key", rb"SG\.[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}"),
+              ("slack-token", rb"xox[baprs]-[0-9A-Za-z-]{25,}"),
+          ]
+          secret_rules = [(label, re.compile(pattern)) for label, pattern in secret_rules]
+          phone_like = re.compile(rb"(?<![0-9])(?:\+34[\s.-]?)?[67][0-9]{8}(?![0-9])")
+          dni_like = re.compile(rb"(?<![A-Za-z0-9])[0-9]{8}[A-Z](?![A-Za-z0-9])")
+          ids = []
+          visited = set()
+          for line in subprocess.check_output(["git", "rev-list", "--objects", "HEAD"]).splitlines():
+              oid = line.split(b" ", 1)[0].decode("ascii")
+              if oid not in visited:
+                  visited.add(oid)
+                  ids.append(oid)
+          cap_objects = 12000
+          partial = len(ids) > cap_objects
+          ids = ids[:cap_objects]
+          checks = subprocess.run(
+              ["git", "cat-file", "--batch-check=%(objectname) %(objecttype) %(objectsize)"],
+              input=("\n".join(ids) + "\n").encode("ascii"), capture_output=True,
+              check=True, timeout=120,
+          )
+          objects = []
+          for line in checks.stdout.decode("ascii", "replace").splitlines():
+              parts = line.split()
+              if len(parts) == 3 and parts[1] == "blob":
+                  objects.append((parts[0], int(parts[2])))
+          scanned = 0
+          skipped = 0
+          archives = 0
+          possible_identifiers = 0
+          kinds = set()
+          budget = 256 * 1024 * 1024
+
+          def inspect(raw):
+              global scanned, possible_identifiers
+              scanned += 1
+              if phone_like.search(raw) or dni_like.search(raw):
+                  possible_identifiers += 1
+              for label, pat in secret_rules:
+                  if pat.search(raw):
+                      kinds.add(label)
+
+          for oid, size in objects:
+              if size > 16 * 1024 * 1024 or size > budget:
+                  skipped += 1
+                  continue
+              try:
+                  blob = subprocess.check_output(["git", "cat-file", "blob", oid], timeout=20)
+              except (subprocess.CalledProcessError, subprocess.TimeoutExpired):
+                  skipped += 1
+                  continue
+              budget -= size
+              if zipfile.is_zipfile(io.BytesIO(blob)):
+                  archives += 1
+                  try:
+                      with zipfile.ZipFile(io.BytesIO(blob)) as zf:
+                          quota = 128 * 1024 * 1024
+                          members = zf.infolist()
+                          for member in members[:1000]:
+                              if member.is_dir():
+                                  continue
+                              if member.file_size > 16 * 1024 * 1024 or member.file_size > quota:
+                                  skipped += 1
+                                  continue
+                              with zf.open(member) as fp:
+                                  raw = fp.read(16 * 1024 * 1024 + 1)
+                              if len(raw) > 16 * 1024 * 1024:
+                                  skipped += 1
+                                  continue
+                              quota -= len(raw)
+                              inspect(raw)
+                          skipped += max(0, len(members) - 1000)
+                  except (OSError, ValueError, RuntimeError, zipfile.BadZipFile):
+                      skipped += 1
+              else:
+                  inspect(blob)
+              if budget <= 0:
+                  partial = True
+                  break
+          print(f"Historical scan (bounded): inspected={scanned}; archives={archives}; skipped={skipped}; incomplete={partial}.")
+          print(f"Possible personal identifiers (not confirmed leaks)={possible_identifiers}.")
+          print(f"Potential secret pattern categories={len(kinds)}.")
+          if kinds:
+              print("SECURITY ALERT: Potential historical credentials. Rotate first; then investigate history removal.")
+              sys.exit(1)
+          if partial or skipped:
+              print("NOTICE: This was not a complete historical audit; no clean-bill-of-health is implied.")
+          PY

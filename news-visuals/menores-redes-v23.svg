@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img">
+  <title>Del diagnóstico a la evaluación en seguridad infantil online</title>
+  <desc>El informe europeo conecta riesgos y evidencia disponible con recomendaciones de acceso y diseño, y exige después ensayos, datos longitudinales, acceso independiente y evaluación de resultados.</desc>
+  <rect width="1200" height="675" fill="#f3ecdf"/>
+  <text x="60" y="72" font-family="Arial, sans-serif" font-size="23" font-weight="700" letter-spacing="2" fill="#7d2432">COMISIÓN EUROPEA · PANEL ESPECIAL · JULIO 2026</text>
+  <text x="60" y="123" font-family="Georgia, serif" font-size="39" font-weight="700" fill="#101b2d">Proteger exige medir también la política aplicada</text>
+  <line x1="60" y1="153" x2="1140" y2="153" stroke="#101b2d" stroke-width="2"/>
+  <g transform="translate(60 205)">
+    <rect width="300" height="220" rx="8" fill="#101b2d"/>
+    <text x="28" y="48" font-family="Arial, sans-serif" font-size="19" fill="#e8dbc3">1 · DIAGNÓSTICO</text>
+    <text x="28" y="94" font-family="Georgia, serif" font-size="30" font-weight="700" fill="#fff9ee">Riesgos + contexto</text>
+    <text x="28" y="139" font-family="Arial, sans-serif" font-size="19" fill="#fff9ee">Daño, oportunidad, edad,</text>
+    <text x="28" y="170" font-family="Arial, sans-serif" font-size="19" fill="#fff9ee">familia y diseño comercial</text>
+    <text x="28" y="202" font-family="Arial, sans-serif" font-size="16" fill="#c9a45c">Evidencia muy desigual</text>
+  </g>
+  <path d="M380 315H430" stroke="#c9a45c" stroke-width="8"/><path d="M414 297L438 315L414 333" fill="none" stroke="#c9a45c" stroke-width="8"/>
+  <g transform="translate(450 205)">
+    <rect width="300" height="220" rx="8" fill="#eadadd" stroke="#7d2432" stroke-width="2"/>
+    <text x="28" y="48" font-family="Arial, sans-serif" font-size="19" fill="#7d2432">2 · RECOMENDACIÓN</text>
+    <text x="28" y="94" font-family="Georgia, serif" font-size="30" font-weight="700" fill="#101b2d">Acceso + diseño</text>
+    <text x="28" y="139" font-family="Arial, sans-serif" font-size="19" fill="#101b2d">Garantía de edad, ajustes</text>
+    <text x="28" y="170" font-family="Arial, sans-serif" font-size="19" fill="#101b2d">seguros y límites a patrones</text>
+    <text x="28" y="202" font-family="Arial, sans-serif" font-size="16" fill="#7d2432">Propuesta, no efecto probado</text>
+  </g>
+  <path d="M770 315H820" stroke="#c9a45c" stroke-width="8"/><path d="M804 297L828 315L804 333" fill="none" stroke="#c9a45c" stroke-width="8"/>
+  <g transform="translate(840 205)">
+    <rect width="300" height="220" rx="8" fill="#d9e4dc" stroke="#275846" stroke-width="2"/>
+    <text x="28" y="48" font-family="Arial, sans-serif" font-size="19" fill="#275846">3 · PRUEBA PÚBLICA</text>
+    <text x="28" y="94" font-family="Georgia, serif" font-size="30" font-weight="700" fill="#101b2d">Evaluar resultados</text>
+    <text x="28" y="139" font-family="Arial, sans-serif" font-size="19" fill="#101b2d">Ensayos, seguimiento, datos</text>
+    <text x="28" y="170" font-family="Arial, sans-serif" font-size="19" fill="#101b2d">y escrutinio independiente</text>
+    <text x="28" y="202" font-family="Arial, sans-serif" font-size="16" fill="#275846">Revisar daños y beneficios</text>
+  </g>
+  <rect x="60" y="480" width="1080" height="105" rx="8" fill="#fff9ee" stroke="#101b2d" stroke-width="2"/>
+  <text x="88" y="520" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#101b2d">EL PROPIO INFORME RECONOCE EL HUECO</text>
+  <text x="88" y="554" font-family="Arial, sans-serif" font-size="21" fill="#101b2d">Muchos hallazgos son correlacionales: regular no elimina la obligación de aprender.</text>
+  <text x="60" y="637" font-family="Arial, sans-serif" font-size="20" fill="#615b52">Fuente: Panel especial sobre seguridad infantil online · 13 julio 2026</text>
+</svg>

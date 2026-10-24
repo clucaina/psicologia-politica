@@ -1,0 +1,60 @@
+{
+  "batch_id": "T36_EUROSTAT_AROPE_HOGARES_CON_HIJOS_2025",
+  "publication_policy": "review_only",
+  "dedupe_note": "Un indicador de población/subgrupo distinto del AROPE general de INE/Eurostat; no mezclar denominadores ni contarlo como una réplica independiente.",
+  "new_indicators": [
+    {
+      "indicator_id": "EUROSTAT_AROPE_PERSONAS_HOGARES_HIJOS_PCT",
+      "domain": "Vulnerabilidad",
+      "subdomain": "AROPE por composición del hogar",
+      "label_es": "Personas en hogares con hijos dependientes en riesgo de pobreza o exclusión (AROPE)",
+      "unit_default": "%",
+      "source_id": "EUROSTAT",
+      "dataset_code": "ilc_peps03n",
+      "period_start": "2025",
+      "period_end": "2025",
+      "geography_scope": "España (nacional)",
+      "subgroup_dimensions": "Personas en hogares con hijos dependientes",
+      "status": "candidate_review",
+      "quality_grade": "PENDING_HUMAN_SOURCE_QA",
+      "methodology_note": "La tasa se refiere a personas que viven en hogares con hijos dependientes. No equivale a pobreza infantil ni al porcentaje de hogares pobres. Encuesta, no causalidad. Confirmar dimensiones exactas y metadatos en tabla ilc_peps03n antes de publicar."
+    }
+  ],
+  "source_endpoints": [
+    {
+      "source_id": "EUROSTAT",
+      "institution": "Eurostat",
+      "dataset_code": "ilc_peps03n",
+      "url": "https://ec.europa.eu/eurostat/en/web/products-eurostat-news/w/ddn-20260506-1",
+      "retrieved": "2026-10-08",
+      "status": "primary_official_news_verified_needs_table_human_review"
+    }
+  ],
+  "observations": [
+    {
+      "indicator_id": "EUROSTAT_AROPE_PERSONAS_HOGARES_HIJOS_PCT",
+      "period": "2025",
+      "geo_code": "ES",
+      "geography": "España",
+      "geography_level": "country",
+      "subgroup": "Personas en hogares con hijos dependientes",
+      "value": 29.9,
+      "unit": "%",
+      "source_id": "EUROSTAT",
+      "dataset_code": "ilc_peps03n",
+      "source_url": "https://ec.europa.eu/eurostat/en/web/products-eurostat-news/w/ddn-20260506-1",
+      "source_locator": "Eurostat News, 6 mayo 2026, párrafo People with dependent children, Spain 29.9%; dataset ilc_peps03n",
+      "source_updated": "2026-05-06",
+      "retrieved_at": "2026-10-08",
+      "batch_id": "T36_EUROSTAT_AROPE_HOGARES_CON_HIJOS_2025",
+      "methodology_flag": "EUROSTAT_EU_SILC_AROPE_2025_HOUSEHOLDS_WITH_DEPENDENT_CHILDREN",
+      "measurement_type": "survey",
+      "population": "Personas que viven en hogares con hijos dependientes, no solo los propios menores",
+      "denominator": "Personas que viven en hogares con hijos dependientes",
+      "quality_flag": "PENDING_HUMAN_SOURCE_QA",
+      "human_source_verification": false,
+      "source_extraction": "official_eurostat_news_primary_source",
+      "limits": "La tasa se refiere a personas que viven en hogares con hijos dependientes. No equivale a pobreza infantil ni al porcentaje de hogares pobres. Encuesta, no causalidad. Confirmar dimensiones exactas y metadatos en tabla ilc_peps03n antes de publicar."
+    }
+  ]
+}

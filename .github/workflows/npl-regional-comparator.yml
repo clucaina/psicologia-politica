@@ -1,0 +1,46 @@
+name: NPL regional comparator · read-only evidence QA (NO DEPLOY)
+on:
+  push:
+    paths:
+      - 'scripts/npl_descriptive_comparator.py'
+      - 'tests/test_npl_descriptive_comparator.py'
+      - '.github/workflows/npl-regional-comparator.yml'
+  pull_request:
+    paths:
+      - 'scripts/npl_descriptive_comparator.py'
+      - 'tests/test_npl_descriptive_comparator.py'
+      - '.github/workflows/npl-regional-comparator.yml'
+permissions:
+  contents: read
+jobs:
+  source_data_compare:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Regression tests for descriptive comparisons
+        run: python3 -m unittest discover -s tests -p 'test_npl_descriptive_comparator.py' -v
+      - name: Compare actual 2024 INE salary source without public deployment
+        run: |
+          python3 scripts/npl_descriptive_comparator.py \
+            --root . \
+            --file database/T27_SALARIOS_CCAA_2024.json \
+            --indicator EAES_SALARIO_ANUAL_BRUTO \
+            --period 2024 \
+            --subgroup 'Ambos sexos' \
+            --out /tmp/npl-comparator-preview
+          python3 - <<'PY'
+          import json
+          d=json.load(open('/tmp/npl-comparator-preview/NPL_comparacion.json'))
+          assert d['regions_compared']==17
+          assert d['publication_authorized'] is False
+          assert d['editorial_status']=='candidate_review'
+          print('17 CCAA compared; no publication authorized')
+          PY
+      - name: Keep visual HTML and JSON as review-only artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: NPL_2024_SALARY_CCAA_RESEARCH_ONLY
+          path: /tmp/npl-comparator-preview/
+          retention-days: 7
+          if-no-files-found: error

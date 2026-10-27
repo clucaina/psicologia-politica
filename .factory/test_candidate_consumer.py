@@ -114,9 +114,43 @@ class IndependentReviewTests(unittest.TestCase):
         ]}
         result = review({"schema": "neurohuerto.candidate_ledger.v1",
                          "candidates": [current]}, prior, self.fetch)
-        self.assertEqual(result["newly_reviewed"], 0)
+        self.assertEqual(result["newly_reviewed"], 1)  # incomplete cached review is unsafe
         self.assertEqual(result["remaining_new"], 0)
         self.assertEqual(len(result["reviews"]), 2)  # archival continuity
+        self.assertFalse(result["reviews"][0]["ready_to_import"])
+
+    def test_forged_cached_approval_never_skips_independent_review(self):
+        c = proposal()
+        upstream = {"schema": "neurohuerto.candidate_ledger.v1", "candidates": [c]}
+        prior = review(upstream, {}, self.fetch)
+        prior["reviews"][0]["ready_to_import"] = True
+        prior["reviews"][0]["independent_check"] = {"status": "APPROVED"}
+        checked = review(upstream, prior, self.fetch)
+        self.assertEqual(checked["newly_reviewed"], 1)
+        self.assertFalse(checked["reviews"][0]["ready_to_import"])
+        self.assertEqual(checked["reviews"][0]["independent_check"]["status"],
+                         "NEEDS_SOURCE_AND_LICENSE_REVIEW")
+
+    def test_cached_review_missing_evidence_is_rechecked(self):
+        c = proposal()
+        upstream = {"schema": "neurohuerto.candidate_ledger.v1", "candidates": [c]}
+        prior = review(upstream, {}, self.fetch)
+        del prior["reviews"][0]["independent_check"]
+        self.assertEqual(review(upstream, prior, self.fetch)["newly_reviewed"], 1)
+
+    def test_source_outage_is_retried_not_cached_as_permanent_review(self):
+        c = proposal()
+        upstream = {"schema": "neurohuerto.candidate_ledger.v1", "candidates": [c]}
+        def unavailable(url):
+            raise ValueError("synthetic unavailable source")
+        prior = review(upstream, {}, unavailable)
+        self.assertEqual(prior["reviews"][0]["independent_check"]["status"],
+                         "SOURCE_UNAVAILABLE")
+        recovered = review(upstream, prior, self.fetch)
+        self.assertEqual(recovered["newly_reviewed"], 1)
+        self.assertEqual(recovered["reviews"][0]["independent_check"]["status"],
+                         "NEEDS_SOURCE_AND_LICENSE_REVIEW")
+        self.assertEqual(review(upstream, recovered, self.fetch)["newly_reviewed"], 0)
 
     def test_duplicate_upstream_ids_fail_closed(self):
         c = proposal()

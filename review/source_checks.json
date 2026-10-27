@@ -96,11 +96,13 @@
     {
       "id": "T38_CANDIDATAS_EDITORIALES_20261008",
       "source_path": "database/T38_CANDIDATAS_EDITORIALES_20261008.json",
+      "source_contract_sha256": "13dc2dca5c61e12865b5ebbb3975331f6a1a499643027d3d787e462cdd770fea",
       "source_blob_sha": "1cfb70a3754375b10d577e9a12de6091163572b7",
       "upstream_sha256": "3d7b92c3dd64b9d1122571c088dc972d2a98d9caf4b9b3c08fa60972655f8383",
       "independent_check": {
-        "status": "BLOCK_FORMAT_OR_ID",
-        "digest_match": true
+        "status": "BLOCK_NON_STATISTICAL_DOCUMENT",
+        "digest_match": true,
+        "release_gate": "NO_DEPLOY_NO_PUBLISH"
       },
       "ready_to_import": false,
       "consumer": "clucaina/psicologia-politica",
@@ -110,11 +112,13 @@
     {
       "id": "T39_CANDIDATAS_EDITORIALES_20261008",
       "source_path": "database/T39_CANDIDATAS_EDITORIALES_20261008.json",
+      "source_contract_sha256": "c7b16f6742423bdc49a92eda037debb82ad91fac28c8843114482e21e47142b4",
       "source_blob_sha": "5ddfadce1dc3d8c1f361f27b06d4a241d53c35be",
       "upstream_sha256": "1d4efda7ba88e7d99911a673e9ab91e73f4c1c7ba61b0bc60e9a745b79e5fd6a",
       "independent_check": {
-        "status": "BLOCK_FORMAT_OR_ID",
-        "digest_match": true
+        "status": "BLOCK_NON_STATISTICAL_DOCUMENT",
+        "digest_match": true,
+        "release_gate": "NO_DEPLOY_NO_PUBLISH"
       },
       "ready_to_import": false,
       "consumer": "clucaina/psicologia-politica",
@@ -122,8 +126,8 @@
       "no_publication_without_human_review": true
     }
   ],
-  "newly_reviewed": 6,
-  "remaining_new": 2,
+  "newly_reviewed": 2,
+  "remaining_new": 0,
   "ready_for_production": false,
   "principle": "Reading another worker's report does not constitute source validation."
 }

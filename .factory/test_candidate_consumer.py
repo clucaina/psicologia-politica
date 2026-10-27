@@ -83,6 +83,18 @@ class IndependentReviewTests(unittest.TestCase):
                          "BLOCK_UNTRUSTED_PUBLICATION_OR_PRIVACY")
         self.assertFalse(checked["ready_for_production"])
 
+    def test_candidate_reclassified_as_document_drops_stale_numeric_review(self):
+        candidate = proposal()
+        upstream = {"schema": "neurohuerto.candidate_ledger.v1", "candidates": [candidate]}
+        prior = review(upstream, {}, self.fetch)
+        self.assertEqual(len(prior["reviews"]), 1)
+        changed = dict(candidate, candidate_kind="DOCUMENT_ONLY",
+                       independent_statistical_review_allowed=False)
+        checked = review({**upstream, "candidates": [changed]}, prior, self.fetch)
+        self.assertEqual(checked["newly_reviewed"], 0)
+        self.assertEqual(checked["reviews"], [])
+        self.assertFalse(checked["ready_for_production"])
+
     def test_legacy_prior_without_contract_fingerprint_is_rechecked(self):
         candidate = proposal()
         prior = {"reviews": [{"id": candidate["id"],

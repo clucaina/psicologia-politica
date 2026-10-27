@@ -221,4 +221,41 @@ class IndependentReviewTests(unittest.TestCase):
         def f(url):return {"batch_id":"T43_HOUSING_TEST","observations":[dict(row("ES"),value=True)]},"b"*64
         self.assertEqual(verify_contract(proposal(),f)["status"],"NEEDS_STRUCTURAL_REPAIR")
         self.assertFalse(verify_contract(proposal(),f)["ready_to_import"]) if False else None
+    def test_archived_forged_approval_cannot_survive_in_output(self):
+        current = proposal()
+        historical = {"id": "T99_ARCHIVED", "ready_to_import": True,
+                      "no_publication_without_human_review": False,
+                      "independent_check": {"status": "APPROVED"}}
+        prior = {"reviews": [historical]}
+        result = review({"schema": "neurohuerto.candidate_ledger.v1",
+                         "candidates": [current]}, prior, self.fetch)
+        archived = next(x for x in result["reviews"] if x["id"] == "T99_ARCHIVED")
+        self.assertIs(archived["ready_to_import"], False)
+        self.assertIs(archived["no_publication_without_human_review"], True)
+        self.assertEqual(archived["independent_check"]["status"], "ARCHIVED_UNVERIFIED")
+        self.assertEqual(archived["independent_check"]["release_gate"], "NO_DEPLOY_NO_PUBLISH")
+        self.assertTrue(historical["ready_to_import"])  # input not mutated
+        self.assertFalse(result["ready_for_production"])
+
+    def test_unselected_forged_cache_still_requires_recheck(self):
+        later = proposal()
+        first = proposal("T41_FIRST")
+        upstream_later = {"schema": "neurohuerto.candidate_ledger.v1",
+                          "candidates": [later]}
+        prior = review(upstream_later, {}, self.fetch)
+        prior["reviews"][0]["ready_to_import"] = True
+        # With limit=1 the unsafe cached record is pending but not yet fetched.
+        result = review({"schema": "neurohuerto.candidate_ledger.v1",
+                         "candidates": [first, later]}, prior, self.fetch, limit=1)
+        self.assertEqual(result["newly_reviewed"], 1)
+        self.assertEqual(result["remaining_new"], 1)
+        pending = next(x for x in result["reviews"] if x["id"] == later["id"])
+        self.assertIs(pending["ready_to_import"], False)
+        self.assertIs(pending["no_publication_without_human_review"], True)
+        # The next bounded pass must actually recheck it, not trust sanitization.
+        next_pass = review({"schema": "neurohuerto.candidate_ledger.v1",
+                            "candidates": [first, later]}, result, self.fetch, limit=1)
+        self.assertEqual(next_pass["newly_reviewed"], 1)
+        self.assertEqual(next_pass["remaining_new"], 0)
+
 if __name__=="__main__":unittest.main()

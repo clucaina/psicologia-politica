@@ -103,6 +103,28 @@ def verify_contract(contract,fetch=get_json):
             "methodology_review":False}
     except (OSError,UnicodeError,ValueError,TypeError,HTTPError,URLError,KeyError):
         return {"status":"SOURCE_UNAVAILABLE","release_gate":"NO_DEPLOY_NO_PUBLISH"}
+# Only a complete, fail-closed review can be reused. Prior JSON is not a
+# trusted approval source, even when it repeats the upstream fingerprint.
+REUSABLE_STATUSES = frozenset({
+    "NEEDS_SOURCE_AND_LICENSE_REVIEW", "NEEDS_STRUCTURAL_REPAIR",
+    "BLOCK_NON_STATISTICAL_DOCUMENT", "BLOCK_BAD_ID_OR_PATH",
+    "BLOCK_UNTRUSTED_REPOSITORY", "BLOCK_UNTRUSTED_PUBLICATION_OR_PRIVACY",
+    "BLOCK_SOURCE_CHANGED", "BLOCK_FORMAT_OR_ID", "BLOCK_ROW_COUNT",
+})
+def reusable_prior_review(previous, candidate):
+    if not isinstance(previous, dict):
+        return False
+    check = previous.get("independent_check")
+    return (previous.get("source_contract_sha256") == contract_fingerprint(candidate)
+            and previous.get("source_path") == candidate.get("source_path")
+            and previous.get("upstream_sha256") == candidate.get("raw_sha256")
+            and previous.get("consumer") == "clucaina/psicologia-politica"
+            and previous.get("source_code_release") == "integracion/v78-maestro-sin-despliegue"
+            and previous.get("ready_to_import") is False
+            and previous.get("no_publication_without_human_review") is True
+            and isinstance(check, dict)
+            and check.get("status") in REUSABLE_STATUSES)
+
 def review(upstream,prior,fetch=get_json,limit=6):
     if type(limit)!=int or limit<1 or limit>12:raise ValueError("bounded max 12")
     source=upstream.get("candidates",[])
@@ -126,8 +148,7 @@ def review(upstream,prior,fetch=get_json,limit=6):
             old.pop(ident, None)
             continue
         eligible.append(c)
-    pending=[c for c in eligible if c["id"] not in old or
-             old[c["id"]].get("source_contract_sha256")!=contract_fingerprint(c)]
+    pending=[c for c in eligible if not reusable_prior_review(old.get(c["id"]), c)]
     selected=pending[:limit]
     changes={}
     for c in selected:

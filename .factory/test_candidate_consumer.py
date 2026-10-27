@@ -1,8 +1,10 @@
 import sys
 import unittest
+from io import BytesIO
+from unittest.mock import patch
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).parent))
-from candidate_consumer import review,verify_contract,contract_fingerprint,PREFIX,UPSTREAM
+from candidate_consumer import review,verify_contract,contract_fingerprint,PREFIX,UPSTREAM,get_json
 def proposal(id="T43_HOUSING_TEST"):
     return {"schema":"neurohuerto.public_source_candidate.v1","id":id,
       "source_path":"database/"+id+".json","source_repository":"clucaina/psicologia-politica",
@@ -15,6 +17,27 @@ class IndependentReviewTests(unittest.TestCase):
     def fetch(self,url):
         self.assertTrue(url.startswith(PREFIX+"database/T"))
         return {"batch_id":"T43_HOUSING_TEST","observations":[row("ES"),row("ES30")]}, "b"*64
+    def test_upstream_duplicate_json_keys_fail_closed(self):
+        # Both top-level candidate replacement and nested release-gate
+        # override must be rejected before the ledger can be reviewed.
+        payloads = [
+            b'{"schema":"neurohuerto.candidate_ledger.v1","candidates":[],"candidates":[{"id":"T43_HOUSING_TEST"}]}',
+            b'{"candidates":[{"id":"T43_HOUSING_TEST","release_gate":"NO_AUTO_IMPORT_NO_AUTO_DEPLOY","release_gate":"AUTO_DEPLOY"}]}',
+        ]
+        for payload in payloads:
+            with self.subTest(payload=payload), patch(
+                "candidate_consumer.urlopen", return_value=BytesIO(payload)
+            ):
+                with self.assertRaisesRegex(ValueError, "Duplicate JSON key"):
+                    get_json(UPSTREAM)
+
+    def test_unique_json_keys_still_parse_without_network(self):
+        payload = b'{"schema":"neurohuerto.candidate_ledger.v1","candidates":[]}'
+        with patch("candidate_consumer.urlopen", return_value=BytesIO(payload)):
+            data, digest = get_json(UPSTREAM)
+        self.assertEqual(data["candidates"], [])
+        self.assertEqual(len(digest), 64)
+
     def test_valid_candidate_still_requires_human_license_and_methodology(self):
         c=proposal()
         result=verify_contract(c,self.fetch)

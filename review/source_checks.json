@@ -3,127 +3,127 @@
   "reviews": [
     {
       "id": "T25_SCIENCE_EVIDENCE_GRAPH_2026",
+      "ready_to_import": false,
+      "no_publication_without_human_review": true,
       "source_path": "database/T25_SCIENCE_EVIDENCE_GRAPH_2026.json",
       "source_contract_sha256": "9273f4165001bc13b32e226ea67445a0351baae505dc4403fb127e6ec6e24454",
       "source_blob_sha": "895f4a04c42157d4a9a5cf33b6b585e3f22d99ee",
       "upstream_sha256": "1438d741121c7fd5e8df4ff6c0259941db1100dd1e84b08e68dfc6fdfee5b3b4",
+      "consumer": "clucaina/psicologia-politica",
+      "source_code_release": "integracion/v78-maestro-sin-despliegue",
       "independent_check": {
         "status": "BLOCK_FORMAT_OR_ID",
         "digest_match": true
-      },
-      "ready_to_import": false,
-      "consumer": "clucaina/psicologia-politica",
-      "source_code_release": "integracion/v78-maestro-sin-despliegue",
-      "no_publication_without_human_review": true
+      }
     },
     {
       "id": "T29_CANDIDATAS_CIENCIA_PSICOPOLITICA_2026",
+      "ready_to_import": false,
+      "no_publication_without_human_review": true,
       "source_path": "database/T29_CANDIDATAS_CIENCIA_PSICOPOLITICA_2026.json",
       "source_contract_sha256": "fd84628dfdb6d49c6c48bd786eaf224f44d340ad6fa1392d6091c51c9c4f9108",
       "source_blob_sha": "8ac26ebda09b88205917886e84bd304c0a879885",
       "upstream_sha256": "903e6d3a71db5f1ce927205d8ae0a13938ed53192ee1d078d48cdbf54c91fac5",
+      "consumer": "clucaina/psicologia-politica",
+      "source_code_release": "integracion/v78-maestro-sin-despliegue",
       "independent_check": {
         "status": "BLOCK_FORMAT_OR_ID",
         "digest_match": true
-      },
-      "ready_to_import": false,
-      "consumer": "clucaina/psicologia-politica",
-      "source_code_release": "integracion/v78-maestro-sin-despliegue",
-      "no_publication_without_human_review": true
+      }
     },
     {
       "id": "T33_CANDIDATAS_EDITORIALES_20261008",
+      "ready_to_import": false,
+      "no_publication_without_human_review": true,
       "source_path": "database/T33_CANDIDATAS_EDITORIALES_20261008.json",
       "source_contract_sha256": "3bac18fd7c038c569deb7a24e4d1cb6dedad6d38ac443015d0196ec064b5dd14",
       "source_blob_sha": "0224f066f41f12e2e86bb1798d8cd309257a3372",
       "upstream_sha256": "f0c9480e24523e414a0e888ed6c0550588902e1e491c3f6de83ba638227a22ec",
+      "consumer": "clucaina/psicologia-politica",
+      "source_code_release": "integracion/v78-maestro-sin-despliegue",
       "independent_check": {
         "status": "BLOCK_FORMAT_OR_ID",
         "digest_match": true
-      },
-      "ready_to_import": false,
-      "consumer": "clucaina/psicologia-politica",
-      "source_code_release": "integracion/v78-maestro-sin-despliegue",
-      "no_publication_without_human_review": true
+      }
     },
     {
       "id": "T34_CANDIDATAS_EDITORIALES_20261008",
+      "ready_to_import": false,
+      "no_publication_without_human_review": true,
       "source_path": "database/T34_CANDIDATAS_EDITORIALES_20261008.json",
       "source_contract_sha256": "5882992fcb75cb26a684da7c252346253743b1154aaef0ec70dc48368d53a514",
       "source_blob_sha": "e6dff3d98a7d1fe296f5ee551688f96fd604854c",
       "upstream_sha256": "09368eb92e11dfca2da006f97824f1ab376f9c4369322362587293d4279bdf4c",
+      "consumer": "clucaina/psicologia-politica",
+      "source_code_release": "integracion/v78-maestro-sin-despliegue",
       "independent_check": {
         "status": "BLOCK_FORMAT_OR_ID",
         "digest_match": true
-      },
-      "ready_to_import": false,
-      "consumer": "clucaina/psicologia-politica",
-      "source_code_release": "integracion/v78-maestro-sin-despliegue",
-      "no_publication_without_human_review": true
+      }
     },
     {
       "id": "T35_CANDIDATAS_EDITORIALES_20261008",
+      "ready_to_import": false,
+      "no_publication_without_human_review": true,
       "source_path": "database/T35_CANDIDATAS_EDITORIALES_20261008.json",
       "source_contract_sha256": "9f2dedbbee31778f5467431c65cadad1ab53a099b1e4f8b07551d24338d522f5",
       "source_blob_sha": "9462c683f6efde08bada0b6900b52b7ea43bf524",
       "upstream_sha256": "012e34b4f266f6e19fdf3f838ed97a00d81c5e63ef501a85e7b090d9d13c7e53",
+      "consumer": "clucaina/psicologia-politica",
+      "source_code_release": "integracion/v78-maestro-sin-despliegue",
       "independent_check": {
         "status": "BLOCK_NON_STATISTICAL_DOCUMENT",
         "digest_match": true,
         "release_gate": "NO_DEPLOY_NO_PUBLISH"
-      },
-      "ready_to_import": false,
-      "consumer": "clucaina/psicologia-politica",
-      "source_code_release": "integracion/v78-maestro-sin-despliegue",
-      "no_publication_without_human_review": true
+      }
     },
     {
       "id": "T37_CANDIDATAS_EDITORIALES_20261008",
+      "ready_to_import": false,
+      "no_publication_without_human_review": true,
       "source_path": "database/T37_CANDIDATAS_EDITORIALES_20261008.json",
       "source_contract_sha256": "30963f8d291aa5701f9ac0047396f6edc754deea6caa8740f0c9153d9ba405b7",
       "source_blob_sha": "1ec07b7ce2b9161475c03abca90f76cf433a308b",
       "upstream_sha256": "12775b0dc6dd48873a2e6a7c522194e1815ec58f7205cfd9de3851802d2cd15a",
+      "consumer": "clucaina/psicologia-politica",
+      "source_code_release": "integracion/v78-maestro-sin-despliegue",
       "independent_check": {
         "status": "BLOCK_NON_STATISTICAL_DOCUMENT",
         "digest_match": true,
         "release_gate": "NO_DEPLOY_NO_PUBLISH"
-      },
-      "ready_to_import": false,
-      "consumer": "clucaina/psicologia-politica",
-      "source_code_release": "integracion/v78-maestro-sin-despliegue",
-      "no_publication_without_human_review": true
+      }
     },
     {
       "id": "T38_CANDIDATAS_EDITORIALES_20261008",
+      "ready_to_import": false,
+      "no_publication_without_human_review": true,
       "source_path": "database/T38_CANDIDATAS_EDITORIALES_20261008.json",
       "source_contract_sha256": "13dc2dca5c61e12865b5ebbb3975331f6a1a499643027d3d787e462cdd770fea",
       "source_blob_sha": "1cfb70a3754375b10d577e9a12de6091163572b7",
       "upstream_sha256": "3d7b92c3dd64b9d1122571c088dc972d2a98d9caf4b9b3c08fa60972655f8383",
+      "consumer": "clucaina/psicologia-politica",
+      "source_code_release": "integracion/v78-maestro-sin-despliegue",
       "independent_check": {
         "status": "BLOCK_NON_STATISTICAL_DOCUMENT",
         "digest_match": true,
         "release_gate": "NO_DEPLOY_NO_PUBLISH"
-      },
-      "ready_to_import": false,
-      "consumer": "clucaina/psicologia-politica",
-      "source_code_release": "integracion/v78-maestro-sin-despliegue",
-      "no_publication_without_human_review": true
+      }
     },
     {
       "id": "T39_CANDIDATAS_EDITORIALES_20261008",
+      "ready_to_import": false,
+      "no_publication_without_human_review": true,
       "source_path": "database/T39_CANDIDATAS_EDITORIALES_20261008.json",
       "source_contract_sha256": "c7b16f6742423bdc49a92eda037debb82ad91fac28c8843114482e21e47142b4",
       "source_blob_sha": "5ddfadce1dc3d8c1f361f27b06d4a241d53c35be",
       "upstream_sha256": "1d4efda7ba88e7d99911a673e9ab91e73f4c1c7ba61b0bc60e9a745b79e5fd6a",
+      "consumer": "clucaina/psicologia-politica",
+      "source_code_release": "integracion/v78-maestro-sin-despliegue",
       "independent_check": {
         "status": "BLOCK_NON_STATISTICAL_DOCUMENT",
         "digest_match": true,
         "release_gate": "NO_DEPLOY_NO_PUBLISH"
-      },
-      "ready_to_import": false,
-      "consumer": "clucaina/psicologia-politica",
-      "source_code_release": "integracion/v78-maestro-sin-despliegue",
-      "no_publication_without_human_review": true
+      }
     }
   ],
   "newly_reviewed": 0,

@@ -123,7 +123,8 @@ def reusable_prior_review(previous, candidate):
             and previous.get("ready_to_import") is False
             and previous.get("no_publication_without_human_review") is True
             and isinstance(check, dict)
-            and check.get("status") in REUSABLE_STATUSES)
+            and isinstance(check.get("status"), str)
+            and check["status"] in REUSABLE_STATUSES)
 
 def review(upstream,prior,fetch=get_json,limit=6):
     if type(limit)!=int or limit<1 or limit>12:raise ValueError("bounded max 12")

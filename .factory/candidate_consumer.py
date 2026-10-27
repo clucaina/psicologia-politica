@@ -138,7 +138,9 @@ def review(upstream,prior,fetch=get_json,limit=6):
     eligible=[]
     for c in source:
         if not isinstance(c,dict):
-            continue
+            # A malformed ledger entry must never vanish from the review queue.
+            # Otherwise a damaged upstream ledger could appear fully reviewed.
+            raise ValueError("Malformed upstream candidate record")
         ident=c.get("id")
         if not isinstance(ident,str) or not ident.strip() or ident in seen:
             raise ValueError("Malformed or duplicated upstream candidate ID")

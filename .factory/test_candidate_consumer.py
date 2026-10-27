@@ -161,6 +161,19 @@ class IndependentReviewTests(unittest.TestCase):
                          "NEEDS_SOURCE_AND_LICENSE_REVIEW")
         self.assertEqual(review(upstream, recovered, self.fetch)["newly_reviewed"], 0)
 
+    def test_malformed_upstream_records_cannot_disappear_from_review_queue(self):
+        c = proposal()
+        for invalid in (None, [], "not a candidate", 0, True):
+            with self.subTest(invalid=invalid):
+                with self.assertRaisesRegex(ValueError, "Malformed upstream candidate record"):
+                    review({"schema": "neurohuerto.candidate_ledger.v1",
+                            "candidates": [c, invalid]}, {}, self.fetch)
+
+    def test_malformed_only_ledger_does_not_claim_zero_pending(self):
+        with self.assertRaisesRegex(ValueError, "Malformed upstream candidate record"):
+            review({"schema": "neurohuerto.candidate_ledger.v1",
+                    "candidates": [None]}, {}, self.fetch)
+
     def test_duplicate_upstream_ids_fail_closed(self):
         c = proposal()
         with self.assertRaises(ValueError):

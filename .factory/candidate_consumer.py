@@ -30,6 +30,15 @@ def contract_fingerprint(candidate):
                          separators=(",", ":")).encode("utf-8")
     return hashlib.sha256(encoded).hexdigest()
 
+def reject_duplicate_json_keys(pairs):
+    """Reject ambiguous upstream JSON, including duplicate nested keys."""
+    result={}
+    for key,value in pairs:
+        if key in result:
+            raise ValueError("Duplicate JSON key in upstream source")
+        result[key]=value
+    return result
+
 def get_json(url):
     if url!=UPSTREAM and not url.startswith(PREFIX+"database/T"):
         raise ValueError("Cross-repo origin is not allowlisted")
@@ -37,7 +46,7 @@ def get_json(url):
     with urlopen(req,timeout=25) as r:
         contents=r.read(MAX_BYTES+1)
     if len(contents)>MAX_BYTES:raise ValueError("Source exceeded safe limit")
-    return json.loads(contents.decode("utf-8")),hashlib.sha256(contents).hexdigest()
+    return json.loads(contents.decode("utf-8"),object_pairs_hook=reject_duplicate_json_keys),hashlib.sha256(contents).hexdigest()
 def verify_contract(contract,fetch=get_json):
     if contract.get("candidate_kind")=="DOCUMENT_ONLY" or contract.get("independent_statistical_review_allowed") is False:
         return {"status":"BLOCK_NON_STATISTICAL_DOCUMENT","release_gate":"NO_DEPLOY_NO_PUBLISH"}

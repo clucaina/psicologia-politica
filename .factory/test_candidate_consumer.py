@@ -2,7 +2,7 @@ import sys
 import unittest
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).parent))
-from candidate_consumer import review,verify_contract,PREFIX,UPSTREAM
+from candidate_consumer import review,verify_contract,contract_fingerprint,PREFIX,UPSTREAM
 def proposal(id="T43_HOUSING_TEST"):
     return {"schema":"neurohuerto.public_source_candidate.v1","id":id,
       "source_path":"database/"+id+".json","source_repository":"clucaina/psicologia-politica",
@@ -61,10 +61,43 @@ class IndependentReviewTests(unittest.TestCase):
         changed["source_blob_sha"]="c"*40
         third=review({"schema":"neurohuerto.candidate_ledger.v1","candidates":[changed]},first,self.fetch)
         self.assertEqual(third["newly_reviewed"],1)
+    def test_same_blob_but_changed_digest_forces_independent_recheck(self):
+        candidate = proposal()
+        upstream = {"schema": "neurohuerto.candidate_ledger.v1", "candidates": [candidate]}
+        prior = review(upstream, {}, self.fetch)
+        changed = dict(candidate, raw_sha256="0" * 64)
+        checked = review({**upstream, "candidates": [changed]}, prior, self.fetch)
+        self.assertEqual(checked["newly_reviewed"], 1)
+        self.assertEqual(checked["reviews"][0]["independent_check"]["status"],
+                         "BLOCK_SOURCE_CHANGED")
+        self.assertFalse(checked["ready_for_production"])
+
+    def test_same_blob_but_relaxed_release_gate_forces_recheck(self):
+        candidate = proposal()
+        upstream = {"schema": "neurohuerto.candidate_ledger.v1", "candidates": [candidate]}
+        prior = review(upstream, {}, self.fetch)
+        changed = dict(candidate, release_gate="AUTO_DEPLOY")
+        checked = review({**upstream, "candidates": [changed]}, prior, self.fetch)
+        self.assertEqual(checked["newly_reviewed"], 1)
+        self.assertEqual(checked["reviews"][0]["independent_check"]["status"],
+                         "BLOCK_UNTRUSTED_PUBLICATION_OR_PRIVACY")
+        self.assertFalse(checked["ready_for_production"])
+
+    def test_legacy_prior_without_contract_fingerprint_is_rechecked(self):
+        candidate = proposal()
+        prior = {"reviews": [{"id": candidate["id"],
+                              "source_blob_sha": candidate["source_blob_sha"]}]}
+        checked = review({"schema": "neurohuerto.candidate_ledger.v1",
+                          "candidates": [candidate]}, prior, self.fetch)
+        self.assertEqual(checked["newly_reviewed"], 1)
+        self.assertEqual(checked["reviews"][0]["independent_check"]["status"],
+                         "NEEDS_SOURCE_AND_LICENSE_REVIEW")
+
     def test_stale_prior_reviews_keep_queue_nonnegative(self):
         current = proposal()
         prior = {"reviews": [
-            {"id": current["id"], "source_blob_sha": current["source_blob_sha"]},
+            {"id": current["id"], "source_blob_sha": current["source_blob_sha"],
+             "source_contract_sha256": contract_fingerprint(current)},
             {"id": "T99_OLD_HISTORICAL", "source_blob_sha": "9" * 40},
         ]}
         result = review({"schema": "neurohuerto.candidate_ledger.v1",

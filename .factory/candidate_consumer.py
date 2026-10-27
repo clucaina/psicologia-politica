@@ -121,6 +121,9 @@ def review(upstream,prior,fetch=get_json,limit=6):
             raise ValueError("Malformed or duplicated upstream candidate ID")
         seen.add(ident)
         if c.get("candidate_kind")=="DOCUMENT_ONLY" or c.get("independent_statistical_review_allowed") is False:
+            # A formerly numeric candidate can become document-only without a
+            # blob change. Never carry its old statistical clearance forward.
+            old.pop(ident, None)
             continue
         eligible.append(c)
     pending=[c for c in eligible if c["id"] not in old or

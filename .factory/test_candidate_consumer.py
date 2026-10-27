@@ -1,4 +1,5 @@
 import sys
+import json
 import unittest
 from io import BytesIO
 from unittest.mock import patch
@@ -280,5 +281,40 @@ class IndependentReviewTests(unittest.TestCase):
                             "candidates": [first, later]}, result, self.fetch, limit=1)
         self.assertEqual(next_pass["newly_reviewed"], 1)
         self.assertEqual(next_pass["remaining_new"], 0)
+
+    def test_archived_record_cannot_republish_private_prior_fields(self):
+        current = proposal()
+        sentinel = "SYNTHETIC_PRIVATE_SENTINEL"
+        prior = {"reviews": [{
+            "id": "T99_ARCHIVED", "source_path": "private/" + sentinel,
+            "patient_name": sentinel, "observations": [{"name": sentinel}],
+            "ready_to_import": False,
+            "no_publication_without_human_review": True,
+            "independent_check": {
+                "status": "NEEDS_SOURCE_AND_LICENSE_REVIEW",
+                "patient_notes": sentinel,
+            },
+        }]}
+        result = review({"schema": "neurohuerto.candidate_ledger.v1",
+                         "candidates": [current]}, prior, self.fetch)
+        archived = next(x for x in result["reviews"] if x["id"] == "T99_ARCHIVED")
+        self.assertNotIn(sentinel, json.dumps(result))
+        self.assertNotIn("observations", archived)
+        self.assertNotIn("source_path", archived)
+        self.assertEqual(archived["independent_check"]["status"], "ARCHIVED_UNVERIFIED")
+        self.assertFalse(result["ready_for_production"])
+
+    def test_unknown_nested_cache_field_forces_recheck_without_leak(self):
+        current = proposal()
+        upstream = {"schema": "neurohuerto.candidate_ledger.v1",
+                    "candidates": [current]}
+        first = review(upstream, {}, self.fetch)
+        first["reviews"][0]["independent_check"]["patient_notes"] = (
+            "SYNTHETIC_PRIVATE_SENTINEL")
+        checked = review(upstream, first, self.fetch)
+        self.assertEqual(checked["newly_reviewed"], 1)
+        self.assertNotIn("SYNTHETIC_PRIVATE_SENTINEL", json.dumps(checked))
+        self.assertEqual(checked["reviews"][0]["independent_check"]["status"],
+                         "NEEDS_SOURCE_AND_LICENSE_REVIEW")
 
 if __name__=="__main__":unittest.main()

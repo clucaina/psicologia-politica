@@ -16,6 +16,20 @@ UPSTREAM="https://raw.githubusercontent.com/clucaina/NPL-CANONICAL/factory/data-
 PREFIX="https://raw.githubusercontent.com/clucaina/psicologia-politica/integracion/v78-maestro-sin-despliegue/"
 PATH=re.compile(r"^database/(T[0-9]{1,4}_[A-Za-z0-9_-]+)\.json$")
 MAX_BYTES=1_900_000
+# A source blob SHA alone does not capture changes to provenance, digest or
+# publication restrictions in the upstream ledger.
+REVIEW_CONTRACT_FIELDS = (
+    "schema", "id", "source_path", "source_repository", "source_ref",
+    "source_blob_sha", "raw_sha256", "raw_values_copied", "release_gate",
+    "candidate_kind", "independent_statistical_review_allowed",
+)
+def contract_fingerprint(candidate):
+    """Recheck when any review-relevant source or safety assertion changes."""
+    relevant = {key: candidate.get(key) for key in REVIEW_CONTRACT_FIELDS}
+    encoded = json.dumps(relevant, sort_keys=True, ensure_ascii=False,
+                         separators=(",", ":")).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()
+
 def get_json(url):
     if url!=UPSTREAM and not url.startswith(PREFIX+"database/T"):
         raise ValueError("Cross-repo origin is not allowlisted")
@@ -110,12 +124,13 @@ def review(upstream,prior,fetch=get_json,limit=6):
             continue
         eligible.append(c)
     pending=[c for c in eligible if c["id"] not in old or
-             old[c["id"]].get("source_blob_sha")!=c.get("source_blob_sha")]
+             old[c["id"]].get("source_contract_sha256")!=contract_fingerprint(c)]
     selected=pending[:limit]
     changes={}
     for c in selected:
         result=verify_contract(c,fetch)
         changes[c["id"]]={"id":c["id"],"source_path":str(c.get("source_path","")),
+                         "source_contract_sha256":contract_fingerprint(c),
                          "source_blob_sha":str(c.get("source_blob_sha","")),
                          "upstream_sha256":str(c.get("raw_sha256","")),
                          "independent_check":result,

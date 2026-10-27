@@ -171,10 +171,12 @@ def review(upstream,prior,fetch=get_json,limit=6):
     merged={}
     for ident,record in old.items():
         safe=dict(record)
+        unsafe_inherited = (record.get("ready_to_import") is not False or
+                            record.get("no_publication_without_human_review") is not True)
         safe["ready_to_import"]=False
         safe["no_publication_without_human_review"]=True
         check=safe.get("independent_check")
-        if (not isinstance(check,dict) or
+        if (unsafe_inherited or not isinstance(check,dict) or
                 not isinstance(check.get("status"),str) or
                 check["status"] not in REUSABLE_STATUSES):
             safe["independent_check"]={

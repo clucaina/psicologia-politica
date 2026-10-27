@@ -165,7 +165,23 @@ def review(upstream,prior,fetch=get_json,limit=6):
                          "consumer":"clucaina/psicologia-politica",
                          "source_code_release":"integracion/v78-maestro-sin-despliegue",
                          "no_publication_without_human_review":True}
-    merged={**old,**changes}
+    # Retain historical records for traceability, but never propagate an old
+    # import approval or publication permission into the new report. Sanitizing
+    # happens AFTER queue selection: a forged approval must still force recheck.
+    merged={}
+    for ident,record in old.items():
+        safe=dict(record)
+        safe["ready_to_import"]=False
+        safe["no_publication_without_human_review"]=True
+        check=safe.get("independent_check")
+        if (not isinstance(check,dict) or
+                not isinstance(check.get("status"),str) or
+                check["status"] not in REUSABLE_STATUSES):
+            safe["independent_check"]={
+                "status":"ARCHIVED_UNVERIFIED",
+                "release_gate":"NO_DEPLOY_NO_PUBLISH"}
+        merged[ident]=safe
+    merged.update(changes)
     return {"schema":"neurohuerto.independent_reviewer.v1",
             "reviews":[merged[k] for k in sorted(merged)],
             "newly_reviewed":len(changes),

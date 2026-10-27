@@ -138,6 +138,15 @@ class IndependentReviewTests(unittest.TestCase):
         del prior["reviews"][0]["independent_check"]
         self.assertEqual(review(upstream, prior, self.fetch)["newly_reviewed"], 1)
 
+    def test_unhashable_cached_status_is_rechecked_without_crash(self):
+        c = proposal()
+        upstream = {"schema": "neurohuerto.candidate_ledger.v1", "candidates": [c]}
+        prior = review(upstream, {}, self.fetch)
+        prior["reviews"][0]["independent_check"]["status"] = ["APPROVED"]
+        checked = review(upstream, prior, self.fetch)
+        self.assertEqual(checked["newly_reviewed"], 1)
+        self.assertFalse(checked["ready_for_production"])
+
     def test_source_outage_is_retried_not_cached_as_permanent_review(self):
         c = proposal()
         upstream = {"schema": "neurohuerto.candidate_ledger.v1", "candidates": [c]}

@@ -112,6 +112,68 @@ def verify_contract(contract,fetch=get_json):
             "methodology_review":False}
     except (OSError,UnicodeError,ValueError,TypeError,HTTPError,URLError,KeyError):
         return {"status":"SOURCE_UNAVAILABLE","release_gate":"NO_DEPLOY_NO_PUBLISH"}
+# Historical reviewer files are untrusted input, not a source of arbitrary
+# metadata for a public output. Preserve only the bounded review contract.
+SAFE_ARCHIVED_FIELDS = frozenset({
+    "id", "source_path", "source_contract_sha256", "source_blob_sha",
+    "upstream_sha256", "independent_check", "ready_to_import",
+    "consumer", "source_code_release", "no_publication_without_human_review",
+})
+SAFE_CHECK_FIELDS = frozenset({
+    "status", "release_gate", "digest_match", "rows_independently_checked",
+    "geographies", "indicators", "structural_flags", "human_factual_review",
+    "methodology_review",
+})
+STRUCTURAL_FLAGS = frozenset({
+    "invalid_row", "non_standard_geography", "missing_unit",
+    "missing_period_or_source", "invalid_measurement", "missing_indicator_id",
+})
+def safe_cached_check(check):
+    """Return a bounded, nonpersonal review check, or None if untrusted."""
+    if not isinstance(check, dict) or set(check) - SAFE_CHECK_FIELDS:
+        return None
+    if not isinstance(check.get("status"), str) or check["status"] not in REUSABLE_STATUSES:
+        return None
+    if check.get("release_gate", "NO_DEPLOY_NO_PUBLISH") != "NO_DEPLOY_NO_PUBLISH":
+        return None
+    for key in ("digest_match", "human_factual_review", "methodology_review"):
+        if key in check and type(check[key]) is not bool:
+            return None
+    if check.get("human_factual_review") is True or check.get("methodology_review") is True:
+        return None
+    for key in ("rows_independently_checked", "geographies", "indicators"):
+        if key in check and (type(check[key]) is not int or not 0 <= check[key] <= 20000):
+            return None
+    if "structural_flags" in check and (
+        not isinstance(check["structural_flags"], list) or
+        any(not isinstance(flag, str) or flag not in STRUCTURAL_FLAGS
+            for flag in check["structural_flags"])
+    ):
+        return None
+    return dict(check)
+
+def safe_archived_record(ident, record):
+    """Never re-emit arbitrary historical fields, payloads or nested notes."""
+    safe = {"id": ident, "ready_to_import": False,
+            "no_publication_without_human_review": True}
+    if record.get("source_path") == "database/" + ident + ".json":
+        safe["source_path"] = record["source_path"]
+    for key, size in (("source_contract_sha256", 64),
+                      ("source_blob_sha", 40), ("upstream_sha256", 64)):
+        value = record.get(key)
+        if isinstance(value, str) and re.fullmatch(r"[0-9a-f]{" + str(size) + r"}", value):
+            safe[key] = value
+    if record.get("consumer") == "clucaina/psicologia-politica":
+        safe["consumer"] = "clucaina/psicologia-politica"
+    if record.get("source_code_release") == "integracion/v78-maestro-sin-despliegue":
+        safe["source_code_release"] = "integracion/v78-maestro-sin-despliegue"
+    unsafe_inherited = (record.get("ready_to_import") is not False or
+                        record.get("no_publication_without_human_review") is not True)
+    check = None if unsafe_inherited else safe_cached_check(record.get("independent_check"))
+    safe["independent_check"] = check if check is not None else {
+        "status": "ARCHIVED_UNVERIFIED", "release_gate": "NO_DEPLOY_NO_PUBLISH"}
+    return safe
+
 # Only a complete, fail-closed review can be reused. Prior JSON is not a
 # trusted approval source, even when it repeats the upstream fingerprint.
 REUSABLE_STATUSES = frozenset({
@@ -131,16 +193,16 @@ def reusable_prior_review(previous, candidate):
             and previous.get("source_code_release") == "integracion/v78-maestro-sin-despliegue"
             and previous.get("ready_to_import") is False
             and previous.get("no_publication_without_human_review") is True
-            and isinstance(check, dict)
-            and isinstance(check.get("status"), str)
-            and check["status"] in REUSABLE_STATUSES)
+            and safe_cached_check(check) is not None)
 
 def review(upstream,prior,fetch=get_json,limit=6):
     if type(limit)!=int or limit<1 or limit>12:raise ValueError("bounded max 12")
     source=upstream.get("candidates",[])
     if upstream.get("schema")!="neurohuerto.candidate_ledger.v1" or not isinstance(source,list):
         raise ValueError("Incompatible proposal schema")
-    old={x["id"]:x for x in prior.get("reviews",[]) if isinstance(x,dict) and isinstance(x.get("id"),str)}
+    old={x["id"]:x for x in prior.get("reviews",[])
+         if isinstance(x,dict) and isinstance(x.get("id"),str)
+         and re.fullmatch(r"T[0-9]{1,4}_[A-Za-z0-9_-]+",x["id"])}
     # Validate upstream identifiers before dictionary lookup or queue selection.
     # A duplicate ID makes the source ambiguous and must not be silently overwritten.
     seen=set()
@@ -179,19 +241,7 @@ def review(upstream,prior,fetch=get_json,limit=6):
     # happens AFTER queue selection: a forged approval must still force recheck.
     merged={}
     for ident,record in old.items():
-        safe=dict(record)
-        unsafe_inherited = (record.get("ready_to_import") is not False or
-                            record.get("no_publication_without_human_review") is not True)
-        safe["ready_to_import"]=False
-        safe["no_publication_without_human_review"]=True
-        check=safe.get("independent_check")
-        if (unsafe_inherited or not isinstance(check,dict) or
-                not isinstance(check.get("status"),str) or
-                check["status"] not in REUSABLE_STATUSES):
-            safe["independent_check"]={
-                "status":"ARCHIVED_UNVERIFIED",
-                "release_gate":"NO_DEPLOY_NO_PUBLISH"}
-        merged[ident]=safe
+        merged[ident]=safe_archived_record(ident,record)
     merged.update(changes)
     return {"schema":"neurohuerto.independent_reviewer.v1",
             "reviews":[merged[k] for k in sorted(merged)],

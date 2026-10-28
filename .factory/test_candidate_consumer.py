@@ -347,4 +347,15 @@ class IndependentReviewTests(unittest.TestCase):
         second = review(upstream, first, self.fetch)
         self.assertEqual(second["newly_reviewed"], 0)
 
+    def test_untrusted_fresh_candidate_ids_are_rejected_before_output(self):
+        for bad_id in ("PRIVATE_PERSON", "T43_PRIVATE/CASE",
+                       "T43_" + "X" * 65):
+            with self.subTest(bad_id=bad_id):
+                candidate = proposal()
+                candidate["id"] = bad_id
+                with self.assertRaisesRegex(ValueError,
+                                            "Malformed or duplicated upstream candidate ID"):
+                    review({"schema": "neurohuerto.candidate_ledger.v1",
+                            "candidates": [candidate]}, {}, self.fetch)
+
 if __name__=="__main__":unittest.main()

@@ -14,7 +14,8 @@ from urllib.request import Request,urlopen
 from urllib.error import HTTPError,URLError
 UPSTREAM="https://raw.githubusercontent.com/clucaina/NPL-CANONICAL/factory/data-candidates/review/index.json"
 PREFIX="https://raw.githubusercontent.com/clucaina/psicologia-politica/integracion/v78-maestro-sin-despliegue/"
-PATH=re.compile(r"^database/(T[0-9]{1,4}_[A-Za-z0-9_-]+)\.json$")
+CANDIDATE_ID=re.compile(r"T[0-9]{1,4}_[A-Za-z0-9_-]{1,64}")
+PATH=re.compile(r"^database/(T[0-9]{1,4}_[A-Za-z0-9_-]{1,64})\.json$")
 MAX_BYTES=1_900_000
 # A source blob SHA alone does not capture changes to provenance, digest or
 # publication restrictions in the upstream ledger.
@@ -202,7 +203,7 @@ def review(upstream,prior,fetch=get_json,limit=6):
         raise ValueError("Incompatible proposal schema")
     old={x["id"]:x for x in prior.get("reviews",[])
          if isinstance(x,dict) and isinstance(x.get("id"),str)
-         and re.fullmatch(r"T[0-9]{1,4}_[A-Za-z0-9_-]+",x["id"])}
+         and CANDIDATE_ID.fullmatch(x["id"])}
     # Validate upstream identifiers before dictionary lookup or queue selection.
     # A duplicate ID makes the source ambiguous and must not be silently overwritten.
     seen=set()
@@ -213,7 +214,7 @@ def review(upstream,prior,fetch=get_json,limit=6):
             # Otherwise a damaged upstream ledger could appear fully reviewed.
             raise ValueError("Malformed upstream candidate record")
         ident=c.get("id")
-        if not isinstance(ident,str) or not ident.strip() or ident in seen:
+        if not isinstance(ident,str) or not CANDIDATE_ID.fullmatch(ident) or ident in seen:
             raise ValueError("Malformed or duplicated upstream candidate ID")
         seen.add(ident)
         if c.get("candidate_kind")=="DOCUMENT_ONLY" or c.get("independent_statistical_review_allowed") is False:

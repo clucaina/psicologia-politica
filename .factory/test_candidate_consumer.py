@@ -317,4 +317,34 @@ class IndependentReviewTests(unittest.TestCase):
         self.assertEqual(checked["reviews"][0]["independent_check"]["status"],
                          "NEEDS_SOURCE_AND_LICENSE_REVIEW")
 
+    def test_fresh_candidate_metadata_cannot_leak_untrusted_text(self):
+        candidate = proposal()
+        sentinel = "SYNTHETIC_PRIVATE_SENTINEL"
+        candidate["source_path"] = "private/" + sentinel + ".json"
+        candidate["source_blob_sha"] = sentinel
+        candidate["raw_sha256"] = sentinel
+        result = review({"schema": "neurohuerto.candidate_ledger.v1",
+                         "candidates": [candidate]}, {}, self.fetch)
+        fresh = result["reviews"][0]
+        self.assertEqual(fresh["independent_check"]["status"], "BLOCK_BAD_ID_OR_PATH")
+        self.assertNotIn(sentinel, json.dumps(result))
+        self.assertNotIn("source_path", fresh)
+        self.assertNotIn("source_blob_sha", fresh)
+        self.assertNotIn("upstream_sha256", fresh)
+        self.assertFalse(result["ready_for_production"])
+
+    def test_fresh_valid_metadata_retains_bounded_reusable_fields(self):
+        candidate = proposal()
+        upstream = {"schema": "neurohuerto.candidate_ledger.v1",
+                    "candidates": [candidate]}
+        first = review(upstream, {}, self.fetch)
+        fresh = first["reviews"][0]
+        self.assertEqual(fresh["source_path"], candidate["source_path"])
+        self.assertEqual(fresh["source_blob_sha"], candidate["source_blob_sha"])
+        self.assertEqual(fresh["upstream_sha256"], candidate["raw_sha256"])
+        self.assertEqual(fresh["independent_check"]["status"],
+                         "NEEDS_SOURCE_AND_LICENSE_REVIEW")
+        second = review(upstream, first, self.fetch)
+        self.assertEqual(second["newly_reviewed"], 0)
+
 if __name__=="__main__":unittest.main()

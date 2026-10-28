@@ -19,7 +19,7 @@ PATH=re.compile(r"^database/(T[0-9]{1,4}_[A-Za-z0-9_-]{1,64})\.json$")
 MAX_BYTES=1_900_000
 # A source blob SHA alone does not capture changes to provenance, digest or
 # publication restrictions in the upstream ledger.
-REVIEW_POLICY_VERSION = "observation-identity-uniqueness-v1"
+REVIEW_POLICY_VERSION = "typed-observation-dimensions-v2"
 REVIEW_CONTRACT_FIELDS = (
     "schema", "id", "source_path", "source_repository", "source_ref",
     "source_blob_sha", "raw_sha256", "raw_values_copied", "release_gate",
@@ -89,9 +89,12 @@ def verify_contract(contract,fetch=get_json):
             if not isinstance(geo,str) or not geo.startswith("ES"):
                 reasons.add("non_standard_geography")
             else:geos.add(geo)
-            if not isinstance(row.get("unit"),str) or not row["unit"]:
+            # Empty, whitespace-only and non-text dimensions cannot establish
+            # a traceable statistical observation or a unique observation key.
+            if not isinstance(row.get("unit"), str) or not row["unit"].strip():
                 reasons.add("missing_unit")
-            if not row.get("period") or not row.get("source_id"):
+            if any(not isinstance(row.get(k), str) or not row[k].strip()
+                   for k in ("period", "source_id")):
                 reasons.add("missing_period_or_source")
             try:
                 valid_measurement = (not isinstance(val,bool) and isinstance(val,(int,float))

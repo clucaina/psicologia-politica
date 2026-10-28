@@ -227,15 +227,23 @@ def review(upstream,prior,fetch=get_json,limit=6):
     changes={}
     for c in selected:
         result=verify_contract(c,fetch)
-        changes[c["id"]]={"id":c["id"],"source_path":str(c.get("source_path","")),
-                         "source_contract_sha256":contract_fingerprint(c),
-                         "source_blob_sha":str(c.get("source_blob_sha","")),
-                         "upstream_sha256":str(c.get("raw_sha256","")),
-                         "independent_check":result,
-                         "ready_to_import":False,
-                         "consumer":"clucaina/psicologia-politica",
-                         "source_code_release":"integracion/v78-maestro-sin-despliegue",
-                         "no_publication_without_human_review":True}
+        # Fresh upstream candidates are untrusted too. Never copy arbitrary
+        # source paths or digest fields into a public review result.
+        candidate_record = {
+            "source_path": c.get("source_path"),
+            "source_contract_sha256": contract_fingerprint(c),
+            "source_blob_sha": c.get("source_blob_sha"),
+            "upstream_sha256": c.get("raw_sha256"),
+            "ready_to_import": False,
+            "consumer": "clucaina/psicologia-politica",
+            "source_code_release": "integracion/v78-maestro-sin-despliegue",
+            "no_publication_without_human_review": True,
+        }
+        clean = safe_archived_record(c["id"], candidate_record)
+        # This result is generated locally from fixed status strings, bounded
+        # counters and allowlisted flags, never from upstream free text.
+        clean["independent_check"] = result
+        changes[c["id"]] = clean
     # Retain historical records for traceability, but never propagate an old
     # import approval or publication permission into the new report. Sanitizing
     # happens AFTER queue selection: a forged approval must still force recheck.

@@ -46,6 +46,43 @@ class IndependentReviewTests(unittest.TestCase):
         self.assertFalse(result["human_factual_review"])
         self.assertEqual(result["rows_independently_checked"],2)
         self.assertNotIn("32.4",str(result))
+    def test_duplicate_observation_identity_blocks_structural_clearance(self):
+        first = row("ES")
+        def fetch(url):
+            return {"batch_id": "T43_HOUSING_TEST",
+                    "observations": [first, {**first, "value": 99.0}]}, "b" * 64
+        result = verify_contract(proposal(), fetch)
+        self.assertEqual(result["status"], "NEEDS_STRUCTURAL_REPAIR")
+        self.assertIn("duplicate_observation_key", result["structural_flags"])
+        self.assertEqual(result["rows_independently_checked"], 2)
+        self.assertFalse(result["human_factual_review"])
+
+    def test_distinct_observation_dimensions_remain_separate(self):
+        first = row("ES")
+        def fetch(url):
+            return {"batch_id": "T43_HOUSING_TEST",
+                    "observations": [first, {**first, "period": "2026"},
+                                     {**first, "geo_code": "ES30"},
+                                     {**first, "source_id": "EUROSTAT"}]}, "b" * 64
+        result = verify_contract(proposal(), fetch)
+        self.assertEqual(result["status"], "NEEDS_SOURCE_AND_LICENSE_REVIEW")
+        self.assertNotIn("duplicate_observation_key", result["structural_flags"])
+
+    def test_legacy_policy_fingerprint_forces_new_review(self):
+        import hashlib
+        from candidate_consumer import REVIEW_CONTRACT_FIELDS
+        candidate = proposal()
+        legacy_fields = {key: candidate.get(key) for key in REVIEW_CONTRACT_FIELDS}
+        old_fingerprint = hashlib.sha256(json.dumps(
+            legacy_fields, sort_keys=True, ensure_ascii=False,
+            separators=(",", ":")).encode("utf-8")).hexdigest()
+        upstream = {"schema": "neurohuerto.candidate_ledger.v1",
+                    "candidates": [candidate]}
+        prior = review(upstream, {}, self.fetch)
+        prior["reviews"][0]["source_contract_sha256"] = old_fingerprint
+        self.assertNotEqual(old_fingerprint, contract_fingerprint(candidate))
+        self.assertEqual(review(upstream, prior, self.fetch)["newly_reviewed"], 1)
+
     def test_changed_data_or_malicious_paths_are_blocked(self):
         c=proposal()
         self.assertEqual(verify_contract({**c,"raw_sha256":"0"*64},self.fetch)["status"],"BLOCK_SOURCE_CHANGED")

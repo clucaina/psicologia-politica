@@ -19,7 +19,10 @@ PATH=re.compile(r"^database/(T[0-9]{1,4}_[A-Za-z0-9_-]{1,64})\.json$")
 MAX_BYTES=1_900_000
 # A source blob SHA alone does not capture changes to provenance, digest or
 # publication restrictions in the upstream ledger.
-REVIEW_POLICY_VERSION = "typed-observation-dimensions-v2"
+REVIEW_POLICY_VERSION = "typed-observation-dimensions-and-geocodes-v3"
+# Lexical screen only: Spanish and upper-case alphanumeric ES-prefixed codes.
+# This does NOT prove that an administrative geography actually exists.
+GEO_CODE = re.compile(r"ES[A-Z0-9]{0,8}")
 REVIEW_CONTRACT_FIELDS = (
     "schema", "id", "source_path", "source_repository", "source_ref",
     "source_blob_sha", "raw_sha256", "raw_values_copied", "release_gate",
@@ -86,7 +89,7 @@ def verify_contract(contract,fetch=get_json):
                 reasons.add("invalid_row");continue
             geo=row.get("geo_code")
             val=row.get("value")
-            if not isinstance(geo,str) or not geo.startswith("ES"):
+            if not isinstance(geo,str) or not GEO_CODE.fullmatch(geo):
                 reasons.add("non_standard_geography")
             else:geos.add(geo)
             # Empty, whitespace-only and non-text dimensions cannot establish

@@ -395,4 +395,34 @@ class IndependentReviewTests(unittest.TestCase):
                     review({"schema": "neurohuerto.candidate_ledger.v1",
                             "candidates": [candidate]}, {}, self.fetch)
 
+    def test_incomplete_statistical_cache_requires_real_recheck(self):
+        candidate = proposal()
+        upstream = {"schema": "neurohuerto.candidate_ledger.v1",
+                    "candidates": [candidate]}
+        prior = review(upstream, {}, self.fetch)
+        # Same source fingerprint, but a status label is not row evidence.
+        prior["reviews"][0]["independent_check"] = {
+            "status": "NEEDS_SOURCE_AND_LICENSE_REVIEW"}
+        checked = review(upstream, prior, self.fetch)
+        self.assertEqual(checked["newly_reviewed"], 1)
+        self.assertEqual(checked["reviews"][0]["independent_check"]["rows_independently_checked"], 2)
+        self.assertFalse(checked["ready_for_production"])
+
+    def test_forged_structural_cache_without_flags_requires_recheck(self):
+        candidate = proposal()
+        upstream = {"schema": "neurohuerto.candidate_ledger.v1",
+                    "candidates": [candidate]}
+        def invalid_fetch(url):
+            return {"batch_id": candidate["id"],
+                    "observations": [dict(row("ES"), value=True)]}, "b" * 64
+        prior = review(upstream, {}, invalid_fetch)
+        self.assertEqual(prior["reviews"][0]["independent_check"]["status"],
+                         "NEEDS_STRUCTURAL_REPAIR")
+        prior["reviews"][0]["independent_check"]["structural_flags"] = []
+        checked = review(upstream, prior, invalid_fetch)
+        self.assertEqual(checked["newly_reviewed"], 1)
+        self.assertIn("invalid_measurement",
+                      checked["reviews"][0]["independent_check"]["structural_flags"])
+        self.assertFalse(checked["ready_for_production"])
+
 if __name__=="__main__":unittest.main()

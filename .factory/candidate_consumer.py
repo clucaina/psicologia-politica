@@ -164,6 +164,27 @@ def safe_cached_check(check):
             for flag in check["structural_flags"])
     ):
         return None
+    # A cached statistical review must carry its actual structural evidence.
+    # A status label alone is not proof that rows were examined.
+    if check["status"] in ("NEEDS_SOURCE_AND_LICENSE_REVIEW", "NEEDS_STRUCTURAL_REPAIR"):
+        required = {"release_gate", "digest_match", "rows_independently_checked",
+                    "geographies", "indicators", "structural_flags",
+                    "human_factual_review", "methodology_review"}
+        if not required.issubset(check):
+            return None
+        if (check["digest_match"] is not True or
+                check["human_factual_review"] is not False or
+                check["methodology_review"] is not False):
+            return None
+        rows = check["rows_independently_checked"]
+        if not (1 <= rows <= 20000 and
+                check["geographies"] <= rows and check["indicators"] <= rows):
+            return None
+        flags = check["structural_flags"]
+        if check["status"] == "NEEDS_SOURCE_AND_LICENSE_REVIEW" and flags:
+            return None
+        if check["status"] == "NEEDS_STRUCTURAL_REPAIR" and not flags:
+            return None
     return dict(check)
 
 def safe_archived_record(ident, record):

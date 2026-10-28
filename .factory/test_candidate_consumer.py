@@ -68,6 +68,31 @@ class IndependentReviewTests(unittest.TestCase):
         self.assertEqual(result["status"], "NEEDS_SOURCE_AND_LICENSE_REVIEW")
         self.assertNotIn("duplicate_observation_key", result["structural_flags"])
 
+    def test_blank_or_nontext_unit_needs_structural_repair(self):
+        for bad_unit in ("", "   ", 0, True, ["%"], {"unit": "%"}):
+            with self.subTest(unit=bad_unit):
+                observation = dict(row("ES"), unit=bad_unit)
+                def fetch(url):
+                    return {"batch_id": "T43_HOUSING_TEST",
+                            "observations": [observation]}, "b" * 64
+                result = verify_contract(proposal(), fetch)
+                self.assertEqual(result["status"], "NEEDS_STRUCTURAL_REPAIR")
+                self.assertIn("missing_unit", result["structural_flags"])
+                self.assertFalse(result["human_factual_review"])
+
+    def test_nontext_or_blank_period_and_source_needs_repair(self):
+        for field in ("period", "source_id"):
+            for invalid in ("", "   ", 2026, True, ["INE"], {"id": "INE"}):
+                with self.subTest(field=field, invalid=invalid):
+                    observation = dict(row("ES"), **{field: invalid})
+                    def fetch(url):
+                        return {"batch_id": "T43_HOUSING_TEST",
+                                "observations": [observation]}, "b" * 64
+                    result = verify_contract(proposal(), fetch)
+                    self.assertEqual(result["status"], "NEEDS_STRUCTURAL_REPAIR")
+                    self.assertIn("missing_period_or_source", result["structural_flags"])
+                    self.assertFalse(result["methodology_review"])
+
     def test_legacy_policy_fingerprint_forces_new_review(self):
         import hashlib
         from candidate_consumer import REVIEW_CONTRACT_FIELDS

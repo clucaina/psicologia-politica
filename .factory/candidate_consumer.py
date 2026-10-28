@@ -19,6 +19,7 @@ PATH=re.compile(r"^database/(T[0-9]{1,4}_[A-Za-z0-9_-]{1,64})\.json$")
 MAX_BYTES=1_900_000
 # A source blob SHA alone does not capture changes to provenance, digest or
 # publication restrictions in the upstream ledger.
+REVIEW_POLICY_VERSION = "observation-identity-uniqueness-v1"
 REVIEW_CONTRACT_FIELDS = (
     "schema", "id", "source_path", "source_repository", "source_ref",
     "source_blob_sha", "raw_sha256", "raw_values_copied", "release_gate",
@@ -27,6 +28,8 @@ REVIEW_CONTRACT_FIELDS = (
 def contract_fingerprint(candidate):
     """Recheck when any review-relevant source or safety assertion changes."""
     relevant = {key: candidate.get(key) for key in REVIEW_CONTRACT_FIELDS}
+    # A stricter reviewer must not reuse results from the old audit policy.
+    relevant["review_policy_version"] = REVIEW_POLICY_VERSION
     encoded = json.dumps(relevant, sort_keys=True, ensure_ascii=False,
                          separators=(",", ":")).encode("utf-8")
     return hashlib.sha256(encoded).hexdigest()
@@ -77,6 +80,7 @@ def verify_contract(contract,fetch=get_json):
         reasons=set()
         geos=set()
         indicators=set()
+        seen_observation_keys=set()
         for row in observations:
             if not isinstance(row,dict):
                 reasons.add("invalid_row");continue
@@ -101,6 +105,14 @@ def verify_contract(contract,fetch=get_json):
                 reasons.add("missing_indicator_id")
             else:
                 indicators.add(indicator)
+            # Same indicator, period, geography, source and unit is not an
+            # independent observation, even when the numeric value differs.
+            fields=("indicator_id", "period", "geo_code", "source_id", "unit")
+            if all(isinstance(row.get(k), str) and row[k].strip() for k in fields):
+                key=tuple(row[k].strip() for k in fields)
+                if key in seen_observation_keys:
+                    reasons.add("duplicate_observation_key")
+                seen_observation_keys.add(key)
         return {
             "status":"NEEDS_SOURCE_AND_LICENSE_REVIEW" if not reasons else "NEEDS_STRUCTURAL_REPAIR",
             "digest_match":True,
@@ -128,6 +140,7 @@ SAFE_CHECK_FIELDS = frozenset({
 STRUCTURAL_FLAGS = frozenset({
     "invalid_row", "non_standard_geography", "missing_unit",
     "missing_period_or_source", "invalid_measurement", "missing_indicator_id",
+    "duplicate_observation_key",
 })
 def safe_cached_check(check):
     """Return a bounded, nonpersonal review check, or None if untrusted."""

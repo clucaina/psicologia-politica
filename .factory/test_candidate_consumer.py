@@ -450,4 +450,42 @@ class IndependentReviewTests(unittest.TestCase):
                       checked["reviews"][0]["independent_check"]["structural_flags"])
         self.assertFalse(checked["ready_for_production"])
 
+    def test_duplicate_prior_ids_invalidate_cached_review(self):
+        candidate = proposal()
+        upstream = {"schema": "neurohuerto.candidate_ledger.v1",
+                    "candidates": [candidate]}
+        prior = review(upstream, {}, self.fetch)
+        self.assertEqual(prior["newly_reviewed"], 1)
+        duplicate = dict(prior["reviews"][0])
+        duplicate["independent_check"] = {
+            "status": "BLOCK_NON_STATISTICAL_DOCUMENT",
+            "release_gate": "NO_DEPLOY_NO_PUBLISH",
+        }
+        prior["reviews"].append(duplicate)
+        calls = []
+        def tracked_fetch(url):
+            calls.append(url)
+            return self.fetch(url)
+        result = review(upstream, prior, tracked_fetch)
+        self.assertEqual(len(calls), 1)
+        self.assertEqual(result["newly_reviewed"], 1)
+        self.assertEqual(result["remaining_new"], 0)
+        self.assertEqual(len(result["reviews"]), 1)
+        self.assertEqual(result["reviews"][0]["independent_check"]["status"],
+                         "NEEDS_SOURCE_AND_LICENSE_REVIEW")
+        self.assertFalse(result["ready_for_production"])
+
+    def test_untrusted_prior_shape_forces_recheck_without_crash(self):
+        candidate = proposal()
+        upstream = {"schema": "neurohuerto.candidate_ledger.v1",
+                    "candidates": [candidate]}
+        for bad in (None, [], {"reviews": None}, {"reviews": {}},
+                    {"reviews": "not-a-review-list"}):
+            with self.subTest(bad=bad):
+                result = review(upstream, bad, self.fetch)
+                self.assertEqual(result["newly_reviewed"], 1)
+                self.assertEqual(result["remaining_new"], 0)
+                self.assertEqual(len(result["reviews"]), 1)
+                self.assertFalse(result["ready_for_production"])
+
 if __name__=="__main__":unittest.main()

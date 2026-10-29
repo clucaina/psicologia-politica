@@ -10,7 +10,7 @@ import json
 import math
 import re
 from pathlib import Path
-from urllib.request import Request,urlopen
+from urllib.request import Request,HTTPRedirectHandler,build_opener
 from urllib.error import HTTPError,URLError
 UPSTREAM="https://raw.githubusercontent.com/clucaina/NPL-CANONICAL/factory/data-candidates/review/index.json"
 PREFIX="https://raw.githubusercontent.com/clucaina/psicologia-politica/integracion/v78-maestro-sin-despliegue/"
@@ -46,11 +46,18 @@ def reject_duplicate_json_keys(pairs):
         result[key]=value
     return result
 
+class RejectSourceRedirect(HTTPRedirectHandler):
+    """Fail closed: urllib otherwise follows redirects beyond the allowlisted host."""
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        raise ValueError("Source redirect blocked; manual origin review required")
+
 def get_json(url):
     if url!=UPSTREAM and not url.startswith(PREFIX+"database/T"):
         raise ValueError("Cross-repo origin is not allowlisted")
     req=Request(url,headers={"User-Agent":"Neurohuerto-PP-Reviewer/1.0","Accept":"application/json"})
-    with urlopen(req,timeout=25) as r:
+    # A 3xx response must not silently move a vetted public read to another host.
+    # Do not change permissions, fetch redirects or promote redirected data.
+    with build_opener(RejectSourceRedirect()).open(req,timeout=25) as r:
         contents=r.read(MAX_BYTES+1)
     if len(contents)>MAX_BYTES:raise ValueError("Source exceeded safe limit")
     return json.loads(contents.decode("utf-8"),object_pairs_hook=reject_duplicate_json_keys),hashlib.sha256(contents).hexdigest()

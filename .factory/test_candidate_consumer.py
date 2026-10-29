@@ -42,6 +42,36 @@ class IndependentReviewTests(unittest.TestCase):
         self.assertEqual(data["candidates"], [])
         self.assertEqual(len(digest), 64)
 
+    def test_json_reader_requires_exact_public_database_path(self):
+        valid = PREFIX + "database/T43_HOUSING_TEST.json"
+        invalid = (
+            PREFIX + "database/T43_HOUSING_TEST.json?download=1",
+            PREFIX + "database/T43_HOUSING_TEST.json#frag",
+            PREFIX + "database/T../private.json",
+            PREFIX + "database/T43_HOUSING_TEST.json/../../README.md",
+            PREFIX + "database/T43_HOUSING_TEST.json%2F..",
+            PREFIX + "database/T43_HOUSING_TEST.json@untrusted",
+            PREFIX + "database/T43_HOUSING_TEST.json/extra",
+            PREFIX + "database/T43_HOUSING_TEST.JSON",
+            PREFIX + "database/T43_HOUSING_TEST.json?raw=1#frag",
+            PREFIX + "database//T43_HOUSING_TEST.json",
+            PREFIX.replace("integracion/v78-maestro-sin-despliegue/",
+                           "main/") + "database/T43_HOUSING_TEST.json",
+            "https://untrusted.example/database/T43_HOUSING_TEST.json",
+        )
+        for url in invalid:
+            with self.subTest(url=url), patch("candidate_consumer.build_opener") as opener:
+                with self.assertRaisesRegex(ValueError, "not allowlisted"):
+                    get_json(url)
+                opener.assert_not_called()
+        with patch("candidate_consumer.build_opener") as opener:
+            opener.return_value.open.return_value = BytesIO(b'{"batch_id":"T43_HOUSING_TEST"}')
+            parsed, digest = get_json(valid)
+            self.assertEqual(parsed["batch_id"], "T43_HOUSING_TEST")
+            self.assertEqual(len(digest), 64)
+            self.assertIsInstance(opener.call_args.args[0], RejectSourceRedirect)
+            self.assertEqual(opener.return_value.open.call_count, 1)
+
     def test_redirects_never_leave_the_allowlisted_source(self):
         # urllib's default redirect handler would follow 302; the reader must not.
         request = Request(UPSTREAM)

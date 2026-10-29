@@ -241,9 +241,26 @@ def review(upstream,prior,fetch=get_json,limit=6):
     source=upstream.get("candidates",[])
     if upstream.get("schema")!="neurohuerto.candidate_ledger.v1" or not isinstance(source,list):
         raise ValueError("Incompatible proposal schema")
-    old={x["id"]:x for x in prior.get("reviews",[])
-         if isinstance(x,dict) and isinstance(x.get("id"),str)
-         and CANDIDATE_ID.fullmatch(x["id"])}
+    # A previous review file is untrusted. Duplicate IDs must not let the
+    # last cached verdict silently replace an independent source check.
+    history = prior.get("reviews", []) if isinstance(prior, dict) else []
+    if not isinstance(history, list):
+        history = []
+    old = {}
+    ambiguous = set()
+    for record in history:
+        if not isinstance(record, dict):
+            continue
+        ident = record.get("id")
+        if not isinstance(ident, str) or not CANDIDATE_ID.fullmatch(ident):
+            continue
+        if ident in ambiguous:
+            continue
+        if ident in old:
+            old.pop(ident)
+            ambiguous.add(ident)
+        else:
+            old[ident] = record
     # Validate upstream identifiers before dictionary lookup or queue selection.
     # A duplicate ID makes the source ambiguous and must not be silently overwritten.
     seen=set()

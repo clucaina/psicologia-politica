@@ -52,8 +52,11 @@ class RejectSourceRedirect(HTTPRedirectHandler):
         raise ValueError("Source redirect blocked; manual origin review required")
 
 def get_json(url):
-    if url!=UPSTREAM and not url.startswith(PREFIX+"database/T"):
-        raise ValueError("Cross-repo origin is not allowlisted")
+    # Match the entire pinned public source path, not just its prefix.
+    # Reject queries, fragments, escapes, traversal and arbitrary files before I/O.
+    if url != UPSTREAM and (not isinstance(url, str) or not url.startswith(PREFIX)
+                            or PATH.fullmatch(url[len(PREFIX):]) is None):
+        raise ValueError("Cross-repo origin or source path is not allowlisted")
     req=Request(url,headers={"User-Agent":"Neurohuerto-PP-Reviewer/1.0","Accept":"application/json"})
     # A 3xx response must not silently move a vetted public read to another host.
     # Do not change permissions, fetch redirects or promote redirected data.

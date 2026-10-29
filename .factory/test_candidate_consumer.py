@@ -5,7 +5,8 @@ from io import BytesIO
 from unittest.mock import patch
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).parent))
-from candidate_consumer import review,verify_contract,contract_fingerprint,PREFIX,UPSTREAM,get_json
+from candidate_consumer import review,verify_contract,contract_fingerprint,PREFIX,UPSTREAM,get_json,RejectSourceRedirect
+from urllib.request import Request,HTTPRedirectHandler
 def proposal(id="T43_HOUSING_TEST"):
     return {"schema":"neurohuerto.public_source_candidate.v1","id":id,
       "source_path":"database/"+id+".json","source_repository":"clucaina/psicologia-politica",
@@ -26,18 +27,48 @@ class IndependentReviewTests(unittest.TestCase):
             b'{"candidates":[{"id":"T43_HOUSING_TEST","release_gate":"NO_AUTO_IMPORT_NO_AUTO_DEPLOY","release_gate":"AUTO_DEPLOY"}]}',
         ]
         for payload in payloads:
-            with self.subTest(payload=payload), patch(
-                "candidate_consumer.urlopen", return_value=BytesIO(payload)
-            ):
+            with self.subTest(payload=payload), patch("candidate_consumer.build_opener") as opener:
+                opener.return_value.open.return_value=BytesIO(payload)
                 with self.assertRaisesRegex(ValueError, "Duplicate JSON key"):
                     get_json(UPSTREAM)
+                self.assertIsInstance(opener.call_args.args[0], RejectSourceRedirect)
 
     def test_unique_json_keys_still_parse_without_network(self):
         payload = b'{"schema":"neurohuerto.candidate_ledger.v1","candidates":[]}'
-        with patch("candidate_consumer.urlopen", return_value=BytesIO(payload)):
+        with patch("candidate_consumer.build_opener") as opener:
+            opener.return_value.open.return_value=BytesIO(payload)
             data, digest = get_json(UPSTREAM)
+            self.assertIsInstance(opener.call_args.args[0], RejectSourceRedirect)
         self.assertEqual(data["candidates"], [])
         self.assertEqual(len(digest), 64)
+
+    def test_redirects_never_leave_the_allowlisted_source(self):
+        # urllib's default redirect handler would follow 302; the reader must not.
+        request = Request(UPSTREAM)
+        target = "https://untrusted.example/collector"
+        self.assertIsNotNone(HTTPRedirectHandler().redirect_request(
+            request, None, 302, "Found", {}, target))
+        for status, target in (
+            (301, "https://untrusted.example/collector"),
+            (302, UPSTREAM),
+            (307, "http://raw.githubusercontent.com/not-allowed"),
+            (308, PREFIX + "database/T43_HOUSING_TEST.json"),
+        ):
+            with self.subTest(status=status, target=target):
+                with self.assertRaisesRegex(ValueError, "Source redirect blocked"):
+                    RejectSourceRedirect().redirect_request(
+                        request, None, status, "Redirect", {}, target)
+
+    def test_json_reader_installs_fail_closed_redirect_handler_without_network(self):
+        payload = b'{"schema":"neurohuerto.candidate_ledger.v1","candidates":[]}'
+        with patch("candidate_consumer.build_opener") as factory:
+            factory.return_value.open.return_value = BytesIO(payload)
+            parsed, digest = get_json(UPSTREAM)
+            self.assertEqual(parsed["candidates"], [])
+            self.assertEqual(len(digest), 64)
+            self.assertIsInstance(factory.call_args.args[0], RejectSourceRedirect)
+            self.assertEqual(factory.return_value.open.call_count, 1)
+            self.assertEqual(factory.return_value.open.call_args.kwargs["timeout"], 25)
 
     def test_valid_candidate_still_requires_human_license_and_methodology(self):
         c=proposal()

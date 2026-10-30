@@ -33,6 +33,19 @@ class IndependentReviewTests(unittest.TestCase):
                     get_json(UPSTREAM)
                 self.assertIsInstance(opener.call_args.args[0], RejectSourceRedirect)
 
+    def test_json_reader_rejects_nonfinite_constants_in_nested_metadata(self):
+        # Python json.loads accepts these nonstandard JSON tokens by default.
+        # Reject before any ledger review, even outside numeric observations.
+        for constant in (b"NaN", b"Infinity", b"-Infinity"):
+            payload = (b'{"schema":"neurohuerto.candidate_ledger.v1",'
+                       b'"candidates":[],"metadata":{"value":' + constant + b'}}')
+            with self.subTest(constant=constant), patch("candidate_consumer.build_opener") as opener:
+                opener.return_value.open.return_value = BytesIO(payload)
+                with self.assertRaisesRegex(ValueError, "Non-finite JSON constant"):
+                    get_json(UPSTREAM)
+                self.assertIsInstance(opener.call_args.args[0], RejectSourceRedirect)
+                self.assertEqual(opener.return_value.open.call_count, 1)
+
     def test_unique_json_keys_still_parse_without_network(self):
         payload = b'{"schema":"neurohuerto.candidate_ledger.v1","candidates":[]}'
         with patch("candidate_consumer.build_opener") as opener:

@@ -336,7 +336,11 @@ def main():
     p.add_argument("--prior",type=Path,required=True)
     args=p.parse_args()
     if args.prior.is_file():
-        previous=json.loads(args.prior.read_text(encoding="utf-8"))
+        previous=json.loads(args.prior.read_text(encoding="utf-8"),
+                            object_pairs_hook=reject_duplicate_json_keys,
+                            parse_constant=reject_nonfinite_json_constant)
+        if not isinstance(previous, dict):
+            raise ValueError("Prior review must be a JSON object")
     else:previous={}
     try:
         upstream,_=get_json(UPSTREAM)

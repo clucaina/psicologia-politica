@@ -46,6 +46,35 @@ class IndependentReviewTests(unittest.TestCase):
                 self.assertIsInstance(opener.call_args.args[0], RejectSourceRedirect)
                 self.assertEqual(opener.return_value.open.call_count, 1)
 
+    def test_cached_prior_json_rejects_ambiguous_nonstandard_and_nonobject_data(self):
+        from tempfile import TemporaryDirectory
+        from candidate_consumer import main
+        invalid = (
+            '{"reviews":[],"reviews":[{"ready_to_import":true}]}',
+            '{"reviews":[{"independent_check":{"rows_independently_checked":NaN}}]}',
+            '{"reviews":[{"independent_check":{"rows_independently_checked":Infinity}}]}',
+            '{"reviews":[{"independent_check":{"rows_independently_checked":-Infinity}}]}',
+            '[{"reviews":[]}]',
+        )
+        with TemporaryDirectory() as directory:
+            prior = Path(directory) / "prior.json"
+            output = Path(directory) / "review.json"
+            argv = ["candidate_consumer.py", "--prior", str(prior), "--out", str(output)]
+            for payload in invalid:
+                with self.subTest(payload=payload):
+                    prior.write_text(payload, encoding="utf-8")
+                    with patch.object(sys, "argv", argv), patch("candidate_consumer.get_json") as fetch:
+                        with self.assertRaises(ValueError):
+                            main()
+                        fetch.assert_not_called()
+                    self.assertFalse(output.exists(), "unsafe prior must not produce a report")
+            prior.write_text('{"reviews":[]}', encoding="utf-8")
+            with patch.object(sys, "argv", argv), patch("candidate_consumer.get_json",
+                    return_value=({"schema":"neurohuerto.candidate_ledger.v1",
+                                   "candidates":[]}, "0"*64)):
+                main()
+            self.assertFalse(json.loads(output.read_text(encoding="utf-8"))["ready_for_production"])
+
     def test_unique_json_keys_still_parse_without_network(self):
         payload = b'{"schema":"neurohuerto.candidate_ledger.v1","candidates":[]}'
         with patch("candidate_consumer.build_opener") as opener:

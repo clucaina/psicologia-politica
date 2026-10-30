@@ -46,6 +46,10 @@ def reject_duplicate_json_keys(pairs):
         result[key]=value
     return result
 
+def reject_nonfinite_json_constant(value):
+    """Strict JSON: reject NaN and infinities, including nested metadata."""
+    raise ValueError("Non-finite JSON constant in upstream source: " + value)
+
 class RejectSourceRedirect(HTTPRedirectHandler):
     """Fail closed: urllib otherwise follows redirects beyond the allowlisted host."""
     def redirect_request(self, req, fp, code, msg, headers, newurl):
@@ -63,7 +67,8 @@ def get_json(url):
     with build_opener(RejectSourceRedirect()).open(req,timeout=25) as r:
         contents=r.read(MAX_BYTES+1)
     if len(contents)>MAX_BYTES:raise ValueError("Source exceeded safe limit")
-    return json.loads(contents.decode("utf-8"),object_pairs_hook=reject_duplicate_json_keys),hashlib.sha256(contents).hexdigest()
+    return json.loads(contents.decode("utf-8"),object_pairs_hook=reject_duplicate_json_keys,
+                      parse_constant=reject_nonfinite_json_constant),hashlib.sha256(contents).hexdigest()
 def verify_contract(contract,fetch=get_json):
     if contract.get("candidate_kind")=="DOCUMENT_ONLY" or contract.get("independent_statistical_review_allowed") is False:
         return {"status":"BLOCK_NON_STATISTICAL_DOCUMENT","release_gate":"NO_DEPLOY_NO_PUBLISH"}

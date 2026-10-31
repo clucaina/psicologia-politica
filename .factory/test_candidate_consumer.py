@@ -142,6 +142,28 @@ class IndependentReviewTests(unittest.TestCase):
             self.assertEqual(factory.return_value.open.call_count, 1)
             self.assertEqual(factory.return_value.open.call_args.kwargs["timeout"], 25)
 
+    def test_candidate_schema_must_be_explicit_before_source_review(self):
+        candidate = proposal()
+        for invalid in (None, "", "neurohuerto.public_source_candidate.v0", 1):
+            with self.subTest(invalid=invalid):
+                broken = dict(candidate)
+                if invalid is None:
+                    broken.pop("schema")
+                else:
+                    broken["schema"] = invalid
+                def no_fetch(url):
+                    self.fail("invalid schema must not read source")
+                result = verify_contract(broken, no_fetch)
+                self.assertEqual(result["status"], "BLOCK_BAD_CANDIDATE_SCHEMA")
+                self.assertEqual(result["release_gate"], "NO_DEPLOY_NO_PUBLISH")
+                for kind in (None, "DOCUMENT_ONLY"):
+                    ledger = dict(broken)
+                    if kind is not None:
+                        ledger["candidate_kind"] = kind
+                    with self.assertRaisesRegex(ValueError, "Unsupported upstream candidate schema"):
+                        review({"schema": "neurohuerto.candidate_ledger.v1",
+                                "candidates": [ledger]}, {}, no_fetch)
+
     def test_valid_candidate_still_requires_human_license_and_methodology(self):
         c=proposal()
         result=verify_contract(c,self.fetch)

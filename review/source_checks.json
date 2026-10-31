@@ -126,7 +126,7 @@
       }
     }
   ],
-  "newly_reviewed": 2,
+  "newly_reviewed": 0,
   "remaining_new": 0,
   "ready_for_production": false,
   "principle": "Reading another worker's report does not constitute source validation."

@@ -19,7 +19,8 @@ PATH=re.compile(r"^database/(T[0-9]{1,4}_[A-Za-z0-9_-]{1,64})\.json$")
 MAX_BYTES=1_900_000
 # A source blob SHA alone does not capture changes to provenance, digest or
 # publication restrictions in the upstream ledger.
-REVIEW_POLICY_VERSION = "typed-observation-dimensions-and-geocodes-v3"
+REVIEW_POLICY_VERSION = "typed-observation-dimensions-geocodes-candidate-schema-v4"
+EXPECTED_CANDIDATE_SCHEMA = "neurohuerto.public_source_candidate.v1"
 # Lexical screen only: Spanish and upper-case alphanumeric ES-prefixed codes.
 # This does NOT prove that an administrative geography actually exists.
 GEO_CODE = re.compile(r"ES[A-Z0-9]{0,8}")
@@ -70,6 +71,8 @@ def get_json(url):
     return json.loads(contents.decode("utf-8"),object_pairs_hook=reject_duplicate_json_keys,
                       parse_constant=reject_nonfinite_json_constant),hashlib.sha256(contents).hexdigest()
 def verify_contract(contract,fetch=get_json):
+    if contract.get("schema") != EXPECTED_CANDIDATE_SCHEMA:
+        return {"status":"BLOCK_BAD_CANDIDATE_SCHEMA","release_gate":"NO_DEPLOY_NO_PUBLISH"}
     if contract.get("candidate_kind")=="DOCUMENT_ONLY" or contract.get("independent_statistical_review_allowed") is False:
         return {"status":"BLOCK_NON_STATISTICAL_DOCUMENT","release_gate":"NO_DEPLOY_NO_PUBLISH"}
     path=contract.get("source_path","")
@@ -237,6 +240,7 @@ REUSABLE_STATUSES = frozenset({
     "BLOCK_NON_STATISTICAL_DOCUMENT", "BLOCK_BAD_ID_OR_PATH",
     "BLOCK_UNTRUSTED_REPOSITORY", "BLOCK_UNTRUSTED_PUBLICATION_OR_PRIVACY",
     "BLOCK_SOURCE_CHANGED", "BLOCK_FORMAT_OR_ID", "BLOCK_ROW_COUNT",
+    "BLOCK_BAD_CANDIDATE_SCHEMA",
 })
 def reusable_prior_review(previous, candidate):
     if not isinstance(previous, dict):
@@ -285,6 +289,8 @@ def review(upstream,prior,fetch=get_json,limit=6):
             # A malformed ledger entry must never vanish from the review queue.
             # Otherwise a damaged upstream ledger could appear fully reviewed.
             raise ValueError("Malformed upstream candidate record")
+        if c.get("schema") != EXPECTED_CANDIDATE_SCHEMA:
+            raise ValueError("Unsupported upstream candidate schema")
         ident=c.get("id")
         if not isinstance(ident,str) or not CANDIDATE_ID.fullmatch(ident) or ident in seen:
             raise ValueError("Malformed or duplicated upstream candidate ID")

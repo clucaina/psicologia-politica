@@ -25,6 +25,15 @@ NEXT={
   "politica":["Resolver bloqueos V78 antes de cualquier despliegue","Validar fuentes editoriales con fechas","Exponer Conflictómetro como componente verificable de NeuroCity"],
   "neuropsicolucia":["Comparar producción con la web antes de cambios","Validar compilación existente sin publicar","Preservar recursos, navegación y contenidos"]
 }
+def sensitive_filename(name):
+    """Flag potential credential files by name only; never read or report their values."""
+    name=name.casefold()
+    return (name==".env" or name.startswith((".env.",".env-")) or name in {
+        ".envrc",".npmrc",".pypirc",".netrc","credentials.json","service-account.json",
+        "secrets.json","secrets.yaml","secrets.yml","token.json",
+        "id_rsa","id_dsa","id_ecdsa","id_ed25519"
+    } or name.endswith((".pem",".p12",".pfx",".key",".keystore")))
+
 def audit(project, root, run_number):
     paths=[]
     for base,dirs,files in os.walk(root):
@@ -35,7 +44,7 @@ def audit(project, root, run_number):
             paths.append((p.relative_to(root).as_posix(),p))
     names={n for n,p in paths}
     missing=[x for x in REQUIRED[project] if x not in names and not (root/x).is_dir()]
-    exposed=sum(1 for n,p in paths if p.name in (".env",".env.local","id_rsa","credentials.json"))
+    exposed=sum(1 for n,p in paths if sensitive_filename(p.name))
     code=[(n,p) for n,p in paths if p.suffix.lower() in CODE]
     media=[n for n,p in paths if p.suffix.lower() in MEDIA]
     php=[(n,p) for n,p in code if p.suffix.lower()==".php"]
